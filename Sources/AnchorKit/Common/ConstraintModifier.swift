@@ -27,11 +27,17 @@ public class ConstraintModifier<T>: ConstraintStatement {
         }
     }
 
-    lazy var constraint: Constraint = {
+    public lazy var constraint: Constraint = {
         let layoutConstraints = finalization(multiplier, constant)
         layoutConstraints.forEach { $0.priority = priority.constraintPriorityValue }
         return Constraint(layoutConstraints: layoutConstraints, constant: constant, priority: priority)
     }()
+
+    public func activatedConstraint() -> Constraint {
+        let c = constraint
+        c.activate()
+        return c
+    }
 
     @discardableResult
     public func priority(_ amount: ConstraintPriorityValuable) -> ConstraintModifier {
