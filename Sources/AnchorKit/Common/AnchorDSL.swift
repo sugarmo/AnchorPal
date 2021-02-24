@@ -73,7 +73,18 @@ public extension AnchorDSL where Object: GuideLayoutAnchorProvider {
     }
 }
 
-extension AnchorDSL where Object: ViewLayoutAnchorProvider {
+public extension AnchorDSL where Object: ViewLayoutAnchorProvider {
     var firstBaseline: YLayoutAnchor { YLayoutAnchor(object.firstBaselineAnchor, attribute: .firstBaseline, owningItem: object) }
     var lastBaseline: YLayoutAnchor { YLayoutAnchor(object.lastBaselineAnchor, attribute: .lastBaseline, owningItem: object) }
+}
+
+public enum AnchorKit {
+    public func makeConstraints(closure: () -> Void) -> [Constraint] {
+        ConstraintBuilder.makeConstraintsWithoutItem(closure: closure)
+    }
+
+    @discardableResult
+    public func installConstraints(closure: () -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraintsWithoutItem(closure: closure)
+    }
 }

@@ -17,7 +17,7 @@ public class ConstraintModifier<T>: ConstraintStatement {
     private let finalization: Finalization
     private var multiplier: ConstraintMultiplierValuable = 1.0
     private var constant: ConstraintConstantValuable = 0.0
-    private var priority: ConstraintPriorityValuable = LayoutPriority.required
+    private var priority: ConstraintPriorityValuable = ConstraintPriority.required
 
     init(finalization: @escaping Finalization) {
         self.finalization = finalization
@@ -46,7 +46,7 @@ public class ConstraintModifier<T>: ConstraintStatement {
     }
 
     @discardableResult
-    public func priority(_ amount: LayoutPriority) -> ConstraintModifier {
+    public func priority(_ amount: ConstraintPriority) -> ConstraintModifier {
         priority = amount
         return self
     }

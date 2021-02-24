@@ -91,7 +91,7 @@ public class ConstraintBuilder {
         return constraints
     }
 
-    static func uninstallConstraints<T>(item: T) where T: LayoutItem {
+    static func uninstallConstraints(item: LayoutItem) {
         item.constraints?.deactivate()
         item.constraints = nil
     }
@@ -101,8 +101,24 @@ public class ConstraintBuilder {
         return installConstraints(item: item, closure: closure)
     }
 
-    static func updateConstraintConstants<T>(item: T) where T: LayoutItem {
+    static func updateConstraintConstants(item: LayoutItem) {
         item.constraints?.updateConstants()
+    }
+
+    static func makeConstraintsWithoutItem(closure: () -> Void) -> [Constraint] {
+        let maker = ConstraintBuilder()
+        maker.becomeCurrent()
+        maker.startBuilding()
+        closure()
+        let statements = maker.endBuilding()
+        maker.resignCurrent()
+        return statements.map(\.constraint)
+    }
+
+    static func installConstraintsWithoutItem(closure: () -> Void) -> [Constraint] {
+        let constraints = makeConstraintsWithoutItem(closure: closure)
+        constraints.activate()
+        return constraints
     }
 }
 

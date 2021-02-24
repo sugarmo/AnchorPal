@@ -45,14 +45,14 @@ extension Double: ConstraintPriorityValuable {
     }
 }
 
-extension LayoutPriority: ConstraintPriorityValuable {
+extension ConstraintPriority: ConstraintPriorityValuable {
     public var constraintPriorityValue: LayoutPriority {
-        self
+        LayoutPriority(rawValue: rawValue)
     }
 }
 
 extension LayoutPriority {
     static func - (lhs: LayoutPriority, rhs: ConstraintPriorityValuable) -> LayoutPriority {
-        LayoutPriority(lhs.rawValue - rhs.constraintPriorityValue.rawValue)
+        LayoutPriority(rawValue: lhs.rawValue - rhs.constraintPriorityValue.rawValue)
     }
 }

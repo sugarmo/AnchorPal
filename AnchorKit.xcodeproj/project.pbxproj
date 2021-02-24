@@ -106,6 +106,9 @@
 		B0B623AF25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */; };
 		B0B623B025E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */; };
 		B0B623B125E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */; };
+		B0B6248F25E64D9700DBCF25 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */; };
+		B0B6249025E64D9700DBCF25 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */; };
+		B0B6249125E64D9700DBCF25 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +177,7 @@
 		B0B6235125E6072200DBCF25 /* AnchorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnchorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B6236725E6072300DBCF25 /* AnchorKitTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AnchorKitTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAnchorSystemSpacingRelatable.swift; sourceTree = "<group>"; };
+		B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintPriority.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -309,6 +313,7 @@
 				B0B6227525E5046600DBCF25 /* ConstraintBuilder.swift */,
 				B0B6227325E5046600DBCF25 /* ConstraintModifier.swift */,
 				B0B6227E25E5046600DBCF25 /* ConstraintRelation.swift */,
+				B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */,
 				B0B6227725E5046600DBCF25 /* LayoutAnchor.swift */,
 				B0B6228125E5046600DBCF25 /* LayoutDimension.swift */,
 				B0B6227A25E5046600DBCF25 /* LayoutItem.swift */,
@@ -595,6 +600,7 @@
 				B0B622A825E5046600DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B622AA25E5046600DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
 				B0B6229625E5046600DBCF25 /* LayoutSuperviewGuide.swift in Sources */,
+				B0B6248F25E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B6228E25E5046600DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B622A425E5046600DBCF25 /* ConstraintConstantValuable.swift in Sources */,
 				B0B6229925E5046600DBCF25 /* Typealias.swift in Sources */,
@@ -641,6 +647,7 @@
 				B0B622ED25E5FFDE00DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B622EE25E5FFDE00DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
 				B0B622EF25E5FFDE00DBCF25 /* LayoutSuperviewGuide.swift in Sources */,
+				B0B6249125E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B622F025E5FFDE00DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B622F125E5FFDE00DBCF25 /* ConstraintConstantValuable.swift in Sources */,
 				B0B622F225E5FFDE00DBCF25 /* Typealias.swift in Sources */,
@@ -687,6 +694,7 @@
 				B0B6234425E6072200DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B6234525E6072200DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
 				B0B6234625E6072200DBCF25 /* LayoutSuperviewGuide.swift in Sources */,
+				B0B6249025E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B6234725E6072200DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B6234825E6072200DBCF25 /* ConstraintConstantValuable.swift in Sources */,
 				B0B6234925E6072200DBCF25 /* Typealias.swift in Sources */,
