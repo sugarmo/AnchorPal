@@ -100,6 +100,12 @@
 		B0B6234A25E6072200DBCF25 /* AnchorPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227425E5046600DBCF25 /* AnchorPosition.swift */; };
 		B0B6234B25E6072200DBCF25 /* AnchorAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227C25E5046600DBCF25 /* AnchorAttribute.swift */; };
 		B0B6236225E6072300DBCF25 /* AnchorKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B621EF25E5034200DBCF25 /* AnchorKit.framework */; };
+		B0B6239925E62A3F00DBCF25 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B622C425E5057D00DBCF25 /* Tests.swift */; };
+		B0B623A025E62A4000DBCF25 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B622C425E5057D00DBCF25 /* Tests.swift */; };
+		B0B623A725E62A4000DBCF25 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B622C425E5057D00DBCF25 /* Tests.swift */; };
+		B0B623AF25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */; };
+		B0B623B025E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */; };
+		B0B623B125E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,19 +116,19 @@
 			remoteGlobalIDString = B0B621EE25E5034200DBCF25;
 			remoteInfo = AnchorKit;
 		};
-		B0B6230125E5FFE000DBCF25 /* PBXContainerItemProxy */ = {
+		B0B623BE25E63BE000DBCF25 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B0B621E625E5034200DBCF25 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B0B621EE25E5034200DBCF25;
-			remoteInfo = AnchorKit;
+			remoteGlobalIDString = B0B6232B25E6072200DBCF25;
+			remoteInfo = "AnchorKit-tvOS";
 		};
-		B0B6235F25E6072300DBCF25 /* PBXContainerItemProxy */ = {
+		B0B623C025E63BE500DBCF25 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B0B621E625E5034200DBCF25 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = B0B621EE25E5034200DBCF25;
-			remoteInfo = AnchorKit;
+			remoteGlobalIDString = B0B622D425E5FFDE00DBCF25;
+			remoteInfo = "AnchorKit-macOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -167,6 +173,7 @@
 		B0B6230925E5FFE000DBCF25 /* AnchorKitTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AnchorKitTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B6235125E6072200DBCF25 /* AnchorKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnchorKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B6236725E6072300DBCF25 /* AnchorKitTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AnchorKitTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAnchorSystemSpacingRelatable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -328,6 +335,7 @@
 			children = (
 				B0B6228A25E5046600DBCF25 /* ConstraintConstantRelatable.swift */,
 				B0B6228B25E5046600DBCF25 /* LayoutAnchorRelatable.swift */,
+				B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */,
 				B0B6228825E5046600DBCF25 /* LayoutDimensionRelatable.swift */,
 				B0B6228925E5046600DBCF25 /* LayoutItemRelatable.swift */,
 				B0B6228C25E5046600DBCF25 /* LayoutSuperviewRelatable.swift */,
@@ -428,7 +436,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				B0B6230025E5FFE000DBCF25 /* PBXTargetDependency */,
+				B0B623C125E63BE500DBCF25 /* PBXTargetDependency */,
 			);
 			name = "AnchorKitTests-macOS";
 			productName = Tests;
@@ -464,7 +472,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				B0B6235E25E6072300DBCF25 /* PBXTargetDependency */,
+				B0B623BF25E63BE000DBCF25 /* PBXTargetDependency */,
 			);
 			name = "AnchorKitTests-tvOS";
 			productName = Tests;
@@ -564,6 +572,7 @@
 				B0B622A925E5046600DBCF25 /* LayoutAnchorRelatable.swift in Sources */,
 				B0B6229A25E5046600DBCF25 /* LayoutItem.swift in Sources */,
 				B0B6229825E5046600DBCF25 /* AnchorDSL.swift in Sources */,
+				B0B623AF25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */,
 				B0B6229D25E5046600DBCF25 /* AnchorProvider.swift in Sources */,
 				B0B6229B25E5046600DBCF25 /* AnchorPair.swift in Sources */,
 				B0B6229325E5046600DBCF25 /* ConstraintModifier.swift in Sources */,
@@ -598,6 +607,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B6239925E62A3F00DBCF25 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +618,7 @@
 				B0B622D725E5FFDE00DBCF25 /* LayoutAnchorRelatable.swift in Sources */,
 				B0B622D825E5FFDE00DBCF25 /* LayoutItem.swift in Sources */,
 				B0B622D925E5FFDE00DBCF25 /* AnchorDSL.swift in Sources */,
+				B0B623B125E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */,
 				B0B622DA25E5FFDE00DBCF25 /* AnchorProvider.swift in Sources */,
 				B0B622DB25E5FFDE00DBCF25 /* AnchorPair.swift in Sources */,
 				B0B622DC25E5FFDE00DBCF25 /* ConstraintModifier.swift in Sources */,
@@ -642,6 +653,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B623A725E62A4000DBCF25 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,6 +664,7 @@
 				B0B6232E25E6072200DBCF25 /* LayoutAnchorRelatable.swift in Sources */,
 				B0B6232F25E6072200DBCF25 /* LayoutItem.swift in Sources */,
 				B0B6233025E6072200DBCF25 /* AnchorDSL.swift in Sources */,
+				B0B623B025E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */,
 				B0B6233125E6072200DBCF25 /* AnchorProvider.swift in Sources */,
 				B0B6233225E6072200DBCF25 /* AnchorPair.swift in Sources */,
 				B0B6233325E6072200DBCF25 /* ConstraintModifier.swift in Sources */,
@@ -686,6 +699,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B623A025E62A4000DBCF25 /* Tests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -697,15 +711,15 @@
 			target = B0B621EE25E5034200DBCF25 /* AnchorKit-iOS */;
 			targetProxy = B0B6225425E503C600DBCF25 /* PBXContainerItemProxy */;
 		};
-		B0B6230025E5FFE000DBCF25 /* PBXTargetDependency */ = {
+		B0B623BF25E63BE000DBCF25 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B0B621EE25E5034200DBCF25 /* AnchorKit-iOS */;
-			targetProxy = B0B6230125E5FFE000DBCF25 /* PBXContainerItemProxy */;
+			target = B0B6232B25E6072200DBCF25 /* AnchorKit-tvOS */;
+			targetProxy = B0B623BE25E63BE000DBCF25 /* PBXContainerItemProxy */;
 		};
-		B0B6235E25E6072300DBCF25 /* PBXTargetDependency */ = {
+		B0B623C125E63BE500DBCF25 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B0B621EE25E5034200DBCF25 /* AnchorKit-iOS */;
-			targetProxy = B0B6235F25E6072300DBCF25 /* PBXContainerItemProxy */;
+			target = B0B622D425E5FFDE00DBCF25 /* AnchorKit-macOS */;
+			targetProxy = B0B623C025E63BE500DBCF25 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

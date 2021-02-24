@@ -54,11 +54,13 @@ public extension AnchorDSL where Object: GuideLayoutAnchorProvider {
         ConstraintBuilder.makeConstraints(item: object, closure: closure)
     }
 
-    func installConstraints(closure: (Self) -> Void) {
+    @discardableResult
+    func installConstraints(closure: (Self) -> Void) -> [Constraint] {
         ConstraintBuilder.installConstraints(item: object, closure: closure)
     }
 
-    func reinstallConstraints(closure: (Self) -> Void) {
+    @discardableResult
+    func reinstallConstraints(closure: (Self) -> Void) -> [Constraint] {
         ConstraintBuilder.reinstallConstraints(item: object, closure: closure)
     }
 

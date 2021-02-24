@@ -30,9 +30,17 @@ extension NSLayoutConstraint {
 }
 
 public class Constraint {
-    var layoutConstraints: [NSLayoutConstraint]
+    public var layoutConstraints: [NSLayoutConstraint]
 
-    var constant: ConstraintConstantValuable {
+    public subscript(index: Int) -> NSLayoutConstraint {
+        layoutConstraints[index]
+    }
+
+    public var firstLayoutConstraint: NSLayoutConstraint? {
+        layoutConstraints.first
+    }
+
+    public var constant: ConstraintConstantValuable {
         didSet {
             updateConstant()
         }
@@ -46,7 +54,7 @@ public class Constraint {
         }
     }
 
-    var priority: ConstraintPriorityValuable {
+    public var priority: ConstraintPriorityValuable {
         didSet {
             layoutConstraints.forEach {
                 $0.priority = priority.constraintPriorityValue
@@ -82,5 +90,13 @@ extension Array where Element: Constraint {
 
     public func deactivate() {
         NSLayoutConstraint.deactivate(flatMap(\.layoutConstraints))
+    }
+
+    public var layoutConstraints: [NSLayoutConstraint] {
+        flatMap(\.layoutConstraints)
+    }
+
+    public var firstLayoutConstraint: NSLayoutConstraint? {
+        first?.firstLayoutConstraint
     }
 }

@@ -84,10 +84,11 @@ public class ConstraintBuilder {
         return statements.map(\.constraint)
     }
 
-    static func installConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) where T: LayoutItem {
+    static func installConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
         let constraints = makeConstraints(item: item, closure: closure)
         constraints.activate()
         item.constraints = constraints
+        return constraints
     }
 
     static func uninstallConstraints<T>(item: T) where T: LayoutItem {
@@ -95,9 +96,9 @@ public class ConstraintBuilder {
         item.constraints = nil
     }
 
-    static func reinstallConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) where T: LayoutItem {
+    static func reinstallConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
         uninstallConstraints(item: item)
-        installConstraints(item: item, closure: closure)
+        return installConstraints(item: item, closure: closure)
     }
 
     static func updateConstraintConstants<T>(item: T) where T: LayoutItem {

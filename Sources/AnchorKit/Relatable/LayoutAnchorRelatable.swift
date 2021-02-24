@@ -11,8 +11,6 @@
     import AppKit
 #endif
 
-// MARK: LayoutAnchorRelatable
-
 public protocol LayoutAnchorRelatable {
     static func constraints(first: Self, relation: ConstraintRelation, second: Self, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
@@ -23,6 +21,21 @@ extension LayoutAnchor: LayoutAnchorRelatable {
         return [first.rawValue.constraint(relation, to: second.rawValue, constant: cv, position: second.attribute.position)]
     }
 }
+
+// extension Array: LayoutAnchorRelatable where Element: LayoutAnchorRelatable {
+//    public static func constraints(first: Array<Element>, relation: ConstraintRelation, second: Array<Element>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+//        first.enumerated().flatMap { (index, element) -> [NSLayoutConstraint] in
+//            Element.constraints(first: element, relation: relation, second: second[index], constant: constant)
+//        }
+//    }
+// }
+//
+// extension AnchorPair: LayoutAnchorRelatable where F: LayoutAnchorRelatable, S: LayoutAnchorRelatable {
+//    public static func constraints(first: AnchorPair<F, S>, relation: ConstraintRelation, second: AnchorPair<F, S>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+//        F.constraints(first: first.first, relation: relation, second: second.first, constant: constant) +
+//            S.constraints(first: first.second, relation: relation, second: second.second, constant: constant)
+//    }
+// }
 
 extension LayoutAnchorRelatable {
     func state(_ relation: ConstraintRelation, to other: Self) -> ConstraintModifier<Self> {
@@ -44,44 +57,5 @@ extension LayoutAnchorRelatable {
     @discardableResult
     public func greaterEqualTo(_ other: Self) -> ConstraintModifier<Self> {
         state(.greaterEqual, to: other)
-    }
-}
-
-// MARK: LayoutAnchorSystemSpacingRelatable
-
-@available(iOS 11, tvOS 11, macOS 11, *)
-public protocol LayoutAnchorSystemSpacingRelatable {
-    static func constraints(first: Self, relation: ConstraintRelation, toSystemSpacingAfter second: Self, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint]
-}
-
-@available(iOS 11, tvOS 11, macOS 11, *)
-extension LayoutAnchor: LayoutAnchorSystemSpacingRelatable {
-    public static func constraints(first: LayoutAnchor<T>, relation: ConstraintRelation, toSystemSpacingAfter other: LayoutAnchor<T>, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
-        let mv = multiplier.constraintMultiplierValue
-        return [first.rawValue.constraint(relation, toSystemSpacingAfter: other.rawValue, multiplier: mv)]
-    }
-}
-
-@available(iOS 11, tvOS 11, macOS 11, *)
-extension LayoutAnchorSystemSpacingRelatable {
-    func state(_ relation: ConstraintRelation, toSystemSpacingAfter other: Self) -> ConstraintModifier<LayoutSystemSpacingTarget> {
-        ConstraintModifier { (m, _) -> [NSLayoutConstraint] in
-            Self.constraints(first: self, relation: relation, toSystemSpacingAfter: other, multiplier: m)
-        }
-    }
-
-    @discardableResult
-    public func lessEqualToSystemSpacingAfter(_ other: Self) -> ConstraintModifier<LayoutSystemSpacingTarget> {
-        state(.lessEqual, toSystemSpacingAfter: other)
-    }
-
-    @discardableResult
-    public func equalToSystemSpacingAfter(_ other: Self) -> ConstraintModifier<LayoutSystemSpacingTarget> {
-        state(.equal, toSystemSpacingAfter: other)
-    }
-
-    @discardableResult
-    public func greaterEqualToSystemSpacingAfter(_ other: Self) -> ConstraintModifier<LayoutSystemSpacingTarget> {
-        state(.greaterEqual, toSystemSpacingAfter: other)
     }
 }
