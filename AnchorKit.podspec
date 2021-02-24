@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "AnchorKit"
-  s.version          = "1.0"
+  s.version          = "0.9"
   s.summary          = "A library inspired by SnapKit."
   s.description      = <<-DESC
                        Create constraints on top of the NSLayoutAnchor API, with custom dimension and system spacing support.
@@ -16,5 +16,5 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = '10.11'
   s.requires_arc = true
 
-  s.source_files = "Sources/*.swift"
+  s.source_files = "Sources/**/*.swift"
 end
