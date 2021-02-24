@@ -21,10 +21,10 @@ extension LayoutDimensionable {
         let mv = multiplier.constraintMultiplierValue
         let cv = constant.constraintConstantValue(for: p)
         return [dimension(for: first).constraint(relation,
-                                                to: D.dimension(for: second),
-                                                multiplier: mv,
-                                                constant: cv,
-                                                position: p)]
+                                                 to: D.dimension(for: second),
+                                                 multiplier: mv,
+                                                 constant: cv,
+                                                 position: p)]
     }
 }
 

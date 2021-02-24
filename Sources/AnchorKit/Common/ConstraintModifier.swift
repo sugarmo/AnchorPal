@@ -33,7 +33,8 @@ public class ConstraintModifier<T>: ConstraintStatement {
         return Constraint(layoutConstraints: layoutConstraints, constant: constant, priority: priority)
     }()
 
-    public func activatedConstraint() -> Constraint {
+    @discardableResult
+    public func activate() -> Constraint {
         let c = constraint
         c.activate()
         return c
@@ -61,8 +62,8 @@ public class ConstraintModifier<T>: ConstraintStatement {
         return self
     }
 
-    func _constant(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
-        constant = DynamicConstraintConstant(getter: getter)
+    func _constant(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+        constant = DynamicConstraintConstant(getter: dynamicConstant)
         return self
     }
 }
@@ -95,8 +96,8 @@ extension ConstraintModifier where T: LayoutDimensionTargetable {
     }
 
     @discardableResult
-    public func plus(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
-        _constant(getter)
+    public func plus(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+        _constant(dynamicConstant)
     }
 }
 
@@ -107,8 +108,8 @@ extension ConstraintModifier where T: LayoutAnchorTargetable {
     }
 
     @discardableResult
-    public func plus(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
-        _constant(getter)
+    public func plus(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+        _constant(dynamicConstant)
     }
 }
 

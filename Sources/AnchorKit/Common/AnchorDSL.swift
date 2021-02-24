@@ -79,12 +79,12 @@ public extension AnchorDSL where Object: ViewLayoutAnchorProvider {
 }
 
 public enum AnchorKit {
-    public func makeConstraints(closure: () -> Void) -> [Constraint] {
+    public static func makeConstraints(closure: () -> Void) -> [Constraint] {
         ConstraintBuilder.makeConstraintsWithoutItem(closure: closure)
     }
 
     @discardableResult
-    public func installConstraints(closure: () -> Void) -> [Constraint] {
+    public static func installConstraints(closure: () -> Void) -> [Constraint] {
         ConstraintBuilder.installConstraintsWithoutItem(closure: closure)
     }
 }

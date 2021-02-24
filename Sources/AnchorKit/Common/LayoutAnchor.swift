@@ -26,6 +26,11 @@ public struct LayoutAnchor<T> where T: SystemLayoutAnchor {
     public func spaceAfter(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
         CustomLayoutDimension(leading: otherAnchor.rawValue, trailing: rawValue)
     }
+
+    @available(iOS 10, tvOS 10, macOS 10.12, *)
+    public func spaceBefore(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
+        CustomLayoutDimension(leading: rawValue, trailing: otherAnchor.rawValue)
+    }
 }
 
 public typealias XLayoutAnchor = LayoutAnchor<NSLayoutXAxisAnchor>

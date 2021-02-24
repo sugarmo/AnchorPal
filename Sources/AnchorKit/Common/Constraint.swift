@@ -68,12 +68,22 @@ public class Constraint {
         self.priority = priority
     }
 
+    public var isActive: Bool = false {
+        didSet {
+            if isActive {
+                NSLayoutConstraint.activate(layoutConstraints)
+            } else {
+                NSLayoutConstraint.deactivate(layoutConstraints)
+            }
+        }
+    }
+
     public func activate() {
-        NSLayoutConstraint.activate(layoutConstraints)
+        isActive = true
     }
 
     public func deactivate() {
-        NSLayoutConstraint.deactivate(layoutConstraints)
+        isActive = false
     }
 }
 

@@ -72,24 +72,24 @@ extension ConstraintConstantRelatable {
 }
 
 extension ConstraintConstantRelatable {
-    func state(_ relation: ConstraintRelation, to getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
+    func state(_ relation: ConstraintRelation, to dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
         ConstraintModifier { (_, c) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, constant: c)
-        }._constant(DynamicConstraintConstant(getter: getter))
+        }._constant(DynamicConstraintConstant(getter: dynamicConstant))
     }
 
     @discardableResult
-    public func lessEqualTo(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
-        state(.lessEqual, to: getter)
+    public func lessEqualTo(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
+        state(.lessEqual, to: dynamicConstant)
     }
 
     @discardableResult
-    public func equalTo(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
-        state(.equal, to: getter)
+    public func equalTo(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
+        state(.equal, to: dynamicConstant)
     }
 
     @discardableResult
-    public func greaterEqualTo(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
-        state(.greaterEqual, to: getter)
+    public func greaterEqualTo(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
+        state(.greaterEqual, to: dynamicConstant)
     }
 }
