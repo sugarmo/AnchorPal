@@ -11,7 +11,7 @@
     import AppKit
 #endif
 
-public protocol GuideAnchorProvider: LayoutItem {
+public protocol GuideLayoutAnchorProvider: LayoutItem {
     var leadingAnchor: NSLayoutXAxisAnchor { get }
     var trailingAnchor: NSLayoutXAxisAnchor { get }
     var leftAnchor: NSLayoutXAxisAnchor { get }
@@ -24,10 +24,10 @@ public protocol GuideAnchorProvider: LayoutItem {
     var centerYAnchor: NSLayoutYAxisAnchor { get }
 }
 
-public protocol ViewAnchorProvider: GuideAnchorProvider {
+public protocol ViewLayoutAnchorProvider: GuideLayoutAnchorProvider {
     var firstBaselineAnchor: NSLayoutYAxisAnchor { get }
     var lastBaselineAnchor: NSLayoutYAxisAnchor { get }
 }
 
-extension LayoutGuide: GuideAnchorProvider {}
-extension LayoutView: ViewAnchorProvider {}
+extension LayoutGuide: GuideLayoutAnchorProvider {}
+extension LayoutView: ViewLayoutAnchorProvider {}

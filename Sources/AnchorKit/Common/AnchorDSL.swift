@@ -27,7 +27,7 @@ public extension LayoutGuide {
     }
 }
 
-public extension AnchorDSL where Object: GuideAnchorProvider {
+public extension AnchorDSL where Object: GuideLayoutAnchorProvider {
     var leading: XLayoutAnchor { XLayoutAnchor(object.leadingAnchor, attribute: .leading, owningItem: object) }
     var trailing: XLayoutAnchor { XLayoutAnchor(object.trailingAnchor, attribute: .trailing, owningItem: object) }
     var left: XLayoutAnchor { XLayoutAnchor(object.leftAnchor, attribute: .left, owningItem: object) }
@@ -71,7 +71,7 @@ public extension AnchorDSL where Object: GuideAnchorProvider {
     }
 }
 
-extension AnchorDSL where Object: ViewAnchorProvider {
+extension AnchorDSL where Object: ViewLayoutAnchorProvider {
     var firstBaseline: YLayoutAnchor { YLayoutAnchor(object.firstBaselineAnchor, attribute: .firstBaseline, owningItem: object) }
     var lastBaseline: YLayoutAnchor { YLayoutAnchor(object.lastBaselineAnchor, attribute: .lastBaseline, owningItem: object) }
 }

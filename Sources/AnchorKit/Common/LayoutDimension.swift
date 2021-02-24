@@ -36,16 +36,11 @@ public struct LayoutDimension: LayoutDimensionable {
     }
 }
 
+@available(iOS 10, tvOS 10, macOS 10.12, *)
 public struct CustomLayoutDimension<T>: LayoutDimensionable where T: SystemLayoutAnchor {
     let leading: T
     let trailing: T
-    let position: AnchorPosition
-
-    init(leading: T, trailing: T, position: AnchorPosition = T.customDimensionPosition) {
-        self.leading = leading
-        self.trailing = trailing
-        self.position = position
-    }
+    let position: AnchorPosition = T.customDimensionPosition
 
     var dimension: NSLayoutDimension {
         leading.anchorWithOffset(to: trailing)
@@ -58,4 +53,10 @@ public struct CustomLayoutDimension<T>: LayoutDimensionable where T: SystemLayou
     public static func position(for object: CustomLayoutDimension<T>) -> AnchorPosition {
         object.position
     }
+}
+
+public struct LayoutInset<T> where T: SystemLayoutAnchor {
+    let leading: T
+    let trailing: T
+    let attribute: AnchorAttribute
 }

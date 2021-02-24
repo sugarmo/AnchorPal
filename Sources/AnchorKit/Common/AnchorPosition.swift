@@ -35,3 +35,22 @@ public struct AnchorPosition: Equatable {
     static let centerX = AnchorPosition(axis: .horizontal, edge: .center)
     static let centerY = AnchorPosition(axis: .vertical, edge: .center)
 }
+
+//extension ConstraintRelation {
+//    static func * (lhs: ConstraintRelation, rhs: AnchorEdge) -> ConstraintRelation {
+//        let rawValue = lhs.rawValue * rhs.rawValue
+//        if rawValue > 0 {
+//            return .greaterEqual
+//        } else if rawValue < 0 {
+//            return .lessEqual
+//        } else {
+//            return .equal
+//        }
+//    }
+//}
+//
+//extension CGFloat {
+//    static func * (lhs: CGFloat, rhs: AnchorEdge) -> CGFloat {
+//        lhs * CGFloat(rhs.rawValue)
+//    }
+//}

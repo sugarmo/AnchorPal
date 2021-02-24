@@ -24,7 +24,16 @@ extension LayoutDimensionable {
 }
 
 extension LayoutDimension: ConstraintConstantRelatable {}
+@available(iOS 10, tvOS 10, macOS 10.12, *)
 extension CustomLayoutDimension: ConstraintConstantRelatable {}
+
+extension LayoutInset: ConstraintConstantRelatable {
+    public static func constraints(first: LayoutInset<T>, relation: ConstraintRelation, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        let p = first.attribute.position
+        let cv = constant.constraintConstantValue(for: p)
+        return [first.trailing.constraint(relation, to: first.leading, constant: cv, position: p)]
+    }
+}
 
 extension Array: ConstraintConstantRelatable where Element: ConstraintConstantRelatable {
     public static func constraints(first: Array<Element>, relation: ConstraintRelation, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {

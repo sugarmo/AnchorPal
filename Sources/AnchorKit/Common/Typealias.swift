@@ -27,4 +27,7 @@
     public typealias EdgeInsets = NSEdgeInsets
 #endif
 
+@available(iOS 11, tvOS 11, macOS 10.15, *)
 public typealias DirectionalEdgeInsets = NSDirectionalEdgeInsets
+
+public typealias ConstraintAttribute = NSLayoutConstraint.Attribute

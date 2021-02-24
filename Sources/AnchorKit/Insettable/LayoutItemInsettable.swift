@@ -18,13 +18,13 @@ public protocol LayoutItemInsettable {
 }
 
 extension LayoutAnchor: LayoutItemInsettable {
-    public func insetFrom(_ item: LayoutItem) -> CustomLayoutDimension<T> {
+    public func insetFrom(_ item: LayoutItem) -> LayoutInset<T> {
         let other = attribute.layoutAnchor(of: T.self, from: item)
 
         if attribute.position.edge.rawValue < 0 {
-            return CustomLayoutDimension(leading: rawValue, trailing: other, position: attribute.position)
+            return LayoutInset(leading: rawValue, trailing: other, attribute: attribute)
         } else {
-            return CustomLayoutDimension(leading: other, trailing: rawValue, position: attribute.position)
+            return LayoutInset(leading: other, trailing: rawValue, attribute: attribute)
         }
     }
 }

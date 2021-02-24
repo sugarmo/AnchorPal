@@ -13,7 +13,9 @@
 
 public enum LayoutSuperviewGuide {
     case edges
+    @available(iOS 9, tvOS 9, macOS 11, *)
     case margins
+    @available(iOS 11, tvOS 11, macOS 11, *)
     case safeArea
     #if os(iOS) || os(tvOS)
         case readableMargins
@@ -26,9 +28,21 @@ extension LayoutView {
         case .edges:
             return self
         case .margins:
-            return layoutMarginsGuide
+            if #available(iOS 9, tvOS 9, macOS 11, *) {
+                return layoutMarginsGuide
+            } else {
+                return self
+            }
         case .safeArea:
-            return safeAreaLayoutGuide
+            if #available(iOS 11, tvOS 11, macOS 11, *) {
+                return safeAreaLayoutGuide
+            } else {
+                if #available(iOS 9, tvOS 9, macOS 11.0, *) {
+                    return layoutMarginsGuide
+                } else {
+                    return self
+                }
+            }
         #if os(iOS) || os(tvOS)
             case .readableMargins:
                 return readableContentGuide

@@ -22,6 +22,7 @@ public struct LayoutAnchor<T> where T: SystemLayoutAnchor {
         self.owningItem = owningItem
     }
 
+    @available(iOS 10, tvOS 10, macOS 10.12, *)
     public func spaceAfter(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
         CustomLayoutDimension(leading: otherAnchor.rawValue, trailing: rawValue)
     }
