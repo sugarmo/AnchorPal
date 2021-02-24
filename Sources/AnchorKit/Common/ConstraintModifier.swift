@@ -50,6 +50,21 @@ public class ConstraintModifier<T>: ConstraintStatement {
         priority = amount
         return self
     }
+
+    func _multiply(_ amount: ConstraintMultiplierValuable) -> ConstraintModifier {
+        multiplier = amount
+        return self
+    }
+
+    func _constant(_ amount: ConstraintConstantValuable) -> ConstraintModifier {
+        constant = amount
+        return self
+    }
+
+    func _constant(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+        constant = DynamicConstraintConstant(getter: getter)
+        return self
+    }
 }
 
 public enum LayoutSystemSpacingTarget {}
@@ -71,36 +86,35 @@ extension AnchorPair: LayoutDimensionTargetable where F: LayoutDimensionTargetab
 extension ConstraintModifier where T: LayoutDimensionTargetable {
     @discardableResult
     public func multiply(_ amount: ConstraintMultiplierValuable) -> ConstraintModifier {
-        multiplier = amount
-        return self
+        _multiply(amount)
     }
 
     @discardableResult
     public func plus(_ amount: ConstraintConstantValuable) -> ConstraintModifier {
-        constant = amount
-        return self
+        _constant(amount)
+    }
+
+    @discardableResult
+    public func plus(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+        _constant(getter)
     }
 }
 
 extension ConstraintModifier where T: LayoutAnchorTargetable {
     @discardableResult
     public func plus(_ amount: ConstraintConstantValuable) -> ConstraintModifier {
-        constant = amount
-        return self
+        _constant(amount)
+    }
+
+    @discardableResult
+    public func plus(_ getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+        _constant(getter)
     }
 }
 
 extension ConstraintModifier where T == LayoutSystemSpacingTarget {
     @discardableResult
     public func multiply(_ amount: ConstraintMultiplierValuable) -> ConstraintModifier {
-        multiplier = amount
-        return self
-    }
-}
-
-extension ConstraintModifier where T == ConstraintConstantTarget {
-    func constant(_ amount: ConstraintConstantValuable) -> ConstraintModifier {
-        constant = amount
-        return self
+        _multiply(amount)
     }
 }

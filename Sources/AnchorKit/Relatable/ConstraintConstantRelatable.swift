@@ -52,7 +52,7 @@ extension ConstraintConstantRelatable {
     func state(_ relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
         ConstraintModifier { (_, c) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, constant: c)
-        }.constant(constant)
+        }._constant(constant)
     }
 
     @discardableResult
@@ -75,7 +75,7 @@ extension ConstraintConstantRelatable {
     func state(_ relation: ConstraintRelation, to getter: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
         ConstraintModifier { (_, c) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, constant: c)
-        }.constant(DynamicConstraintConstant(getter: getter))
+        }._constant(DynamicConstraintConstant(getter: getter))
     }
 
     @discardableResult
