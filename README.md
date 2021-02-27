@@ -1,10 +1,10 @@
-# AnchorKit
+# AnchorPal
 
 An AutoLayout library inspired by [SnapKit](https://github.com/SnapKit/SnapKit).
 
 # Usage
 
-If you are familiar with SnapKit, you already know how to use AnchorKit, just with a little changes.
+If you are familiar with SnapKit, you already know how to use AnchorPal, just with a little changes.
 
 ### Install new constraints.
 
@@ -42,11 +42,11 @@ constraints.activate()
 When we say `first.>=(second).inset(x)`, it can be "The first item has a greater value than second item insetting x.", but also can be "The inset from second item to first item is greater than x.". We want to be clear about the intent.
 
 ```swift
-view.anc.reinstallConstraints { make in
+view.anc.installConstraints { make in
     make.edges.insetFromSuperview().equalTo(30)
 }
 // or 
-view.anc.reinstallConstraints { make in
+view.anc.installConstraints { make in
     make.edges.insetFrom(otherView).greaterEqualTo(30)
 }
 ```
@@ -94,7 +94,7 @@ view1.anc.reinstallConstraints { make in
 
 ```swift
 // Sometimes you just don't want to bind these constraints to any view.
-AnchorKit.installConstraints {
+Anc.installConstraints {
     view1.anc.edges.equalToSuperview(.safeArea)
     view2.anc.top.equalTo(view1.anc.bottom).plus(20)
 }
@@ -118,4 +118,4 @@ We change the `lessThanOrEqualTo` to `lessEqualTo`, and `greaterThanOrEqualTo` t
 
 # Closing
 
-AnchorKit is designed to be flexbile and readable, hope you can enjoy it, if don't, please feel free to tell us.
+AnchorPal is designed to be flexbile and readable, hope you can enjoy it, if don't, please feel free to tell us.

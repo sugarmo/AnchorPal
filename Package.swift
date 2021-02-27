@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "AnchorKit",
+    name: "AnchorPal",
     platforms: [
         .iOS(.v9),
         .tvOS(.v9),
@@ -12,16 +12,16 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "AnchorKit",
-            targets: ["AnchorKit"]),
+            name: "AnchorPal",
+            targets: ["AnchorPal"]),
     ], targets: [
         .target(
-            name: "AnchorKit",
+            name: "AnchorPal",
             dependencies: [],
             path: "Sources"),
         .testTarget(
-            name: "AnchorKitTests",
-            dependencies: ["AnchorKit"],
+            name: "AnchorPalTests",
+            dependencies: ["AnchorPal"],
             path: "Tests"),
     ], swiftLanguageVersions: [
         .v5,

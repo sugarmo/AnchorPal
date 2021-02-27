@@ -1,6 +1,6 @@
 //
 //  Tests.swift
-//  AnchorKitTests
+//  AnchorPalTests
 //
 //  Created by Steven Mok on 2021/2/11.
 //
@@ -11,7 +11,7 @@
     import UIKit
 #endif
 
-@testable import AnchorKit
+@testable import AnchorPal
 import XCTest
 
 public typealias ConstraintAttribute = NSLayoutConstraint.Attribute
@@ -37,7 +37,7 @@ let cgEpsilon: CGFloat = 0.00001
 let fEpsilon: Float = 0.00001
 let dEpsilon: Double = 0.00001
 
-class AnchorKitTests: XCTestCase {
+class AnchorPalTests: XCTestCase {
     let view1 = TestView()
     let view2 = TestView()
 
@@ -61,7 +61,7 @@ class AnchorKitTests: XCTestCase {
 
 // MARK: - Overloaded operators
 
-extension AnchorKitTests {
+extension AnchorPalTests {
     func testBasicEquality() {
         let constraint = view1.anc.installConstraints { make in
             make.width.equalTo(view2.anc.width)
@@ -425,7 +425,7 @@ extension AnchorKitTests {
 
 // MARK: - Performance Tests
 
-extension AnchorKitTests {
+extension AnchorPalTests {
     private func runRepeatedEdgeConstraintAssignments(numTests: Int = 10000, assignment: () -> Constraint) {
         var constraint: Constraint?
         for _ in 0 ..< numTests {
@@ -473,7 +473,7 @@ extension AnchorKitTests {
 
 // MARK: - Utility Functions and Extensions
 
-extension AnchorKitTests {
+extension AnchorPalTests {
     func assertIdentical(_ expression1: @autoclosure () -> AnyObject?, _ expression2: @autoclosure () -> AnyObject?, _ message: @autoclosure () -> String = "Objects were not identical", file: StaticString = #file, line: UInt = #line) {
         XCTAssertTrue(expression1() === expression2(), message(), file: file, line: line)
     }
