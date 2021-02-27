@@ -11,7 +11,7 @@
     import AppKit
 #endif
 
-public protocol ConstraintConstantRelatable {
+public protocol ConstraintConstantRelatable: ConstraintSubjectable {
     static func constraints(first: Self, relation: ConstraintRelation, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
 
@@ -50,7 +50,7 @@ extension AnchorPair: ConstraintConstantRelatable where F: ConstraintConstantRel
 
 extension ConstraintConstantRelatable {
     func state(_ relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
-        ConstraintModifier { (_, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, constant: c)
         }._constant(constant)
     }
@@ -73,7 +73,7 @@ extension ConstraintConstantRelatable {
 
 extension ConstraintConstantRelatable {
     func state(_ relation: ConstraintRelation, to dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
-        ConstraintModifier { (_, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, constant: c)
         }._constant(DynamicConstraintConstant(getter: dynamicConstant))
     }

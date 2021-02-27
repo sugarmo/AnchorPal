@@ -15,11 +15,13 @@ public class ConstraintModifier<T>: ConstraintStatement {
     typealias Finalization = (ConstraintMultiplierValuable, ConstraintConstantValuable) -> [NSLayoutConstraint]
 
     private let finalization: Finalization
+    private let subjectItem: LayoutItem
     private var multiplier: ConstraintMultiplierValuable = 1.0
     private var constant: ConstraintConstantValuable = 0.0
     private var priority: ConstraintPriorityValuable = ConstraintPriority.required
 
-    init(finalization: @escaping Finalization) {
+    init<U>(subjectProvider: U, finalization: @escaping Finalization) where U: ConstraintSubjectable {
+        subjectItem = U.subjectItem(for: subjectProvider)
         self.finalization = finalization
 
         if let builder = ConstraintBuilder.current {
@@ -30,7 +32,7 @@ public class ConstraintModifier<T>: ConstraintStatement {
     public lazy var constraint: Constraint = {
         let layoutConstraints = finalization(multiplier, constant)
         layoutConstraints.forEach { $0.priority = priority.constraintPriorityValue }
-        return Constraint(layoutConstraints: layoutConstraints, constant: constant, priority: priority)
+        return Constraint(subjectItem: subjectItem, layoutConstraints: layoutConstraints, constant: constant, priority: priority)
     }()
 
     @discardableResult

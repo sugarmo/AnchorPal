@@ -11,11 +11,11 @@
     import AppKit
 #endif
 
-public protocol LayoutSuperviewRelatable: LayoutSuperviewAccessible, LayoutItemRelatable {}
+public protocol LayoutSuperviewRelatable: LayoutItemRelatable {}
 
 extension LayoutSuperviewRelatable {
     static func constraints(first: Self, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        let item = owningItem(for: first)
+        let item = subjectItem(for: first)
         guard let superview = item.superview else {
             fatalError("\(item) has no superview at this time.")
         }
@@ -34,7 +34,7 @@ extension AnchorPair: LayoutSuperviewRelatable where F: LayoutSuperviewRelatable
 
 extension LayoutSuperviewRelatable {
     func state(_ relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide) -> ConstraintModifier<Self> {
-        ConstraintModifier { (m, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { (m, c) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, toSuperview: guide, multiplier: m, constant: c)
         }
     }

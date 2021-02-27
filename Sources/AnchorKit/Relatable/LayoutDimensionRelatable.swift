@@ -11,7 +11,7 @@
     import AppKit
 #endif
 
-public protocol LayoutDimensionRelatable {
+public protocol LayoutDimensionRelatable: ConstraintSubjectable {
     static func constraints<D>(first: Self, relation: ConstraintRelation, second: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable
 }
 
@@ -47,7 +47,7 @@ extension AnchorPair: LayoutDimensionRelatable where F: LayoutDimensionRelatable
 
 extension LayoutDimensionRelatable {
     func state<D>(_ relation: ConstraintRelation, to other: D) -> ConstraintModifier<D> where D: LayoutDimensionable {
-        ConstraintModifier { (m, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { (m, c) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, second: other, multiplier: m, constant: c)
         }
     }

@@ -19,12 +19,12 @@ public protocol LayoutDimensionable {
 public struct LayoutDimension: LayoutDimensionable {
     let rawValue: NSLayoutDimension
     let attribute: AnchorAttribute
-    let owningItem: LayoutItem
+    let subjectItem: LayoutItem
 
-    init(_ rawValue: NSLayoutDimension, attribute: AnchorAttribute, owningItem: LayoutItem) {
+    init(_ rawValue: NSLayoutDimension, attribute: AnchorAttribute, subjectItem: LayoutItem) {
         self.rawValue = rawValue
         self.attribute = attribute
-        self.owningItem = owningItem
+        self.subjectItem = subjectItem
     }
 
     public static func dimension(for object: LayoutDimension) -> NSLayoutDimension {
@@ -40,7 +40,11 @@ public struct LayoutDimension: LayoutDimensionable {
 public struct CustomLayoutDimension<T>: LayoutDimensionable where T: SystemLayoutAnchor {
     let leading: T
     let trailing: T
-    let position: AnchorPosition = T.customDimensionPosition
+    let subjectItem: LayoutItem
+
+    var position: AnchorPosition {
+        T.customDimensionPosition
+    }
 
     var dimension: NSLayoutDimension {
         leading.anchorWithOffset(to: trailing)
@@ -59,4 +63,5 @@ public struct LayoutInset<T> where T: SystemLayoutAnchor {
     let leading: T
     let trailing: T
     let attribute: AnchorAttribute
+    let subjectItem: LayoutItem
 }

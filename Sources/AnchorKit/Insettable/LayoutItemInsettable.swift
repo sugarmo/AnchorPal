@@ -22,9 +22,9 @@ extension LayoutAnchor: LayoutItemInsettable {
         let other = attribute.layoutAnchor(of: T.self, from: item)
 
         if attribute.position.edge.rawValue < 0 {
-            return LayoutInset(leading: rawValue, trailing: other, attribute: attribute)
+            return LayoutInset(leading: rawValue, trailing: other, attribute: attribute, subjectItem: subjectItem)
         } else {
-            return LayoutInset(leading: other, trailing: rawValue, attribute: attribute)
+            return LayoutInset(leading: other, trailing: rawValue, attribute: attribute, subjectItem: subjectItem)
         }
     }
 }

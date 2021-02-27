@@ -11,11 +11,11 @@
     import AppKit
 #endif
 
-public protocol LayoutSuperviewInsettable: LayoutSuperviewAccessible, LayoutItemInsettable {}
+public protocol LayoutSuperviewInsettable: ConstraintSubjectable, LayoutItemInsettable {}
 
 extension LayoutSuperviewInsettable {
     public func insetFromSuperview(_ guide: LayoutSuperviewGuide = .edges) -> InsetResult {
-        let item = Self.owningItem(for: self)
+        let item = Self.subjectItem(for: self)
         guard let superview = item.superview else {
             fatalError("\(item) has no superview at this time.")
         }

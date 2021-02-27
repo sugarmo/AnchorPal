@@ -77,7 +77,6 @@ public class ConstraintBuilder {
         let maker = ConstraintBuilder()
         maker.becomeCurrent()
         maker.startBuilding()
-        item.ignoreAutoresizingMask()
         closure(AnchorDSL(object: item))
         let statements = maker.endBuilding()
         maker.resignCurrent()

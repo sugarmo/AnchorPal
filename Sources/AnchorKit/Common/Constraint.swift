@@ -32,6 +32,8 @@ extension NSLayoutConstraint {
 public class Constraint {
     public var layoutConstraints: [NSLayoutConstraint]
 
+    weak var subjectItem: LayoutItem?
+
     public subscript(index: Int) -> NSLayoutConstraint {
         layoutConstraints[index]
     }
@@ -62,7 +64,8 @@ public class Constraint {
         }
     }
 
-    init(layoutConstraints: [NSLayoutConstraint], constant: ConstraintConstantValuable, priority: ConstraintPriorityValuable) {
+    init(subjectItem: LayoutItem, layoutConstraints: [NSLayoutConstraint], constant: ConstraintConstantValuable, priority: ConstraintPriorityValuable) {
+        self.subjectItem = subjectItem
         self.layoutConstraints = layoutConstraints
         self.constant = constant
         self.priority = priority
@@ -71,6 +74,8 @@ public class Constraint {
     public var isActive: Bool = false {
         didSet {
             if isActive {
+                subjectItem?.ignoreAutoresizingMask()
+
                 NSLayoutConstraint.activate(layoutConstraints)
             } else {
                 NSLayoutConstraint.deactivate(layoutConstraints)

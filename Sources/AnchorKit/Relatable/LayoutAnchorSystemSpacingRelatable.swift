@@ -17,7 +17,7 @@ public enum LayoutSpacePosition {
 }
 
 @available(iOS 11, tvOS 11, macOS 11, *)
-public protocol LayoutAnchorSystemSpacingRelatable {
+public protocol LayoutAnchorSystemSpacingRelatable: ConstraintSubjectable {
     static func constraints(first: Self, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, second: Self, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint]
 }
 
@@ -37,7 +37,7 @@ extension LayoutAnchor: LayoutAnchorSystemSpacingRelatable {
 @available(iOS 11, tvOS 11, macOS 11, *)
 extension LayoutAnchorSystemSpacingRelatable {
     func state(_ relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, _ other: Self) -> ConstraintModifier<LayoutSystemSpacingTarget> {
-        ConstraintModifier { (m, _) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { (m, _) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, toSystemSpacing: position, second: other, multiplier: m)
         }
     }

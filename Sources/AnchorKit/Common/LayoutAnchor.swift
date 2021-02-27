@@ -14,22 +14,22 @@
 public struct LayoutAnchor<T> where T: SystemLayoutAnchor {
     let rawValue: T
     let attribute: AnchorAttribute
-    let owningItem: LayoutItem
+    let subjectItem: LayoutItem
 
-    init(_ layoutAnchor: T, attribute: AnchorAttribute, owningItem: LayoutItem) {
+    init(_ layoutAnchor: T, attribute: AnchorAttribute, subjectItem: LayoutItem) {
         rawValue = layoutAnchor
         self.attribute = attribute
-        self.owningItem = owningItem
+        self.subjectItem = subjectItem
     }
 
     @available(iOS 10, tvOS 10, macOS 10.12, *)
     public func spaceAfter(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
-        CustomLayoutDimension(leading: otherAnchor.rawValue, trailing: rawValue)
+        CustomLayoutDimension(leading: otherAnchor.rawValue, trailing: rawValue, subjectItem: subjectItem)
     }
 
     @available(iOS 10, tvOS 10, macOS 10.12, *)
     public func spaceBefore(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
-        CustomLayoutDimension(leading: rawValue, trailing: otherAnchor.rawValue)
+        CustomLayoutDimension(leading: rawValue, trailing: otherAnchor.rawValue, subjectItem: subjectItem)
     }
 }
 

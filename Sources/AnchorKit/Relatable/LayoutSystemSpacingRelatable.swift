@@ -12,7 +12,7 @@
 #endif
 
 @available(iOS 11, tvOS 11, macOS 11, *)
-public protocol LayoutSystemSpacingRelatable {
+public protocol LayoutSystemSpacingRelatable: ConstraintSubjectable {
     static func constraints(first: Self, relationToSystemSpacing relation: ConstraintRelation, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint]
 }
 
@@ -50,7 +50,7 @@ extension AnchorPair: LayoutSystemSpacingRelatable where F: LayoutSystemSpacingR
 @available(iOS 11, tvOS 11, macOS 11, *)
 extension LayoutSystemSpacingRelatable {
     func stateToSystemSpacing(_ relation: ConstraintRelation) -> ConstraintModifier<LayoutSystemSpacingTarget> {
-        ConstraintModifier { (m, _) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { (m, _) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relationToSystemSpacing: relation, multiplier: m)
         }
     }

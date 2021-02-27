@@ -11,7 +11,7 @@
     import AppKit
 #endif
 
-public protocol LayoutAnchorRelatable {
+public protocol LayoutAnchorRelatable: ConstraintSubjectable {
     static func constraints(first: Self, relation: ConstraintRelation, second: Self, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
 
@@ -39,7 +39,7 @@ extension LayoutAnchor: LayoutAnchorRelatable {
 
 extension LayoutAnchorRelatable {
     func state(_ relation: ConstraintRelation, to other: Self) -> ConstraintModifier<Self> {
-        ConstraintModifier { (_, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
             Self.constraints(first: self, relation: relation, second: other, constant: c)
         }
     }
