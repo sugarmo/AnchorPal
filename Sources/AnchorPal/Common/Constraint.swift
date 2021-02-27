@@ -128,21 +128,18 @@ extension Array where Element: Constraint {
 
 // Util
 
-class Weak<T: AnyObject>: Equatable, Hashable {
+final class Weak<T: AnyObject & Hashable>: Hashable {
     weak var object: T?
 
-    let identifier: ObjectIdentifier
-
     init(object: T) {
-        identifier = ObjectIdentifier(object)
         self.object = object
     }
 
     static func == (lhs: Weak<T>, rhs: Weak<T>) -> Bool {
-        return lhs.identifier == rhs.identifier
+        lhs.object == rhs.object
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(identifier)
+        object?.hash(into: &hasher)
     }
 }
