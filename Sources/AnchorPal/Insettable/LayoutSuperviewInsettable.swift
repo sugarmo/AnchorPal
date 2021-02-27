@@ -11,22 +11,30 @@
     import AppKit
 #endif
 
-public protocol LayoutSuperviewInsettable: ConstraintSubjectable, LayoutItemInsettable {}
+public protocol LayoutSuperviewInsettable: ConstraintSubjectable, LayoutItemInsettable {
+    func insetFromSuperview(_ guide: LayoutSuperviewGuide) -> InsetResult
+}
 
-extension LayoutSuperviewInsettable {
+extension LayoutAnchor: LayoutSuperviewInsettable {
     public func insetFromSuperview(_ guide: LayoutSuperviewGuide = .edges) -> InsetResult {
-        let item = Self.subjectItem(for: self)
-        guard let superview = item.superview else {
-            fatalError("\(item) has no superview at this time.")
+        guard let superview = subjectItem.superview else {
+            fatalError("\(subjectItem) has no superview at this time.")
         }
 
         return insetFrom(superview.layoutItem(for: guide))
     }
 }
 
-extension LayoutAnchor: LayoutSuperviewInsettable {}
+extension Array: LayoutSuperviewInsettable where Element: LayoutSuperviewInsettable {
+    public func insetFromSuperview(_ guide: LayoutSuperviewGuide) -> [Element.InsetResult] {
+        map { $0.insetFromSuperview(guide) }
+    }
+}
 
-extension Array: LayoutSuperviewInsettable where Element: LayoutSuperviewInsettable {}
-
-extension AnchorPair: LayoutSuperviewInsettable where F: LayoutSuperviewInsettable, S: LayoutItemInsettable {}
-
+extension AnchorPair: LayoutSuperviewInsettable where F: LayoutSuperviewInsettable, S: LayoutSuperviewInsettable {
+    public func insetFromSuperview(_ guide: LayoutSuperviewGuide) -> AnchorPair<F.InsetResult, S.InsetResult> {
+        let first = self.first.insetFromSuperview(guide)
+        let second = self.second.insetFromSuperview(guide)
+        return AnchorPair<F.InsetResult, S.InsetResult>(first, second)
+    }
+}

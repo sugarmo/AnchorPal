@@ -14,8 +14,6 @@
 public protocol LayoutItem: NSObject {
     var superview: LayoutView? { get }
 
-    func ignoreAutoresizingMask()
-
     func layoutAnchor(for attribute: AnchorAttribute) -> NSObject?
 }
 
@@ -47,10 +45,6 @@ extension LayoutView: LayoutItem {
         case .lastBaseline:
             return lastBaselineAnchor
         }
-    }
-
-    public func ignoreAutoresizingMask() {
-        translatesAutoresizingMaskIntoConstraints = false
     }
 }
 
@@ -86,9 +80,5 @@ extension LayoutGuide: LayoutItem {
         case .lastBaseline:
             return nil
         }
-    }
-
-    public func ignoreAutoresizingMask() {
-        //
     }
 }

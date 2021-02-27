@@ -12,45 +12,42 @@
 #endif
 
 public protocol ConstraintSubjectable {
-    static func subjectItem(for object: Self) -> LayoutItem
+    static func subjectItems(for object: Self) -> [LayoutItem]
 }
 
 extension LayoutAnchor: ConstraintSubjectable {
-    public static func subjectItem(for object: LayoutAnchor<T>) -> LayoutItem {
-        object.subjectItem
+    public static func subjectItems(for object: LayoutAnchor<T>) -> [LayoutItem] {
+        [object.subjectItem]
     }
 }
 
 extension LayoutDimension: ConstraintSubjectable {
-    public static func subjectItem(for object: LayoutDimension) -> LayoutItem {
-        object.subjectItem
+    public static func subjectItems(for object: LayoutDimension) -> [LayoutItem] {
+        [object.subjectItem]
     }
 }
 
 @available(iOS 10, tvOS 10, macOS 10.12, *)
 extension CustomLayoutDimension: ConstraintSubjectable {
-    public static func subjectItem(for object: CustomLayoutDimension) -> LayoutItem {
-        object.subjectItem
+    public static func subjectItems(for object: CustomLayoutDimension) -> [LayoutItem] {
+        [object.subjectItem]
     }
 }
 
 extension LayoutInset: ConstraintSubjectable {
-    public static func subjectItem(for object: LayoutInset) -> LayoutItem {
-        object.subjectItem
+    public static func subjectItems(for object: LayoutInset) -> [LayoutItem] {
+        [object.subjectItem]
     }
 }
 
 extension Array: ConstraintSubjectable where Element: ConstraintSubjectable {
-    public static func subjectItem(for object: Array<Element>) -> LayoutItem {
-        guard let first = object.first else {
-            fatalError("\(object) is empty")
-        }
-        return Element.subjectItem(for: first)
+    public static func subjectItems(for object: Array<Element>) -> [LayoutItem] {
+        object.flatMap { Element.subjectItems(for: $0) }
     }
 }
 
-extension AnchorPair: ConstraintSubjectable where F: ConstraintSubjectable {
-    public static func subjectItem(for object: AnchorPair<F, S>) -> LayoutItem {
-        F.subjectItem(for: object.first)
+extension AnchorPair: ConstraintSubjectable where F: ConstraintSubjectable, S: ConstraintSubjectable {
+    public static func subjectItems(for object: AnchorPair<F, S>) -> [LayoutItem] {
+        F.subjectItems(for: object.first) + S.subjectItems(for: object.second)
     }
 }

@@ -31,7 +31,7 @@ extension LayoutAnchor: LayoutItemInsettable {
 
 extension Array: LayoutItemInsettable where Element: LayoutItemInsettable {
     public func insetFrom(_ item: LayoutItem) -> [Element.InsetResult] {
-        compactMap { $0.insetFrom(item) }
+        map { $0.insetFrom(item) }
     }
 }
 

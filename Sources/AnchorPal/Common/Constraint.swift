@@ -32,7 +32,7 @@ extension NSLayoutConstraint {
 public class Constraint {
     public var layoutConstraints: [NSLayoutConstraint]
 
-    weak var subjectItem: LayoutItem?
+    var subjectViews: Set<Weak<LayoutView>>
 
     public subscript(index: Int) -> NSLayoutConstraint {
         layoutConstraints[index]
@@ -64,8 +64,16 @@ public class Constraint {
         }
     }
 
-    init(subjectItem: LayoutItem, layoutConstraints: [NSLayoutConstraint], constant: ConstraintConstantValuable, priority: ConstraintPriorityValuable) {
-        self.subjectItem = subjectItem
+    private static func makeSet(_ items: [LayoutItem]) -> Set<Weak<LayoutView>> {
+        Set(items.compactMap {
+            $0 as? LayoutView
+        }.map {
+            Weak(object: $0)
+        })
+    }
+
+    init(subjectItems: [LayoutItem], layoutConstraints: [NSLayoutConstraint], constant: ConstraintConstantValuable, priority: ConstraintPriorityValuable) {
+        subjectViews = Self.makeSet(subjectItems)
         self.layoutConstraints = layoutConstraints
         self.constant = constant
         self.priority = priority
@@ -74,7 +82,9 @@ public class Constraint {
     public var isActive: Bool = false {
         didSet {
             if isActive {
-                subjectItem?.ignoreAutoresizingMask()
+                subjectViews.forEach {
+                    $0.object?.translatesAutoresizingMaskIntoConstraints = false
+                }
 
                 NSLayoutConstraint.activate(layoutConstraints)
             } else {
@@ -113,5 +123,26 @@ extension Array where Element: Constraint {
 
     public var firstLayoutConstraint: NSLayoutConstraint? {
         first?.firstLayoutConstraint
+    }
+}
+
+// Util
+
+class Weak<T: AnyObject>: Equatable, Hashable {
+    weak var object: T?
+
+    let identifier: ObjectIdentifier
+
+    init(object: T) {
+        identifier = ObjectIdentifier(object)
+        self.object = object
+    }
+
+    static func == (lhs: Weak<T>, rhs: Weak<T>) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(identifier)
     }
 }

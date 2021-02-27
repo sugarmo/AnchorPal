@@ -11,26 +11,44 @@
     import AppKit
 #endif
 
-public protocol LayoutSuperviewRelatable: LayoutItemRelatable {}
+public protocol LayoutSuperviewRelatable: LayoutItemRelatable {
+    static func constraints(first: Self, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
+}
 
-extension LayoutSuperviewRelatable {
-    static func constraints(first: Self, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        let item = subjectItem(for: first)
-        guard let superview = item.superview else {
-            fatalError("\(item) has no superview at this time.")
+extension LayoutAnchor: LayoutSuperviewRelatable {
+    public static func constraints(first: LayoutAnchor, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        guard let superview = first.subjectItem.superview else {
+            fatalError("\(first.subjectItem) has no superview at this time.")
         }
 
         return constraints(first: first, relation: relation, second: superview.layoutItem(for: guide), multiplier: multiplier, constant: constant)
     }
 }
 
-extension LayoutAnchor: LayoutSuperviewRelatable {}
+extension LayoutDimension: LayoutSuperviewRelatable {
+    public static func constraints(first: LayoutDimension, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        guard let superview = first.subjectItem.superview else {
+            fatalError("\(first.subjectItem) has no superview at this time.")
+        }
 
-extension LayoutDimension: LayoutSuperviewRelatable {}
+        return constraints(first: first, relation: relation, second: superview.layoutItem(for: guide), multiplier: multiplier, constant: constant)
+    }
+}
 
-extension Array: LayoutSuperviewRelatable where Element: LayoutSuperviewRelatable {}
+extension Array: LayoutSuperviewRelatable where Element: LayoutSuperviewRelatable {
+    public static func constraints(first: Array, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        first.flatMap {
+            Element.constraints(first: $0, relation: relation, toSuperview: guide, multiplier: multiplier, constant: constant)
+        }
+    }
+}
 
-extension AnchorPair: LayoutSuperviewRelatable where F: LayoutSuperviewRelatable, S: LayoutItemRelatable {}
+extension AnchorPair: LayoutSuperviewRelatable where F: LayoutSuperviewRelatable, S: LayoutSuperviewRelatable {
+    public static func constraints(first: AnchorPair<F, S>, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        F.constraints(first: first.first, relation: relation, toSuperview: guide, multiplier: multiplier, constant: constant) +
+            S.constraints(first: first.second, relation: relation, toSuperview: guide, multiplier: multiplier, constant: constant)
+    }
+}
 
 extension LayoutSuperviewRelatable {
     func state(_ relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide) -> ConstraintModifier<Self> {
