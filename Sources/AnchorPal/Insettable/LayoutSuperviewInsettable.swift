@@ -26,13 +26,13 @@ extension LayoutAnchor: LayoutSuperviewInsettable {
 }
 
 extension Array: LayoutSuperviewInsettable where Element: LayoutSuperviewInsettable {
-    public func insetFromSuperview(_ guide: LayoutSuperviewGuide) -> [Element.InsetResult] {
+    public func insetFromSuperview(_ guide: LayoutSuperviewGuide = .edges) -> [Element.InsetResult] {
         map { $0.insetFromSuperview(guide) }
     }
 }
 
 extension AnchorPair: LayoutSuperviewInsettable where F: LayoutSuperviewInsettable, S: LayoutSuperviewInsettable {
-    public func insetFromSuperview(_ guide: LayoutSuperviewGuide) -> AnchorPair<F.InsetResult, S.InsetResult> {
+    public func insetFromSuperview(_ guide: LayoutSuperviewGuide = .edges) -> AnchorPair<F.InsetResult, S.InsetResult> {
         let first = self.first.insetFromSuperview(guide)
         let second = self.second.insetFromSuperview(guide)
         return AnchorPair<F.InsetResult, S.InsetResult>(first, second)
