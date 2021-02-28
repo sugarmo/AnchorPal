@@ -12,45 +12,52 @@
 #endif
 
 public protocol LayoutAnchorRelatable: ConstraintSubjectable {
-    associatedtype AxisAnchor: SystemLayoutAnchor
+    associatedtype Other
 
-    static func constraints(first: Self, relation: ConstraintRelation, second: LayoutAnchor<AxisAnchor>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
+    static func constraints(_ receiver: Self, relation: ConstraintRelation, to other: Other, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
 
 extension LayoutAnchor: LayoutAnchorRelatable {
-    public static func constraints(first: LayoutAnchor<T>, relation: ConstraintRelation, second: LayoutAnchor<T>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        let cv = constant.constraintConstantValue(for: second.attribute.position)
-        return [first.rawValue.constraint(relation, to: second.rawValue, constant: cv, position: second.attribute.position)]
+    public static func constraints(_ receiver: LayoutAnchor<T>, relation: ConstraintRelation, to other: LayoutAnchor<T>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        let cv = constant.constraintConstantValue(for: other.attribute.position)
+        return [receiver.rawValue.constraint(relation, to: other.rawValue, constant: cv, position: other.attribute.position)]
     }
 }
 
 extension Array: LayoutAnchorRelatable where Element: LayoutAnchorRelatable {
-    public static func constraints(first: Array<Element>, relation: ConstraintRelation, second: LayoutAnchor<Element.AxisAnchor>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        first.flatMap {
-            Element.constraints(first: $0, relation: relation, second: second, constant: constant)
+    public static func constraints(_ receiver: Array<Element>, relation: ConstraintRelation, to other: Element.Other, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        receiver.flatMap {
+            Element.constraints($0, relation: relation, to: other, constant: constant)
         }
     }
 }
 
+extension AnchorPair: LayoutAnchorRelatable where F: LayoutAnchorRelatable, S: LayoutAnchorRelatable {
+    public static func constraints(_ receiver: AnchorPair, relation: ConstraintRelation, to other: AnchorPair<F.Other, S.Other>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        F.constraints(receiver.first, relation: relation, to: other.first, constant: constant) +
+            S.constraints(receiver.second, relation: relation, to: other.second, constant: constant)
+    }
+}
+
 extension LayoutAnchorRelatable {
-    func state(_ relation: ConstraintRelation, to other: LayoutAnchor<AxisAnchor>) -> ConstraintModifier<Self> {
+    func state(_ relation: ConstraintRelation, to other: Other) -> ConstraintModifier<Self> {
         ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
-            Self.constraints(first: self, relation: relation, second: other, constant: c)
+            Self.constraints(self, relation: relation, to: other, constant: c)
         }
     }
 
     @discardableResult
-    public func lessEqualTo(_ other: LayoutAnchor<AxisAnchor>) -> ConstraintModifier<Self> {
+    public func lessEqualTo(_ other: Other) -> ConstraintModifier<Self> {
         state(.lessEqual, to: other)
     }
 
     @discardableResult
-    public func equalTo(_ other: LayoutAnchor<AxisAnchor>) -> ConstraintModifier<Self> {
+    public func equalTo(_ other: Other) -> ConstraintModifier<Self> {
         state(.equal, to: other)
     }
 
     @discardableResult
-    public func greaterEqualTo(_ other: LayoutAnchor<AxisAnchor>) -> ConstraintModifier<Self> {
+    public func greaterEqualTo(_ other: Other) -> ConstraintModifier<Self> {
         state(.greaterEqual, to: other)
     }
 }

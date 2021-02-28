@@ -12,14 +12,14 @@
 #endif
 
 public protocol ConstraintConstantRelatable: ConstraintSubjectable {
-    static func constraints(first: Self, relation: ConstraintRelation, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
+    static func constraints(_ receiver: Self, relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
 
 extension LayoutDimensionable {
-    public static func constraints(first: Self, relation: ConstraintRelation, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        let p = position(for: first)
+    public static func constraints(_ receiver: Self, relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        let p = position(for: receiver)
         let cv = constant.constraintConstantValue(for: p)
-        return [dimension(for: first).constraint(relation, toConstant: cv, position: p)]
+        return [dimension(for: receiver).constraint(relation, toConstant: cv, position: p)]
     }
 }
 
@@ -28,30 +28,30 @@ extension LayoutDimension: ConstraintConstantRelatable {}
 extension CustomLayoutDimension: ConstraintConstantRelatable {}
 
 extension LayoutInset: ConstraintConstantRelatable {
-    public static func constraints(first: LayoutInset<T>, relation: ConstraintRelation, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        let p = first.attribute.position
+    public static func constraints(_ receiver: LayoutInset<T>, relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        let p = receiver.attribute.position
         let cv = constant.constraintConstantValue(for: p)
-        return [first.trailing.constraint(relation, to: first.leading, constant: cv, position: p)]
+        return [receiver.trailing.constraint(relation, to: receiver.leading, constant: cv, position: p)]
     }
 }
 
 extension Array: ConstraintConstantRelatable where Element: ConstraintConstantRelatable {
-    public static func constraints(first: Array<Element>, relation: ConstraintRelation, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        first.flatMap { Element.constraints(first: $0, relation: relation, constant: constant) }
+    public static func constraints(_ receiver: Array<Element>, relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        receiver.flatMap { Element.constraints($0, relation: relation, to: constant) }
     }
 }
 
 extension AnchorPair: ConstraintConstantRelatable where F: ConstraintConstantRelatable, S: ConstraintConstantRelatable {
-    public static func constraints(first: AnchorPair<F, S>, relation: ConstraintRelation, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        F.constraints(first: first.first, relation: relation, constant: constant) +
-            S.constraints(first: first.second, relation: relation, constant: constant)
+    public static func constraints(_ receiver: AnchorPair<F, S>, relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        F.constraints(receiver.first, relation: relation, to: constant) +
+            S.constraints(receiver.second, relation: relation, to: constant)
     }
 }
 
 extension ConstraintConstantRelatable {
     func state(_ relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
         ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
-            Self.constraints(first: self, relation: relation, constant: c)
+            Self.constraints(self, relation: relation, to: c)
         }._constant(constant)
     }
 
@@ -74,7 +74,7 @@ extension ConstraintConstantRelatable {
 extension ConstraintConstantRelatable {
     func state(_ relation: ConstraintRelation, to dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
         ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
-            Self.constraints(first: self, relation: relation, constant: c)
+            Self.constraints(self, relation: relation, to: c)
         }._constant(DynamicConstraintConstant(getter: dynamicConstant))
     }
 

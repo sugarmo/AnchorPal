@@ -160,7 +160,7 @@ extension AnchorPalTests {
 
     func testEqualityWithPriorityConstant() {
         let constraint = view1.anc.installConstraints { make in
-            make.width.equalTo(view2.anc.width).priority(.defaultHigh)
+            make.width.equalTo(view2.anc.width).priority(.high)
         }.firstLayoutConstraint!
 
         assertIdentical(constraint.firstItem, view1)
@@ -192,7 +192,7 @@ extension AnchorPalTests {
 
     func testEqualityWithPriorityConstantMath() {
         let constraint = view1.anc.installConstraints { make in
-            make.width.equalTo(view2.anc.width).priority(.defaultHigh - 1)
+            make.width.equalTo(view2.anc.width).priority(.high - 1)
         }.firstLayoutConstraint!
 
         assertIdentical(constraint.firstItem, view1)
@@ -224,7 +224,7 @@ extension AnchorPalTests {
 
     func testEqualityWithOffsetAndPriorityMath() {
         let constraint = view1.anc.installConstraints { make in
-            make.width.equalTo(view2.anc.width).plus(10).priority(.defaultHigh - 1)
+            make.width.equalTo(view2.anc.width).plus(10).priority(.high - 1)
         }.firstLayoutConstraint!
 
         assertIdentical(constraint.firstItem, view1)
@@ -240,7 +240,7 @@ extension AnchorPalTests {
 
     func testEqualityWithOffsetAndMultiplierAndPriorityMath() {
         let constraint = view1.anc.installConstraints { make in
-            make.width.equalTo(view2.anc.width).plus(10).multiply(0.5).priority(.defaultHigh - 1)
+            make.width.equalTo(view2.anc.width).plus(10).multiply(0.5).priority(.high - 1)
         }.firstLayoutConstraint!
 
         assertIdentical(constraint.firstItem, view1)
@@ -284,7 +284,7 @@ extension AnchorPalTests {
 
     func testCenterAnchorsWithOffsetAndPriority() {
         let constraints = view1.anc.installConstraints { make in
-            make.center.equalTo(view2).plus(10).priority(.defaultHigh - 1)
+            make.center.equalTo(view2).plus(10).priority(.high - 1)
         }.layoutConstraints
 
         let horizontal = constraints[0]
@@ -312,7 +312,7 @@ extension AnchorPalTests {
 
     func testHorizontalAnchors() {
         let constraints = view1.anc.installConstraints { make in
-            make.directionalXEdges.insetFrom(view2).equalTo(10).priority(.defaultHigh - 1)
+            make.directionalXEdges.insetFrom(view2).equalTo(10).priority(.high - 1)
         }.layoutConstraints
 
         let leading = constraints[0]
@@ -340,7 +340,7 @@ extension AnchorPalTests {
 
     func testVerticalAnchors() {
         let constraints = view1.anc.installConstraints { make in
-            make.yEdges.equalTo(view2).plus(10).priority(.defaultHigh - 1)
+            make.yEdges.equalTo(view2).plus(10).priority(.high - 1)
         }.layoutConstraints
 
         let top = constraints[0]
@@ -368,7 +368,7 @@ extension AnchorPalTests {
 
     func testSizeAnchors() {
         let constraints = view1.anc.installConstraints { make in
-            make.size.equalTo(view2).plus(10).priority(.defaultHigh - 1)
+            make.size.equalTo(view2).plus(10).priority(.high - 1)
         }.layoutConstraints
 
         let width = constraints[0]
@@ -396,7 +396,7 @@ extension AnchorPalTests {
 
     func testSizeAnchorsWithConstants() {
         let constraints = view1.anc.installConstraints { make in
-            make.size.equalTo(CGSize(width: 50, height: 100)).priority(.defaultHigh - 1)
+            make.size.equalTo(CGSize(width: 50, height: 100)).priority(.high - 1)
         }.layoutConstraints
 
         let width = constraints[0]

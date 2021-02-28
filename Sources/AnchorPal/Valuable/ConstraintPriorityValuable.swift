@@ -50,9 +50,3 @@ extension ConstraintPriority: ConstraintPriorityValuable {
         LayoutPriority(rawValue: rawValue)
     }
 }
-
-extension LayoutPriority {
-    static func - (lhs: LayoutPriority, rhs: ConstraintPriorityValuable) -> LayoutPriority {
-        LayoutPriority(rawValue: lhs.rawValue - rhs.constraintPriorityValue.rawValue)
-    }
-}

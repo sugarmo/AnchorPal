@@ -12,19 +12,19 @@
 #endif
 
 public protocol LayoutDimensionRelatable: ConstraintSubjectable {
-    static func constraints<D>(first: Self, relation: ConstraintRelation, second: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable
+    static func constraints<D>(_ receiver: Self, relation: ConstraintRelation, to other: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable
 }
 
 extension LayoutDimensionable {
-    public static func constraints<D>(first: Self, relation: ConstraintRelation, second: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable {
-        let p = position(for: first)
+    public static func constraints<D>(_ receiver: Self, relation: ConstraintRelation, to other: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable {
+        let p = position(for: receiver)
         let mv = multiplier.constraintMultiplierValue
         let cv = constant.constraintConstantValue(for: p)
-        return [dimension(for: first).constraint(relation,
-                                                 to: D.dimension(for: second),
-                                                 multiplier: mv,
-                                                 constant: cv,
-                                                 position: p)]
+        return [dimension(for: receiver).constraint(relation,
+                                                    to: D.dimension(for: other),
+                                                    multiplier: mv,
+                                                    constant: cv,
+                                                    position: p)]
     }
 }
 
@@ -33,22 +33,22 @@ extension LayoutDimension: LayoutDimensionRelatable {}
 extension CustomLayoutDimension: LayoutDimensionRelatable {}
 
 extension Array: LayoutDimensionRelatable where Element: LayoutDimensionRelatable {
-    public static func constraints<D>(first: Array<Element>, relation: ConstraintRelation, second: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable {
-        first.flatMap { Element.constraints(first: $0, relation: relation, second: second, multiplier: multiplier, constant: constant) }
+    public static func constraints<D>(_ receiver: Array<Element>, relation: ConstraintRelation, to other: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable {
+        receiver.flatMap { Element.constraints($0, relation: relation, to: other, multiplier: multiplier, constant: constant) }
     }
 }
 
 extension AnchorPair: LayoutDimensionRelatable where F: LayoutDimensionRelatable, S: LayoutDimensionRelatable {
-    public static func constraints<D>(first: AnchorPair<F, S>, relation: ConstraintRelation, second: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable {
-        F.constraints(first: first.first, relation: relation, second: second, multiplier: multiplier, constant: constant) +
-            S.constraints(first: first.second, relation: relation, second: second, multiplier: multiplier, constant: constant)
+    public static func constraints<D>(_ receiver: AnchorPair<F, S>, relation: ConstraintRelation, to other: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable {
+        F.constraints(receiver.first, relation: relation, to: other, multiplier: multiplier, constant: constant) +
+            S.constraints(receiver.second, relation: relation, to: other, multiplier: multiplier, constant: constant)
     }
 }
 
 extension LayoutDimensionRelatable {
     func state<D>(_ relation: ConstraintRelation, to other: D) -> ConstraintModifier<D> where D: LayoutDimensionable {
         ConstraintModifier(subjectProvider: self) { (m, c) -> [NSLayoutConstraint] in
-            Self.constraints(first: self, relation: relation, second: other, multiplier: m, constant: c)
+            Self.constraints(self, relation: relation, to: other, multiplier: m, constant: c)
         }
     }
 
