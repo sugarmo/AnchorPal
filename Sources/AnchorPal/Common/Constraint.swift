@@ -110,11 +110,15 @@ extension Array where Element: Constraint {
     }
 
     public func activate() {
-        NSLayoutConstraint.activate(flatMap(\.layoutConstraints))
+        forEach {
+            $0.activate()
+        }
     }
 
     public func deactivate() {
-        NSLayoutConstraint.deactivate(flatMap(\.layoutConstraints))
+        forEach {
+            $0.deactivate()
+        }
     }
 
     public var layoutConstraints: [NSLayoutConstraint] {
