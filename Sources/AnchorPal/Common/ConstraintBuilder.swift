@@ -84,10 +84,15 @@ public class ConstraintBuilder {
     }
 
     static func installConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
-        let constraints = makeConstraints(item: item, closure: closure)
-        constraints.activate()
-        item.constraints = constraints
-        return constraints
+        let newConstraints = makeConstraints(item: item, closure: closure)
+        newConstraints.activate()
+        if var constraints = item.constraints {
+            constraints.append(contentsOf: newConstraints)
+            item.constraints = constraints
+        } else {
+            item.constraints = newConstraints
+        }
+        return newConstraints
     }
 
     static func uninstallConstraints(item: LayoutItem) {
