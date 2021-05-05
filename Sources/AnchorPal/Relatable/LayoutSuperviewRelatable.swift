@@ -12,63 +12,94 @@
 #endif
 
 public protocol LayoutSuperviewRelatable: LayoutItemRelatable {
-    static func constraints(_ receiver: Self, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
+    static func constraints<T>(_ receiver: Self, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
 
 extension LayoutAnchor: LayoutSuperviewRelatable {
-    public static func constraints(_ receiver: LayoutAnchor, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints<T>(_ receiver: LayoutAnchor, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
         guard let superview = receiver.subjectItem.superview else {
             fatalError("\(receiver.subjectItem) has no superview at this time.")
         }
 
-        return constraints(receiver, relation: relation, to: superview.layoutItem(for: guide), multiplier: multiplier, constant: constant)
+        let object = superview.anc[keyPath: keyPath]
+
+        if let item = object as? LayoutItem {
+            return constraints(receiver, relation: relation, to: item, multiplier: multiplier, constant: constant)
+        } else if let anchor = object as? LayoutAnchor {
+            return constraints(receiver, relation: relation, to: anchor, constant: constant)
+        } else {
+            fatalError("Not supported target.")
+        }
     }
 }
 
 extension LayoutDimension: LayoutSuperviewRelatable {
-    public static func constraints(_ receiver: LayoutDimension, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints<T>(_ receiver: LayoutDimension, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
         guard let superview = receiver.subjectItem.superview else {
             fatalError("\(receiver.subjectItem) has no superview at this time.")
         }
 
-        return constraints(receiver, relation: relation, to: superview.layoutItem(for: guide), multiplier: multiplier, constant: constant)
+        let object = superview.anc[keyPath: keyPath]
+
+        if let item = object as? LayoutItem {
+            return constraints(receiver, relation: relation, to: item, multiplier: multiplier, constant: constant)
+        } else if let dimension = object as? LayoutDimension {
+            return constraints(receiver, relation: relation, to: dimension, multiplier: multiplier, constant: constant)
+        } else {
+            fatalError("Not supported target.")
+        }
     }
 }
 
 extension Array: LayoutSuperviewRelatable where Element: LayoutSuperviewRelatable {
-    public static func constraints(_ receiver: Array, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints<T>(_ receiver: Array, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
         receiver.flatMap {
-            Element.constraints($0, relation: relation, toSuperview: guide, multiplier: multiplier, constant: constant)
+            Element.constraints($0, relation: relation, toSuperview: keyPath, multiplier: multiplier, constant: constant)
         }
     }
 }
 
 extension AnchorPair: LayoutSuperviewRelatable where F: LayoutSuperviewRelatable, S: LayoutSuperviewRelatable {
-    public static func constraints(_ receiver: AnchorPair<F, S>, relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
-        F.constraints(receiver.first, relation: relation, toSuperview: guide, multiplier: multiplier, constant: constant) +
-            S.constraints(receiver.second, relation: relation, toSuperview: guide, multiplier: multiplier, constant: constant)
+    public static func constraints<T>(_ receiver: AnchorPair<F, S>, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+        F.constraints(receiver.first, relation: relation, toSuperview: keyPath, multiplier: multiplier, constant: constant) +
+            S.constraints(receiver.second, relation: relation, toSuperview: keyPath, multiplier: multiplier, constant: constant)
     }
 }
 
 extension LayoutSuperviewRelatable {
-    func state(_ relation: ConstraintRelation, toSuperview guide: LayoutSuperviewGuide) -> ConstraintModifier<Self> {
+    func state<T>(_ relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<Self> {
         ConstraintModifier(subjectProvider: self) { (m, c) -> [NSLayoutConstraint] in
-            Self.constraints(self, relation: relation, toSuperview: guide, multiplier: m, constant: c)
+            Self.constraints(self, relation: relation, toSuperview: keyPath, multiplier: m, constant: c)
         }
     }
 
     @discardableResult
-    public func lessEqualToSuperview(_ guide: LayoutSuperviewGuide = .edges) -> ConstraintModifier<Self> {
-        state(.lessEqual, toSuperview: guide)
+    public func lessEqualToSuperview() -> ConstraintModifier<Self> {
+        state(.lessEqual, toSuperview: \.object)
     }
 
     @discardableResult
-    public func equalToSuperview(_ guide: LayoutSuperviewGuide = .edges) -> ConstraintModifier<Self> {
-        state(.equal, toSuperview: guide)
+    public func equalToSuperview() -> ConstraintModifier<Self> {
+        state(.equal, toSuperview: \.object)
     }
 
     @discardableResult
-    public func greaterEqualToSuperview(_ guide: LayoutSuperviewGuide = .edges) -> ConstraintModifier<Self> {
-        state(.greaterEqual, toSuperview: guide)
+    public func greaterEqualToSuperview() -> ConstraintModifier<Self> {
+        state(.greaterEqual, toSuperview: \.object)
+    }
+
+    @discardableResult
+    public func lessEqualToSuperview<T>(_ keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<Self> {
+        state(.lessEqual, toSuperview: keyPath)
+    }
+
+    @discardableResult
+    public func equalToSuperview<T>(_ keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<Self> {
+        state(.equal, toSuperview: keyPath)
+    }
+
+    @discardableResult
+    public func greaterEqualToSuperview<T>(_ keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<Self> {
+        state(.greaterEqual, toSuperview: keyPath)
     }
 }

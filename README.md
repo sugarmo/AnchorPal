@@ -12,7 +12,7 @@ If you are familiar with SnapKit, you already know how to use AnchorPal, just wi
 view.anc.installConstraints { make in
     make.xEdges.equalToSuperview()
     // with a optional parameter, you can easily refer to the layoutGuides of superview
-    make.yEdges.equalToSuperview(.safeArea)
+    make.yEdges.equalToSuperview(\.safeArea)
 }
 ```
 
@@ -28,7 +28,7 @@ view.anc.reinstallConstraints { make in
 
 ```swift
 let constaints = view.anc.makeConstraints { make in
-    make.edges.equalToSuperview(.safeArea)
+    make.edges.equalToSuperview(\.safeArea)
 }
 
 // Activate them later
@@ -95,7 +95,7 @@ view1.anc.reinstallConstraints { make in
 ```swift
 // Sometimes you just don't want to bind these constraints to any view.
 Anc.installConstraints {
-    view1.anc.edges.equalToSuperview(.safeArea)
+    view1.anc.edges.equalToSuperview(\.safeArea)
     view2.anc.top.equalTo(view1.anc.bottom).plus(20)
 }
 ```
@@ -104,11 +104,11 @@ Anc.installConstraints {
 
 ```swift
 // make and install
-view1.anc.edges.equalToSuperview(.safeArea).active()
+view1.anc.edges.equalToSuperview(\.safeArea).active()
 view2.anc.top.equalTo(view1.anc.bottom).plus(20).active()
 
 // or just make
-let constraint1 = view1.anc.edges.equalToSuperview(.safeArea)
+let constraint1 = view1.anc.edges.equalToSuperview(\.safeArea)
 let constraint2 = view2.anc.top.equalTo(view1.anc.bottom).plus(20)
 ```
 

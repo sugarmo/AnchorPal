@@ -12,29 +12,39 @@
 #endif
 
 public protocol LayoutSuperviewInsettable: ConstraintSubjectable, LayoutItemInsettable {
-    func insetFromSuperview(_ guide: LayoutSuperviewGuide) -> InsetResult
+    func insetFromSuperview<T>(_ keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> InsetResult
+}
+
+public extension LayoutSuperviewInsettable {
+    func insetFromSuperview() -> InsetResult {
+        return insetFromSuperview(\.object)
+    }
 }
 
 extension LayoutAnchor: LayoutSuperviewInsettable {
-    public func insetFromSuperview(_ guide: LayoutSuperviewGuide = .edges) -> InsetResult {
+    public func insetFromSuperview<T>(_ keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> InsetResult {
         guard let superview = subjectItem.superview else {
             fatalError("\(subjectItem) has no superview at this time.")
         }
 
-        return insetFrom(superview.layoutItem(for: guide))
+        if let item = superview.anc[keyPath: keyPath] as? LayoutItem {
+            return insetFrom(item)
+        } else {
+            fatalError("Not supported target.")
+        }
     }
 }
 
 extension Array: LayoutSuperviewInsettable where Element: LayoutSuperviewInsettable {
-    public func insetFromSuperview(_ guide: LayoutSuperviewGuide = .edges) -> [Element.InsetResult] {
-        map { $0.insetFromSuperview(guide) }
+    public func insetFromSuperview<T>(_ keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> [Element.InsetResult] {
+        map { $0.insetFromSuperview(keyPath) }
     }
 }
 
 extension AnchorPair: LayoutSuperviewInsettable where F: LayoutSuperviewInsettable, S: LayoutSuperviewInsettable {
-    public func insetFromSuperview(_ guide: LayoutSuperviewGuide = .edges) -> AnchorPair<F.InsetResult, S.InsetResult> {
-        let first = self.first.insetFromSuperview(guide)
-        let second = self.second.insetFromSuperview(guide)
+    public func insetFromSuperview<T>(_ keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> AnchorPair<F.InsetResult, S.InsetResult> {
+        let first = self.first.insetFromSuperview(keyPath)
+        let second = self.second.insetFromSuperview(keyPath)
         return AnchorPair<F.InsetResult, S.InsetResult>(first, second)
     }
 }

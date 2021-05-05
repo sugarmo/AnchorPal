@@ -78,6 +78,32 @@ public extension AnchorDSL where Object: ViewLayoutAnchorProvider {
     var lastBaseline: YLayoutAnchor { YLayoutAnchor(object.lastBaselineAnchor, attribute: .lastBaseline, subjectItem: object) }
 }
 
+public extension AnchorDSL where Object: LayoutView {
+    var superview: LayoutView {
+        if let view = object.superview {
+            return view
+        } else {
+            fatalError("\(object) has no superview at this time.")
+        }
+    }
+
+    @available(iOS 9, tvOS 9, macOS 11, *)
+    var margins: LayoutGuide {
+        object.layoutMarginsGuide
+    }
+
+    @available(iOS 11, tvOS 11, macOS 11, *)
+    var safeArea: LayoutGuide {
+        object.safeAreaLayoutGuide
+    }
+
+    #if os(iOS) || os(tvOS)
+        var readableMargins: LayoutGuide {
+            object.readableContentGuide
+        }
+    #endif
+}
+
 public enum Anc {
     public static func makeConstraints(closure: () -> Void) -> [Constraint] {
         ConstraintBuilder.makeConstraintsWithoutItem(closure: closure)

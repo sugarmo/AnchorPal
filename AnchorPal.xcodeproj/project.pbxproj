@@ -13,13 +13,11 @@
 		B0B6225325E503C600DBCF25 /* AnchorPal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B621EF25E5034200DBCF25 /* AnchorPal.framework */; };
 		B0B6228E25E5046600DBCF25 /* LayoutItemInsettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6226C25E5046600DBCF25 /* LayoutItemInsettable.swift */; };
 		B0B6228F25E5046600DBCF25 /* LayoutSuperviewInsettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6226D25E5046600DBCF25 /* LayoutSuperviewInsettable.swift */; };
-		B0B6229025E5046600DBCF25 /* AssociatedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6226F25E5046600DBCF25 /* AssociatedObject.swift */; };
 		B0B6229125E5046600DBCF25 /* Pointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227025E5046600DBCF25 /* Pointer.swift */; };
 		B0B6229225E5046600DBCF25 /* CGFloatConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227125E5046600DBCF25 /* CGFloatConvertible.swift */; };
 		B0B6229325E5046600DBCF25 /* ConstraintModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227325E5046600DBCF25 /* ConstraintModifier.swift */; };
 		B0B6229425E5046600DBCF25 /* AnchorPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227425E5046600DBCF25 /* AnchorPosition.swift */; };
 		B0B6229525E5046600DBCF25 /* ConstraintBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227525E5046600DBCF25 /* ConstraintBuilder.swift */; };
-		B0B6229625E5046600DBCF25 /* LayoutSuperviewGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227625E5046600DBCF25 /* LayoutSuperviewGuide.swift */; };
 		B0B6229725E5046600DBCF25 /* LayoutAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227725E5046600DBCF25 /* LayoutAnchor.swift */; };
 		B0B6229825E5046600DBCF25 /* AnchorDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227825E5046600DBCF25 /* AnchorDSL.swift */; };
 		B0B6229925E5046600DBCF25 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227925E5046600DBCF25 /* Typealias.swift */; };
@@ -50,7 +48,6 @@
 		B0B622DE25E5FFDE00DBCF25 /* ConstraintMultiplierValuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228625E5046600DBCF25 /* ConstraintMultiplierValuable.swift */; };
 		B0B622DF25E5FFDE00DBCF25 /* ConstraintPriorityValuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228425E5046600DBCF25 /* ConstraintPriorityValuable.swift */; };
 		B0B622E025E5FFDE00DBCF25 /* Pointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227025E5046600DBCF25 /* Pointer.swift */; };
-		B0B622E125E5FFDE00DBCF25 /* AssociatedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6226F25E5046600DBCF25 /* AssociatedObject.swift */; };
 		B0B622E325E5FFDE00DBCF25 /* LayoutSystemSpacingRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228D25E5046600DBCF25 /* LayoutSystemSpacingRelatable.swift */; };
 		B0B622E425E5FFDE00DBCF25 /* LayoutDimensionRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228825E5046600DBCF25 /* LayoutDimensionRelatable.swift */; };
 		B0B622E525E5FFDE00DBCF25 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228025E5046600DBCF25 /* Constraint.swift */; };
@@ -63,7 +60,6 @@
 		B0B622EC25E5FFDE00DBCF25 /* ConstraintBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227525E5046600DBCF25 /* ConstraintBuilder.swift */; };
 		B0B622ED25E5FFDE00DBCF25 /* ConstraintConstantRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228A25E5046600DBCF25 /* ConstraintConstantRelatable.swift */; };
 		B0B622EE25E5FFDE00DBCF25 /* LayoutSuperviewRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228C25E5046600DBCF25 /* LayoutSuperviewRelatable.swift */; };
-		B0B622EF25E5FFDE00DBCF25 /* LayoutSuperviewGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227625E5046600DBCF25 /* LayoutSuperviewGuide.swift */; };
 		B0B622F025E5FFDE00DBCF25 /* LayoutItemInsettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6226C25E5046600DBCF25 /* LayoutItemInsettable.swift */; };
 		B0B622F125E5FFDE00DBCF25 /* ConstraintConstantValuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228525E5046600DBCF25 /* ConstraintConstantValuable.swift */; };
 		B0B622F225E5FFDE00DBCF25 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227925E5046600DBCF25 /* Typealias.swift */; };
@@ -80,7 +76,6 @@
 		B0B6233525E6072200DBCF25 /* ConstraintMultiplierValuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228625E5046600DBCF25 /* ConstraintMultiplierValuable.swift */; };
 		B0B6233625E6072200DBCF25 /* ConstraintPriorityValuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228425E5046600DBCF25 /* ConstraintPriorityValuable.swift */; };
 		B0B6233725E6072200DBCF25 /* Pointer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227025E5046600DBCF25 /* Pointer.swift */; };
-		B0B6233825E6072200DBCF25 /* AssociatedObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6226F25E5046600DBCF25 /* AssociatedObject.swift */; };
 		B0B6233A25E6072200DBCF25 /* LayoutSystemSpacingRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228D25E5046600DBCF25 /* LayoutSystemSpacingRelatable.swift */; };
 		B0B6233B25E6072200DBCF25 /* LayoutDimensionRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228825E5046600DBCF25 /* LayoutDimensionRelatable.swift */; };
 		B0B6233C25E6072200DBCF25 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228025E5046600DBCF25 /* Constraint.swift */; };
@@ -93,7 +88,6 @@
 		B0B6234325E6072200DBCF25 /* ConstraintBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227525E5046600DBCF25 /* ConstraintBuilder.swift */; };
 		B0B6234425E6072200DBCF25 /* ConstraintConstantRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228A25E5046600DBCF25 /* ConstraintConstantRelatable.swift */; };
 		B0B6234525E6072200DBCF25 /* LayoutSuperviewRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228C25E5046600DBCF25 /* LayoutSuperviewRelatable.swift */; };
-		B0B6234625E6072200DBCF25 /* LayoutSuperviewGuide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227625E5046600DBCF25 /* LayoutSuperviewGuide.swift */; };
 		B0B6234725E6072200DBCF25 /* LayoutItemInsettable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6226C25E5046600DBCF25 /* LayoutItemInsettable.swift */; };
 		B0B6234825E6072200DBCF25 /* ConstraintConstantValuable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228525E5046600DBCF25 /* ConstraintConstantValuable.swift */; };
 		B0B6234925E6072200DBCF25 /* Typealias.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227925E5046600DBCF25 /* Typealias.swift */; };
@@ -109,6 +103,9 @@
 		B0B6248F25E64D9700DBCF25 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */; };
 		B0B6249025E64D9700DBCF25 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */; };
 		B0B6249125E64D9700DBCF25 /* ConstraintPriority.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */; };
+		B0CDDAB7264273A100E43F38 /* Associable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CDDAB6264273A100E43F38 /* Associable.swift */; };
+		B0CDDAB8264273A100E43F38 /* Associable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CDDAB6264273A100E43F38 /* Associable.swift */; };
+		B0CDDAB9264273A100E43F38 /* Associable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CDDAB6264273A100E43F38 /* Associable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,13 +140,11 @@
 		B0B6226425E5041400DBCF25 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		B0B6226C25E5046600DBCF25 /* LayoutItemInsettable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutItemInsettable.swift; sourceTree = "<group>"; };
 		B0B6226D25E5046600DBCF25 /* LayoutSuperviewInsettable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSuperviewInsettable.swift; sourceTree = "<group>"; };
-		B0B6226F25E5046600DBCF25 /* AssociatedObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssociatedObject.swift; sourceTree = "<group>"; };
 		B0B6227025E5046600DBCF25 /* Pointer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pointer.swift; sourceTree = "<group>"; };
 		B0B6227125E5046600DBCF25 /* CGFloatConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGFloatConvertible.swift; sourceTree = "<group>"; };
 		B0B6227325E5046600DBCF25 /* ConstraintModifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintModifier.swift; sourceTree = "<group>"; };
 		B0B6227425E5046600DBCF25 /* AnchorPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnchorPosition.swift; sourceTree = "<group>"; };
 		B0B6227525E5046600DBCF25 /* ConstraintBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintBuilder.swift; sourceTree = "<group>"; };
-		B0B6227625E5046600DBCF25 /* LayoutSuperviewGuide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutSuperviewGuide.swift; sourceTree = "<group>"; };
 		B0B6227725E5046600DBCF25 /* LayoutAnchor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutAnchor.swift; sourceTree = "<group>"; };
 		B0B6227825E5046600DBCF25 /* AnchorDSL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnchorDSL.swift; sourceTree = "<group>"; };
 		B0B6227925E5046600DBCF25 /* Typealias.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealias.swift; sourceTree = "<group>"; };
@@ -179,6 +174,7 @@
 		B0B6236725E6072300DBCF25 /* AnchorPalTests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AnchorPalTests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0B623AE25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayoutAnchorSystemSpacingRelatable.swift; sourceTree = "<group>"; };
 		B0B6248E25E64D9700DBCF25 /* ConstraintPriority.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintPriority.swift; sourceTree = "<group>"; };
+		B0CDDAB6264273A100E43F38 /* Associable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Associable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,7 +292,7 @@
 		B0B6226E25E5046600DBCF25 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				B0B6226F25E5046600DBCF25 /* AssociatedObject.swift */,
+				B0CDDAB6264273A100E43F38 /* Associable.swift */,
 				B0B6227125E5046600DBCF25 /* CGFloatConvertible.swift */,
 				B0B6227025E5046600DBCF25 /* Pointer.swift */,
 			);
@@ -320,7 +316,6 @@
 				B0B6227725E5046600DBCF25 /* LayoutAnchor.swift */,
 				B0B6228125E5046600DBCF25 /* LayoutDimension.swift */,
 				B0B6227A25E5046600DBCF25 /* LayoutItem.swift */,
-				B0B6227625E5046600DBCF25 /* LayoutSuperviewGuide.swift */,
 				B0B6228225E5046600DBCF25 /* SystemLayoutAnchor.swift */,
 				B0B6227925E5046600DBCF25 /* Typealias.swift */,
 			);
@@ -587,20 +582,19 @@
 				B0B622A525E5046600DBCF25 /* ConstraintMultiplierValuable.swift in Sources */,
 				B0B622A325E5046600DBCF25 /* ConstraintPriorityValuable.swift in Sources */,
 				B0B6229125E5046600DBCF25 /* Pointer.swift in Sources */,
-				B0B6229025E5046600DBCF25 /* AssociatedObject.swift in Sources */,
 				B0B622AB25E5046600DBCF25 /* LayoutSystemSpacingRelatable.swift in Sources */,
 				B0B622A625E5046600DBCF25 /* LayoutDimensionRelatable.swift in Sources */,
 				B0B622A025E5046600DBCF25 /* Constraint.swift in Sources */,
 				B0B6229225E5046600DBCF25 /* CGFloatConvertible.swift in Sources */,
 				B0B622A125E5046600DBCF25 /* LayoutDimension.swift in Sources */,
 				B0B6229725E5046600DBCF25 /* LayoutAnchor.swift in Sources */,
+				B0CDDAB7264273A100E43F38 /* Associable.swift in Sources */,
 				B0B6228F25E5046600DBCF25 /* LayoutSuperviewInsettable.swift in Sources */,
 				B0B6229E25E5046600DBCF25 /* ConstraintRelation.swift in Sources */,
 				B0B622A725E5046600DBCF25 /* LayoutItemRelatable.swift in Sources */,
 				B0B6229525E5046600DBCF25 /* ConstraintBuilder.swift in Sources */,
 				B0B622A825E5046600DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B622AA25E5046600DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
-				B0B6229625E5046600DBCF25 /* LayoutSuperviewGuide.swift in Sources */,
 				B0B6248F25E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B6228E25E5046600DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B622A425E5046600DBCF25 /* ConstraintConstantValuable.swift in Sources */,
@@ -634,20 +628,19 @@
 				B0B622DE25E5FFDE00DBCF25 /* ConstraintMultiplierValuable.swift in Sources */,
 				B0B622DF25E5FFDE00DBCF25 /* ConstraintPriorityValuable.swift in Sources */,
 				B0B622E025E5FFDE00DBCF25 /* Pointer.swift in Sources */,
-				B0B622E125E5FFDE00DBCF25 /* AssociatedObject.swift in Sources */,
 				B0B622E325E5FFDE00DBCF25 /* LayoutSystemSpacingRelatable.swift in Sources */,
 				B0B622E425E5FFDE00DBCF25 /* LayoutDimensionRelatable.swift in Sources */,
 				B0B622E525E5FFDE00DBCF25 /* Constraint.swift in Sources */,
 				B0B622E625E5FFDE00DBCF25 /* CGFloatConvertible.swift in Sources */,
 				B0B622E725E5FFDE00DBCF25 /* LayoutDimension.swift in Sources */,
 				B0B622E825E5FFDE00DBCF25 /* LayoutAnchor.swift in Sources */,
+				B0CDDAB9264273A100E43F38 /* Associable.swift in Sources */,
 				B0B622E925E5FFDE00DBCF25 /* LayoutSuperviewInsettable.swift in Sources */,
 				B0B622EA25E5FFDE00DBCF25 /* ConstraintRelation.swift in Sources */,
 				B0B622EB25E5FFDE00DBCF25 /* LayoutItemRelatable.swift in Sources */,
 				B0B622EC25E5FFDE00DBCF25 /* ConstraintBuilder.swift in Sources */,
 				B0B622ED25E5FFDE00DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B622EE25E5FFDE00DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
-				B0B622EF25E5FFDE00DBCF25 /* LayoutSuperviewGuide.swift in Sources */,
 				B0B6249125E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B622F025E5FFDE00DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B622F125E5FFDE00DBCF25 /* ConstraintConstantValuable.swift in Sources */,
@@ -681,20 +674,19 @@
 				B0B6233525E6072200DBCF25 /* ConstraintMultiplierValuable.swift in Sources */,
 				B0B6233625E6072200DBCF25 /* ConstraintPriorityValuable.swift in Sources */,
 				B0B6233725E6072200DBCF25 /* Pointer.swift in Sources */,
-				B0B6233825E6072200DBCF25 /* AssociatedObject.swift in Sources */,
 				B0B6233A25E6072200DBCF25 /* LayoutSystemSpacingRelatable.swift in Sources */,
 				B0B6233B25E6072200DBCF25 /* LayoutDimensionRelatable.swift in Sources */,
 				B0B6233C25E6072200DBCF25 /* Constraint.swift in Sources */,
 				B0B6233D25E6072200DBCF25 /* CGFloatConvertible.swift in Sources */,
 				B0B6233E25E6072200DBCF25 /* LayoutDimension.swift in Sources */,
 				B0B6233F25E6072200DBCF25 /* LayoutAnchor.swift in Sources */,
+				B0CDDAB8264273A100E43F38 /* Associable.swift in Sources */,
 				B0B6234025E6072200DBCF25 /* LayoutSuperviewInsettable.swift in Sources */,
 				B0B6234125E6072200DBCF25 /* ConstraintRelation.swift in Sources */,
 				B0B6234225E6072200DBCF25 /* LayoutItemRelatable.swift in Sources */,
 				B0B6234325E6072200DBCF25 /* ConstraintBuilder.swift in Sources */,
 				B0B6234425E6072200DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B6234525E6072200DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
-				B0B6234625E6072200DBCF25 /* LayoutSuperviewGuide.swift in Sources */,
 				B0B6249025E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B6234725E6072200DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B6234825E6072200DBCF25 /* ConstraintConstantValuable.swift in Sources */,

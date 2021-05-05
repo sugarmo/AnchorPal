@@ -13,14 +13,20 @@
 
 private let constraintsKey = AssociationKey<[Constraint]>(policy: .retain)
 
-private extension Associable {
-    var constraints: [Constraint]? {
+private extension LayoutItem {
+    var installedConstraints: [Constraint]? {
         get {
             self[constraintsKey]
         }
         set {
             self[constraintsKey] = newValue
         }
+    }
+}
+
+public extension AnchorDSL where Object: LayoutItem {
+    var constraints: [Constraint] {
+        object.installedConstraints ?? []
     }
 }
 
@@ -86,18 +92,18 @@ public class ConstraintBuilder {
     static func installConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
         let newConstraints = makeConstraints(item: item, closure: closure)
         newConstraints.activate()
-        if var constraints = item.constraints {
+        if var constraints = item.installedConstraints {
             constraints.append(contentsOf: newConstraints)
-            item.constraints = constraints
+            item.installedConstraints = constraints
         } else {
-            item.constraints = newConstraints
+            item.installedConstraints = newConstraints
         }
         return newConstraints
     }
 
     static func uninstallConstraints(item: LayoutItem) {
-        item.constraints?.deactivate()
-        item.constraints = nil
+        item.installedConstraints?.deactivate()
+        item.installedConstraints = nil
     }
 
     static func reinstallConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
@@ -106,7 +112,7 @@ public class ConstraintBuilder {
     }
 
     static func updateConstraintConstants(item: LayoutItem) {
-        item.constraints?.updateConstants()
+        item.installedConstraints?.updateConstants()
     }
 
     static func makeConstraintsWithoutItem(closure: () -> Void) -> [Constraint] {
