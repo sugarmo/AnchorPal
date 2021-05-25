@@ -88,8 +88,18 @@ extension AnchorPair: LayoutDimensionTargetable where F: LayoutDimensionTargetab
 
 extension ConstraintModifier where T: LayoutDimensionTargetable {
     @discardableResult
+    public func multiply(_ amount: CGFloat) -> ConstraintModifier {
+        _multiply(amount)
+    }
+
+    @discardableResult
     public func multiply(_ amount: ConstraintMultiplierValuable) -> ConstraintModifier {
         _multiply(amount)
+    }
+
+    @discardableResult
+    public func plus(_ amount: CGFloat) -> ConstraintModifier {
+        _constant(amount)
     }
 
     @discardableResult
@@ -105,6 +115,11 @@ extension ConstraintModifier where T: LayoutDimensionTargetable {
 
 extension ConstraintModifier where T: LayoutAnchorTargetable {
     @discardableResult
+    public func plus(_ amount: CGFloat) -> ConstraintModifier {
+        _constant(amount)
+    }
+
+    @discardableResult
     public func plus(_ amount: ConstraintConstantValuable) -> ConstraintModifier {
         _constant(amount)
     }
@@ -116,6 +131,11 @@ extension ConstraintModifier where T: LayoutAnchorTargetable {
 }
 
 extension ConstraintModifier where T == LayoutSystemSpacingTarget {
+    @discardableResult
+    public func multiply(_ amount: CGFloat) -> ConstraintModifier {
+        _multiply(amount)
+    }
+
     @discardableResult
     public func multiply(_ amount: ConstraintMultiplierValuable) -> ConstraintModifier {
         _multiply(amount)
