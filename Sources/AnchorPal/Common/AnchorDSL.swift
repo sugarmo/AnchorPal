@@ -30,8 +30,6 @@ public extension LayoutGuide {
 public extension AnchorDSL where Object: GuideLayoutAnchorProvider {
     var leading: XLayoutAnchor { XLayoutAnchor(object.leadingAnchor, attribute: .leading, subjectItem: object) }
     var trailing: XLayoutAnchor { XLayoutAnchor(object.trailingAnchor, attribute: .trailing, subjectItem: object) }
-    var left: XLayoutAnchor { XLayoutAnchor(object.leftAnchor, attribute: .left, subjectItem: object) }
-    var right: XLayoutAnchor { XLayoutAnchor(object.rightAnchor, attribute: .right, subjectItem: object) }
     var top: YLayoutAnchor { YLayoutAnchor(object.topAnchor, attribute: .top, subjectItem: object) }
     var bottom: YLayoutAnchor { YLayoutAnchor(object.bottomAnchor, attribute: .bottom, subjectItem: object) }
     var width: LayoutDimension { LayoutDimension(object.widthAnchor, attribute: .width, subjectItem: object) }
@@ -42,13 +40,18 @@ public extension AnchorDSL where Object: GuideLayoutAnchorProvider {
     var center: AnchorPair<XLayoutAnchor, YLayoutAnchor> { AnchorPair(centerX, centerY) }
     var size: AnchorPair<LayoutDimension, LayoutDimension> { AnchorPair(width, height) }
 
-    var edges: AnchorPair<[XLayoutAnchor], [YLayoutAnchor]> { AnchorPair([left, right], [top, bottom]) }
-
-    var xEdges: [XLayoutAnchor] { [left, right] }
+    var xEdges: [XLayoutAnchor] { [leading, trailing] }
     var yEdges: [YLayoutAnchor] { [top, bottom] }
+    var edges: AnchorPair<[XLayoutAnchor], [YLayoutAnchor]> { AnchorPair(xEdges, yEdges) }
 
-    var directionalXEdges: [XLayoutAnchor] { [leading, trailing] }
-    var directionalEdges: AnchorPair<[XLayoutAnchor], [YLayoutAnchor]> { AnchorPair([leading, trailing], [top, bottom]) }
+    /// should not use since this anchor dose not support RTL layout.
+    var _left: XLayoutAnchor { XLayoutAnchor(object.leftAnchor, attribute: .left, subjectItem: object) }
+    /// should not use since this anchor dose not support RTL layout.
+    var _right: XLayoutAnchor { XLayoutAnchor(object.rightAnchor, attribute: .right, subjectItem: object) }
+    /// should not use since this anchor dose not support RTL layout.
+    var _xEdges: [XLayoutAnchor] { [_left, _right] }
+    /// should not use since this anchor dose not support RTL layout.
+    var _edges: AnchorPair<[XLayoutAnchor], [YLayoutAnchor]> { AnchorPair(_xEdges, yEdges) }
 
     func makeConstraints(closure: (Self) -> Void) -> [Constraint] {
         ConstraintBuilder.makeConstraints(item: object, closure: closure)
