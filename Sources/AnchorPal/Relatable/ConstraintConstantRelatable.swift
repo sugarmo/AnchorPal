@@ -69,6 +69,21 @@ extension ConstraintConstantRelatable {
     public func greaterEqualTo(_ constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
         state(.greaterEqual, to: constant)
     }
+
+    @discardableResult
+    public func lessEqualTo(_ constant: CGFloat) -> ConstraintModifier<ConstraintConstantTarget> {
+        state(.lessEqual, to: constant)
+    }
+
+    @discardableResult
+    public func equalTo(_ constant: CGFloat) -> ConstraintModifier<ConstraintConstantTarget> {
+        state(.equal, to: constant)
+    }
+
+    @discardableResult
+    public func greaterEqualTo(_ constant: CGFloat) -> ConstraintModifier<ConstraintConstantTarget> {
+        state(.greaterEqual, to: constant)
+    }
 }
 
 extension ConstraintConstantRelatable {
