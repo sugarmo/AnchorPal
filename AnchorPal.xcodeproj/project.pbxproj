@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0123BCD265F4BA6002FD39D /* AnchorCombinable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0123BCC265F4BA6002FD39D /* AnchorCombinable.swift */; };
+		B0123BCE265F4BA6002FD39D /* AnchorCombinable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0123BCC265F4BA6002FD39D /* AnchorCombinable.swift */; };
+		B0123BCF265F4BA6002FD39D /* AnchorCombinable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0123BCC265F4BA6002FD39D /* AnchorCombinable.swift */; };
 		B030408325EA889B0041AB33 /* ConstraintSubjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B030408225EA889B0041AB33 /* ConstraintSubjectable.swift */; };
 		B030408425EA889B0041AB33 /* ConstraintSubjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B030408225EA889B0041AB33 /* ConstraintSubjectable.swift */; };
 		B030408525EA889B0041AB33 /* ConstraintSubjectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B030408225EA889B0041AB33 /* ConstraintSubjectable.swift */; };
@@ -133,6 +136,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B0123BCC265F4BA6002FD39D /* AnchorCombinable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnchorCombinable.swift; sourceTree = "<group>"; };
 		B030406925EA826D0041AB33 /* AnchorPal.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; path = AnchorPal.podspec; sourceTree = "<group>"; };
 		B030408225EA889B0041AB33 /* ConstraintSubjectable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintSubjectable.swift; sourceTree = "<group>"; };
 		B0B621EF25E5034200DBCF25 /* AnchorPal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AnchorPal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -303,6 +307,7 @@
 			isa = PBXGroup;
 			children = (
 				B0B6227C25E5046600DBCF25 /* AnchorAttribute.swift */,
+				B0123BCC265F4BA6002FD39D /* AnchorCombinable.swift */,
 				B0B6227825E5046600DBCF25 /* AnchorDSL.swift */,
 				B0B6227B25E5046600DBCF25 /* AnchorPair.swift */,
 				B0B6227425E5046600DBCF25 /* AnchorPosition.swift */,
@@ -595,6 +600,7 @@
 				B0B6229525E5046600DBCF25 /* ConstraintBuilder.swift in Sources */,
 				B0B622A825E5046600DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B622AA25E5046600DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
+				B0123BCD265F4BA6002FD39D /* AnchorCombinable.swift in Sources */,
 				B0B6248F25E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B6228E25E5046600DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B622A425E5046600DBCF25 /* ConstraintConstantValuable.swift in Sources */,
@@ -641,6 +647,7 @@
 				B0B622EC25E5FFDE00DBCF25 /* ConstraintBuilder.swift in Sources */,
 				B0B622ED25E5FFDE00DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B622EE25E5FFDE00DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
+				B0123BCF265F4BA6002FD39D /* AnchorCombinable.swift in Sources */,
 				B0B6249125E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B622F025E5FFDE00DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B622F125E5FFDE00DBCF25 /* ConstraintConstantValuable.swift in Sources */,
@@ -687,6 +694,7 @@
 				B0B6234325E6072200DBCF25 /* ConstraintBuilder.swift in Sources */,
 				B0B6234425E6072200DBCF25 /* ConstraintConstantRelatable.swift in Sources */,
 				B0B6234525E6072200DBCF25 /* LayoutSuperviewRelatable.swift in Sources */,
+				B0123BCE265F4BA6002FD39D /* AnchorCombinable.swift in Sources */,
 				B0B6249025E64D9700DBCF25 /* ConstraintPriority.swift in Sources */,
 				B0B6234725E6072200DBCF25 /* LayoutItemInsettable.swift in Sources */,
 				B0B6234825E6072200DBCF25 /* ConstraintConstantValuable.swift in Sources */,
