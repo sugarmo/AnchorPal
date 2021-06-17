@@ -82,6 +82,14 @@ public extension AnchorDSL where Object: ViewLayoutAnchorProvider {
 }
 
 public extension AnchorDSL where Object: LayoutView {
+    var window: LayoutView {
+        if let window = object.window {
+            return window
+        } else {
+            fatalError("\(object) has no window at this time.")
+        }
+    }
+
     var superview: LayoutView {
         if let view = object.superview {
             return view
