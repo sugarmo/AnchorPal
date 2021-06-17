@@ -27,9 +27,12 @@ extension LayoutAnchor: LayoutSuperviewInsettable {
             fatalError("\(subjectItem) has no superview at this time.")
         }
 
-        if let item = superview.anc[keyPath: keyPath] as? LayoutItem {
+        let object = superview.anc[keyPath: keyPath]
+
+        switch object {
+        case let item as LayoutItem:
             return insetFrom(item)
-        } else {
+        default:
             fatalError("Not supported target.")
         }
     }

@@ -23,11 +23,12 @@ extension LayoutAnchor: LayoutSuperviewRelatable {
 
         let object = superview.anc[keyPath: keyPath]
 
-        if let item = object as? LayoutItem {
+        switch object {
+        case let item as LayoutItem:
             return constraints(receiver, relation: relation, to: item, multiplier: multiplier, constant: constant)
-        } else if let anchor = object as? LayoutAnchor {
+        case let anchor as LayoutAnchor:
             return constraints(receiver, relation: relation, to: anchor, constant: constant)
-        } else {
+        default:
             fatalError("Not supported target.")
         }
     }
@@ -41,11 +42,12 @@ extension LayoutDimension: LayoutSuperviewRelatable {
 
         let object = superview.anc[keyPath: keyPath]
 
-        if let item = object as? LayoutItem {
+        switch object {
+        case let item as LayoutItem:
             return constraints(receiver, relation: relation, to: item, multiplier: multiplier, constant: constant)
-        } else if let dimension = object as? LayoutDimension {
+        case let dimension as LayoutDimension:
             return constraints(receiver, relation: relation, to: dimension, multiplier: multiplier, constant: constant)
-        } else {
+        default:
             fatalError("Not supported target.")
         }
     }
