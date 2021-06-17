@@ -12,7 +12,7 @@
 #endif
 
 public struct ConstraintPriority: ExpressibleByFloatLiteral, Hashable {
-    var rawValue: Float
+    public var rawValue: Float
 
     public init(rawValue: Float) {
         self.rawValue = rawValue
@@ -43,7 +43,7 @@ public struct ConstraintPriority: ExpressibleByFloatLiteral, Hashable {
         return 250.0
     }
 
-    static func - (lhs: ConstraintPriority, rhs: ConstraintPriorityValuable) -> ConstraintPriority {
+    public static func - (lhs: ConstraintPriority, rhs: ConstraintPriorityValuable) -> ConstraintPriority {
         ConstraintPriority(rawValue: lhs.rawValue - rhs.constraintPriorityValue.rawValue)
     }
 }
