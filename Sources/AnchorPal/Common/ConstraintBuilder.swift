@@ -115,7 +115,7 @@ public class ConstraintBuilder {
         item.installedConstraints?.updateConstants()
     }
 
-    static func makeConstraintsWithoutItem(closure: () -> Void) -> [Constraint] {
+    static func makeConstraints(closure: () -> Void) -> [Constraint] {
         let maker = ConstraintBuilder()
         maker.becomeCurrent()
         maker.startBuilding()
@@ -125,8 +125,8 @@ public class ConstraintBuilder {
         return statements.map(\.constraint)
     }
 
-    static func installConstraintsWithoutItem(closure: () -> Void) -> [Constraint] {
-        let constraints = makeConstraintsWithoutItem(closure: closure)
+    static func activateConstraints(closure: () -> Void) -> [Constraint] {
+        let constraints = makeConstraints(closure: closure)
         constraints.activate()
         return constraints
     }

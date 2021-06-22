@@ -115,13 +115,23 @@ public extension AnchorDSL where Object: LayoutView {
     #endif
 }
 
+public extension AnchorDSL where Object: LayoutGuide {
+    var superview: LayoutView {
+        if let view = object.superview {
+            return view
+        } else {
+            fatalError("\(object) has no superview at this time.")
+        }
+    }
+}
+
 public enum Anc {
     public static func makeConstraints(closure: () -> Void) -> [Constraint] {
-        ConstraintBuilder.makeConstraintsWithoutItem(closure: closure)
+        ConstraintBuilder.makeConstraints(closure: closure)
     }
 
     @discardableResult
-    public static func installConstraints(closure: () -> Void) -> [Constraint] {
-        ConstraintBuilder.installConstraintsWithoutItem(closure: closure)
+    public static func activateConstraints(closure: () -> Void) -> [Constraint] {
+        ConstraintBuilder.activateConstraints(closure: closure)
     }
 }

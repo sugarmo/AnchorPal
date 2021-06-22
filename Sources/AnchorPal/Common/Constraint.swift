@@ -11,6 +11,19 @@
     import AppKit
 #endif
 
+private let constraintsKey = AssociationKey<[String: Constraint]>(policy: .retain)
+
+public extension NSObject {
+    var associatedConstraints: [String: Constraint] {
+        get {
+            self[constraintsKey, default: [:]]
+        }
+        set {
+            self[constraintsKey] = newValue
+        }
+    }
+}
+
 extension NSLayoutConstraint {
     private static let positionKey = AssociationKey<AnchorPosition>(policy: .retain)
 
@@ -99,6 +112,10 @@ public class Constraint {
 
     public func deactivate() {
         isActive = false
+    }
+
+    public func store(to object: NSObject, key: String) {
+        object.associatedConstraints[key] = self
     }
 }
 
