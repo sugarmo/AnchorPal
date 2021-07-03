@@ -4,6 +4,20 @@
 
 An AutoLayout library inspired by [SnapKit](https://github.com/SnapKit/SnapKit).
 
+# Installation
+
+**CocodPods**
+
+Add this line to your Podfile
+
+```ruby
+pod 'AnchorPal'
+```
+
+**Manually**
+
+Add `AnchorPal.xcodeproj` to your current project.
+
 # Usage
 
 If you are familiar with SnapKit, you already know how to use AnchorPal, just with a little changes.
