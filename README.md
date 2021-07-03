@@ -1,5 +1,7 @@
 # AnchorPal
 
+![](https://img.shields.io/cocoapods/v/AnchorPal?style=for-the-badge)
+
 An AutoLayout library inspired by [SnapKit](https://github.com/SnapKit/SnapKit).
 
 # Usage
