@@ -82,7 +82,7 @@ public extension AnchorDSL where Object: ViewLayoutAnchorProvider {
 }
 
 public extension AnchorDSL where Object: LayoutView {
-    var window: LayoutView {
+    var window: LayoutWindow {
         if let window = object.window {
             return window
         } else {

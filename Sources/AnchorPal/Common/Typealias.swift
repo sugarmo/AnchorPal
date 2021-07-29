@@ -10,6 +10,8 @@
 
     public typealias LayoutView = UIView
 
+    public typealias LayoutWindow = UIWindow
+
     public typealias LayoutGuide = UILayoutGuide
 
     public typealias LayoutPriority = UILayoutPriority
@@ -19,6 +21,8 @@
     import AppKit
 
     public typealias LayoutView = NSView
+
+    public typealias LayoutWindow = NSWindow
 
     public typealias LayoutGuide = NSLayoutGuide
 
