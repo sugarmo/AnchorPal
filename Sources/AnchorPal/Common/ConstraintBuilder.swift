@@ -12,21 +12,40 @@
 #endif
 
 private let constraintsKey = AssociationKey<[Constraint]>(policy: .retain)
+private let groupedConstraintsKey = AssociationKey<[String: [Constraint]]>(policy: .retain)
 
 private extension LayoutItem {
-    var installedConstraints: [Constraint]? {
-        get {
-            self[constraintsKey]
+    func installedConstraints(group: String?) -> [Constraint]? {
+        if let group = group {
+            return self[groupedConstraintsKey]?[group]
+        } else {
+            return self[constraintsKey]
         }
-        set {
-            self[constraintsKey] = newValue
+    }
+
+    func setInstalledConstraints(_ constraints: [Constraint]?, forGroup group: String?) {
+        if let group = group {
+            if let constraints = constraints {
+                var dict = self[groupedConstraintsKey] ?? [:]
+                dict[group] = constraints
+                self[groupedConstraintsKey] = dict
+            } else if var dict = self[groupedConstraintsKey] {
+                dict[group] = nil
+                if dict.isEmpty {
+                    self[groupedConstraintsKey] = nil
+                } else {
+                    self[groupedConstraintsKey] = dict
+                }
+            }
+        } else {
+            self[constraintsKey] = constraints
         }
     }
 }
 
 public extension AnchorDSL where Object: LayoutItem {
-    var constraints: [Constraint] {
-        object.installedConstraints ?? []
+    func constraints(group: ConstraintGroup? = nil) -> [Constraint] {
+        object.installedConstraints(group: group?.rawValue) ?? []
     }
 }
 
@@ -89,30 +108,30 @@ public class ConstraintBuilder {
         return statements.map(\.constraint)
     }
 
-    static func installConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
+    static func installConstraints<T>(item: T, group: String?, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
         let newConstraints = makeConstraints(item: item, closure: closure)
         newConstraints.activate()
-        if var constraints = item.installedConstraints {
+        if var constraints = item.installedConstraints(group: group) {
             constraints.append(contentsOf: newConstraints)
-            item.installedConstraints = constraints
+            item.setInstalledConstraints(newConstraints, forGroup: group)
         } else {
-            item.installedConstraints = newConstraints
+            item.setInstalledConstraints(newConstraints, forGroup: group)
         }
         return newConstraints
     }
 
-    static func uninstallConstraints(item: LayoutItem) {
-        item.installedConstraints?.deactivate()
-        item.installedConstraints = nil
+    static func uninstallConstraints(item: LayoutItem, group: String?) {
+        item.installedConstraints(group: group)?.deactivate()
+        item.setInstalledConstraints(nil, forGroup: group)
     }
 
-    static func reinstallConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
-        uninstallConstraints(item: item)
-        return installConstraints(item: item, closure: closure)
+    static func reinstallConstraints<T>(item: T, group: String?, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
+        uninstallConstraints(item: item, group: group)
+        return installConstraints(item: item, group: group, closure: closure)
     }
 
-    static func updateConstraintConstants(item: LayoutItem) {
-        item.installedConstraints?.updateConstants()
+    static func updateConstraintConstants(item: LayoutItem, group: String?) {
+        item.installedConstraints(group: group)?.updateConstants()
     }
 
     static func makeConstraints(closure: () -> Void) -> [Constraint] {

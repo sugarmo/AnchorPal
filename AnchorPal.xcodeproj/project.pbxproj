@@ -27,7 +27,6 @@
 		B0B6229A25E5046600DBCF25 /* LayoutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227A25E5046600DBCF25 /* LayoutItem.swift */; };
 		B0B6229B25E5046600DBCF25 /* AnchorPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227B25E5046600DBCF25 /* AnchorPair.swift */; };
 		B0B6229C25E5046600DBCF25 /* AnchorAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227C25E5046600DBCF25 /* AnchorAttribute.swift */; };
-		B0B6229D25E5046600DBCF25 /* AnchorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227D25E5046600DBCF25 /* AnchorProvider.swift */; };
 		B0B6229E25E5046600DBCF25 /* ConstraintRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227E25E5046600DBCF25 /* ConstraintRelation.swift */; };
 		B0B622A025E5046600DBCF25 /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228025E5046600DBCF25 /* Constraint.swift */; };
 		B0B622A125E5046600DBCF25 /* LayoutDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228125E5046600DBCF25 /* LayoutDimension.swift */; };
@@ -44,7 +43,6 @@
 		B0B622D725E5FFDE00DBCF25 /* LayoutAnchorRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228B25E5046600DBCF25 /* LayoutAnchorRelatable.swift */; };
 		B0B622D825E5FFDE00DBCF25 /* LayoutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227A25E5046600DBCF25 /* LayoutItem.swift */; };
 		B0B622D925E5FFDE00DBCF25 /* AnchorDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227825E5046600DBCF25 /* AnchorDSL.swift */; };
-		B0B622DA25E5FFDE00DBCF25 /* AnchorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227D25E5046600DBCF25 /* AnchorProvider.swift */; };
 		B0B622DB25E5FFDE00DBCF25 /* AnchorPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227B25E5046600DBCF25 /* AnchorPair.swift */; };
 		B0B622DC25E5FFDE00DBCF25 /* ConstraintModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227325E5046600DBCF25 /* ConstraintModifier.swift */; };
 		B0B622DD25E5FFDE00DBCF25 /* SystemLayoutAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228225E5046600DBCF25 /* SystemLayoutAnchor.swift */; };
@@ -72,7 +70,6 @@
 		B0B6232E25E6072200DBCF25 /* LayoutAnchorRelatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228B25E5046600DBCF25 /* LayoutAnchorRelatable.swift */; };
 		B0B6232F25E6072200DBCF25 /* LayoutItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227A25E5046600DBCF25 /* LayoutItem.swift */; };
 		B0B6233025E6072200DBCF25 /* AnchorDSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227825E5046600DBCF25 /* AnchorDSL.swift */; };
-		B0B6233125E6072200DBCF25 /* AnchorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227D25E5046600DBCF25 /* AnchorProvider.swift */; };
 		B0B6233225E6072200DBCF25 /* AnchorPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227B25E5046600DBCF25 /* AnchorPair.swift */; };
 		B0B6233325E6072200DBCF25 /* ConstraintModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6227325E5046600DBCF25 /* ConstraintModifier.swift */; };
 		B0B6233425E6072200DBCF25 /* SystemLayoutAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B6228225E5046600DBCF25 /* SystemLayoutAnchor.swift */; };
@@ -155,7 +152,6 @@
 		B0B6227A25E5046600DBCF25 /* LayoutItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutItem.swift; sourceTree = "<group>"; };
 		B0B6227B25E5046600DBCF25 /* AnchorPair.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnchorPair.swift; sourceTree = "<group>"; };
 		B0B6227C25E5046600DBCF25 /* AnchorAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnchorAttribute.swift; sourceTree = "<group>"; };
-		B0B6227D25E5046600DBCF25 /* AnchorProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnchorProvider.swift; sourceTree = "<group>"; };
 		B0B6227E25E5046600DBCF25 /* ConstraintRelation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintRelation.swift; sourceTree = "<group>"; };
 		B0B6228025E5046600DBCF25 /* Constraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		B0B6228125E5046600DBCF25 /* LayoutDimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutDimension.swift; sourceTree = "<group>"; };
@@ -311,7 +307,6 @@
 				B0B6227825E5046600DBCF25 /* AnchorDSL.swift */,
 				B0B6227B25E5046600DBCF25 /* AnchorPair.swift */,
 				B0B6227425E5046600DBCF25 /* AnchorPosition.swift */,
-				B0B6227D25E5046600DBCF25 /* AnchorProvider.swift */,
 				B0B6228025E5046600DBCF25 /* Constraint.swift */,
 				B0B6227525E5046600DBCF25 /* ConstraintBuilder.swift */,
 				B0B6227325E5046600DBCF25 /* ConstraintModifier.swift */,
@@ -580,7 +575,6 @@
 				B0B6229A25E5046600DBCF25 /* LayoutItem.swift in Sources */,
 				B0B6229825E5046600DBCF25 /* AnchorDSL.swift in Sources */,
 				B0B623AF25E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */,
-				B0B6229D25E5046600DBCF25 /* AnchorProvider.swift in Sources */,
 				B0B6229B25E5046600DBCF25 /* AnchorPair.swift in Sources */,
 				B0B6229325E5046600DBCF25 /* ConstraintModifier.swift in Sources */,
 				B0B622A225E5046600DBCF25 /* SystemLayoutAnchor.swift in Sources */,
@@ -627,7 +621,6 @@
 				B0B622D825E5FFDE00DBCF25 /* LayoutItem.swift in Sources */,
 				B0B622D925E5FFDE00DBCF25 /* AnchorDSL.swift in Sources */,
 				B0B623B125E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */,
-				B0B622DA25E5FFDE00DBCF25 /* AnchorProvider.swift in Sources */,
 				B0B622DB25E5FFDE00DBCF25 /* AnchorPair.swift in Sources */,
 				B0B622DC25E5FFDE00DBCF25 /* ConstraintModifier.swift in Sources */,
 				B0B622DD25E5FFDE00DBCF25 /* SystemLayoutAnchor.swift in Sources */,
@@ -674,7 +667,6 @@
 				B0B6232F25E6072200DBCF25 /* LayoutItem.swift in Sources */,
 				B0B6233025E6072200DBCF25 /* AnchorDSL.swift in Sources */,
 				B0B623B025E6307500DBCF25 /* LayoutAnchorSystemSpacingRelatable.swift in Sources */,
-				B0B6233125E6072200DBCF25 /* AnchorProvider.swift in Sources */,
 				B0B6233225E6072200DBCF25 /* AnchorPair.swift in Sources */,
 				B0B6233325E6072200DBCF25 /* ConstraintModifier.swift in Sources */,
 				B0B6233425E6072200DBCF25 /* SystemLayoutAnchor.swift in Sources */,

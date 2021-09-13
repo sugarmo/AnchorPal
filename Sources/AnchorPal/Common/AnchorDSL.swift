@@ -15,19 +15,37 @@ public struct AnchorDSL<Object> {
     public var object: Object
 }
 
-public extension LayoutView {
-    var anc: AnchorDSL<LayoutView> {
+public extension LayoutItem {
+    var anc: AnchorDSL<Self> {
         AnchorDSL(object: self)
     }
 }
 
-public extension LayoutGuide {
-    var anc: AnchorDSL<LayoutGuide> {
-        AnchorDSL(object: self)
+public extension AnchorDSL where Object: LayoutItem {
+    func makeConstraints(closure: (Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.makeConstraints(item: object, closure: closure)
+    }
+
+    @discardableResult
+    func installConstraints(group: ConstraintGroup? = nil, closure: (Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, group: group?.rawValue, closure: closure)
+    }
+
+    @discardableResult
+    func reinstallConstraints(group: ConstraintGroup? = nil, closure: (Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.reinstallConstraints(item: object, group: group?.rawValue, closure: closure)
+    }
+
+    func removeConstraints(group: ConstraintGroup? = nil) {
+        ConstraintBuilder.uninstallConstraints(item: object, group: group?.rawValue)
+    }
+
+    func updateConstraintConstants(group: ConstraintGroup? = nil) {
+        ConstraintBuilder.updateConstraintConstants(item: object, group: group?.rawValue)
     }
 }
 
-public extension AnchorDSL where Object: GuideLayoutAnchorProvider {
+public extension AnchorDSL where Object: LayoutItem & LayoutAnchorProvider {
     var leading: XLayoutAnchor { XLayoutAnchor(object.leadingAnchor, attribute: .leading, subjectItem: object) }
     var trailing: XLayoutAnchor { XLayoutAnchor(object.trailingAnchor, attribute: .trailing, subjectItem: object) }
     var top: YLayoutAnchor { YLayoutAnchor(object.topAnchor, attribute: .top, subjectItem: object) }
@@ -52,31 +70,9 @@ public extension AnchorDSL where Object: GuideLayoutAnchorProvider {
     var _xEdges: [XLayoutAnchor] { [_left, _right] }
     /// should not use since this anchor dose not support RTL layout.
     var _edges: AnchorPair<[XLayoutAnchor], [YLayoutAnchor]> { AnchorPair(_xEdges, yEdges) }
-
-    func makeConstraints(closure: (Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.makeConstraints(item: object, closure: closure)
-    }
-
-    @discardableResult
-    func installConstraints(closure: (Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.installConstraints(item: object, closure: closure)
-    }
-
-    @discardableResult
-    func reinstallConstraints(closure: (Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.reinstallConstraints(item: object, closure: closure)
-    }
-
-    func removeConstraints() {
-        ConstraintBuilder.uninstallConstraints(item: object)
-    }
-
-    func updateConstraintConstants() {
-        ConstraintBuilder.updateConstraintConstants(item: object)
-    }
 }
 
-public extension AnchorDSL where Object: ViewLayoutAnchorProvider {
+public extension AnchorDSL where Object: LayoutItem & BaselineAnchorProvider {
     var firstBaseline: YLayoutAnchor { YLayoutAnchor(object.firstBaselineAnchor, attribute: .firstBaseline, subjectItem: object) }
     var lastBaseline: YLayoutAnchor { YLayoutAnchor(object.lastBaselineAnchor, attribute: .lastBaseline, subjectItem: object) }
 }

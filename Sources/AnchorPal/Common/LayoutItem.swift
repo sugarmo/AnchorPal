@@ -17,8 +17,30 @@ public protocol LayoutItem: NSObject {
     func layoutAnchor(for attribute: AnchorAttribute) -> NSObject?
 }
 
-extension LayoutView: LayoutItem {
-    public func layoutAnchor(for attribute: AnchorAttribute) -> NSObject? {
+public protocol LayoutAnchorProvider {
+    var leadingAnchor: NSLayoutXAxisAnchor { get }
+    var trailingAnchor: NSLayoutXAxisAnchor { get }
+    var leftAnchor: NSLayoutXAxisAnchor { get }
+    var rightAnchor: NSLayoutXAxisAnchor { get }
+    var topAnchor: NSLayoutYAxisAnchor { get }
+    var bottomAnchor: NSLayoutYAxisAnchor { get }
+    var widthAnchor: NSLayoutDimension { get }
+    var heightAnchor: NSLayoutDimension { get }
+    var centerXAnchor: NSLayoutXAxisAnchor { get }
+    var centerYAnchor: NSLayoutYAxisAnchor { get }
+}
+
+public protocol BaselineAnchorProvider {
+    var firstBaselineAnchor: NSLayoutYAxisAnchor { get }
+    var lastBaselineAnchor: NSLayoutYAxisAnchor { get }
+}
+
+// MARK: -
+
+public protocol LayoutViewItem: LayoutView, LayoutItem, LayoutAnchorProvider, BaselineAnchorProvider {}
+
+public extension LayoutViewItem {
+    func layoutAnchor(for attribute: AnchorAttribute) -> NSObject? {
         switch attribute {
         case .leading:
             return leadingAnchor
@@ -48,12 +70,18 @@ extension LayoutView: LayoutItem {
     }
 }
 
-extension LayoutGuide: LayoutItem {
-    public var superview: LayoutView? {
+extension LayoutView: LayoutViewItem {}
+
+// MARK: -
+
+public protocol LayoutGuideItem: LayoutGuide, LayoutItem, LayoutAnchorProvider {}
+
+public extension LayoutGuideItem {
+    var superview: LayoutView? {
         owningView
     }
 
-    public func layoutAnchor(for attribute: AnchorAttribute) -> NSObject? {
+    func layoutAnchor(for attribute: AnchorAttribute) -> NSObject? {
         switch attribute {
         case .leading:
             return leadingAnchor
@@ -82,3 +110,5 @@ extension LayoutGuide: LayoutItem {
         }
     }
 }
+
+extension LayoutGuide: LayoutGuideItem {}
