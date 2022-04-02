@@ -22,17 +22,17 @@ public extension LayoutItem {
 }
 
 public extension AnchorDSL where Object: LayoutItem {
-    func makeConstraints(closure: (Self) -> Void) -> [Constraint] {
+    func makeConstraints(closure: (_ the: Self) -> Void) -> [Constraint] {
         ConstraintBuilder.makeConstraints(item: object, closure: closure)
     }
 
     @discardableResult
-    func installConstraints(group: ConstraintGroup? = nil, closure: (Self) -> Void) -> [Constraint] {
+    func installConstraints(group: ConstraintGroup? = nil, closure: (_ the: Self) -> Void) -> [Constraint] {
         ConstraintBuilder.installConstraints(item: object, group: group?.rawValue, closure: closure)
     }
 
     @discardableResult
-    func reinstallConstraints(group: ConstraintGroup? = nil, closure: (Self) -> Void) -> [Constraint] {
+    func reinstallConstraints(group: ConstraintGroup? = nil, closure: (_ the: Self) -> Void) -> [Constraint] {
         ConstraintBuilder.reinstallConstraints(item: object, group: group?.rawValue, closure: closure)
     }
 

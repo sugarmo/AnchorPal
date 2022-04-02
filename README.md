@@ -25,26 +25,26 @@ If you are familiar with SnapKit, you already know how to use AnchorPal, just wi
 ### Install new constraints.
 
 ```swift
-view.anc.installConstraints { d in
-    d.xEdges.equalToSuperview()
+view.anc.installConstraints { the in
+    the.xEdges.equalToSuperview()
     // with a optional parameter, you can easily refer to the layoutGuides of superview
-    d.yEdges.equalToSuperview(\.safeArea)
+    the.yEdges.equalToSuperview(\.safeArea)
 }
 ```
 
 ### Reinstall constraints.
 
 ```swift
-view.anc.reinstallConstraints { d in
-    d.height.equalTo(newValue)
+view.anc.reinstallConstraints { the in
+    the.height.equalTo(newValue)
 }
 ```
 
 ### Make constraints without installing.
 
 ```swift
-let constaints = view.anc.makeConstraints { d in
-    d.edges.equalToSuperview(\.safeArea)
+let constaints = view.anc.makeConstraints { the in
+    the.edges.equalToSuperview(\.safeArea)
 }
 
 // Activate them later
@@ -58,20 +58,20 @@ constraints.activate()
 When we say `first.>=(second).inset(x)`, it can be "The first item has a greater value than second item insetting x.", but also can be "The inset from second item to first item is greater than x.". We want to be clear about the intent.
 
 ```swift
-view.anc.installConstraints { d in
-    d.edges.insetFromSuperview().equalTo(30)
+view.anc.installConstraints { the in
+    the.edges.insetFromSuperview().equalTo(30)
 }
 // or 
-view.anc.installConstraints { d in
-    d.edges.insetFrom(otherView).greaterEqualTo(30)
+view.anc.installConstraints { the in
+    the.edges.insetFrom(otherView).greaterEqualTo(30)
 }
 ```
 
 ### Set dynamic constraint constant.
 
 ```swift
-view.anc.installConstraints { d in
-    d.width.equalTo { position -> CGFloat in
+view.anc.installConstraints { the in
+    the.width.equalTo { position -> CGFloat in
         // return a CGFloat as the new constant
         // position is the info about the current anchor which is calling this closure
         return newWidth
@@ -85,9 +85,9 @@ view.anc.updateConstraintConstants()
 ### Custom Dimension (iOS 10+, tvOS 10+, macOS 10.12+)
 
 ```swift
-view1.anc.reinstallConstraints { d in
-    let space1 = d.trailing.spaceBefore(view2.anc.leading)
-    let space2 = d.bottom.spaceBefore(view3.anc.top)
+view1.anc.reinstallConstraints { the in
+    let space1 = the.trailing.spaceBefore(view2.anc.leading)
+    let space2 = the.bottom.spaceBefore(view3.anc.top)
     space1.equalTo(space2)
 }
 ```
@@ -96,13 +96,13 @@ view1.anc.reinstallConstraints { d in
 
 ```swift
 // custom dimension to system spcaing
-view1.anc.reinstallConstraints { d in
-    d.leading.spaceAfter(view2.anc.trailing).equalToSystemSpacing().multiply(2)
+view1.anc.reinstallConstraints { the in
+    the.leading.spaceAfter(view2.anc.trailing).equalToSystemSpacing().multiply(2)
 }
 
 // or anchor to anchor 
-view1.anc.reinstallConstraints { d in
-    d.leading.equalToSystemSpacingAfter(view2.anc.trailing).multiply(2)
+view1.anc.reinstallConstraints { the in
+    the.leading.equalToSystemSpacingAfter(view2.anc.trailing).multiply(2)
 }
 ```
 
