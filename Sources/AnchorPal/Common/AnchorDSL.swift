@@ -27,21 +27,43 @@ public extension AnchorDSL where Object: LayoutItem {
     }
 
     @discardableResult
-    func installConstraints(group: ConstraintGroup? = nil, closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.installConstraints(item: object, group: group?.rawValue, closure: closure)
+    func installConstraints(closure: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, group: nil, closure: closure)
     }
 
     @discardableResult
-    func reinstallConstraints(group: ConstraintGroup? = nil, closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.reinstallConstraints(item: object, group: group?.rawValue, closure: closure)
+    func reinstallConstraints(closure: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.reinstallConstraints(item: object, group: nil, closure: closure)
     }
 
-    func removeConstraints(group: ConstraintGroup? = nil) {
-        ConstraintBuilder.uninstallConstraints(item: object, group: group?.rawValue)
+    func removeConstraints() {
+        ConstraintBuilder.uninstallConstraints(item: object, group: nil)
     }
 
-    func updateConstraintConstants(group: ConstraintGroup? = nil) {
-        ConstraintBuilder.updateConstraintConstants(item: object, group: group?.rawValue)
+    func updateConstraintConstants() {
+        ConstraintBuilder.updateConstraintConstants(item: object, group: nil)
+    }
+}
+
+// MARK: Group Support
+
+public extension AnchorDSL where Object: LayoutItem {
+    @discardableResult
+    func installConstraints(group: ConstraintGroup, closure: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, group: group.rawValue, closure: closure)
+    }
+
+    @discardableResult
+    func reinstallConstraints(group: ConstraintGroup, closure: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.reinstallConstraints(item: object, group: group.rawValue, closure: closure)
+    }
+
+    func removeConstraints(group: ConstraintGroup) {
+        ConstraintBuilder.uninstallConstraints(item: object, group: group.rawValue)
+    }
+
+    func updateConstraintConstants(group: ConstraintGroup) {
+        ConstraintBuilder.updateConstraintConstants(item: object, group: group.rawValue)
     }
 }
 
