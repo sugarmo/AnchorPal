@@ -116,7 +116,6 @@ public extension AnchorDSL where Object: LayoutView {
         }
     }
 
-    @available(iOS 9, tvOS 9, macOS 11, *)
     var margins: LayoutGuide {
         object.layoutMarginsGuide
     }

@@ -70,7 +70,7 @@ extension AnchorPair: LayoutSuperviewRelatable where F: LayoutSuperviewRelatable
 
 extension LayoutSuperviewRelatable {
     func state<T>(_ relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<Self> {
-        ConstraintModifier(subjectProvider: self) { (m, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { m, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, toSuperview: keyPath, multiplier: m, constant: c)
         }
     }

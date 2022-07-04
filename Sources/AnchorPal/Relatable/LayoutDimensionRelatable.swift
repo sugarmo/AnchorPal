@@ -33,7 +33,7 @@ extension LayoutDimension: LayoutDimensionRelatable {}
 extension CustomLayoutDimension: LayoutDimensionRelatable {}
 
 extension Array: LayoutDimensionRelatable where Element: LayoutDimensionRelatable {
-    public static func constraints<D>(_ receiver: Array<Element>, relation: ConstraintRelation, to other: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable {
+    public static func constraints<D>(_ receiver: [Element], relation: ConstraintRelation, to other: D, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] where D: LayoutDimensionable {
         receiver.flatMap { Element.constraints($0, relation: relation, to: other, multiplier: multiplier, constant: constant) }
     }
 }
@@ -47,7 +47,7 @@ extension AnchorPair: LayoutDimensionRelatable where F: LayoutDimensionRelatable
 
 extension LayoutDimensionRelatable {
     func state<D>(_ relation: ConstraintRelation, to other: D) -> ConstraintModifier<D> where D: LayoutDimensionable {
-        ConstraintModifier(subjectProvider: self) { (m, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { m, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: other, multiplier: m, constant: c)
         }
     }

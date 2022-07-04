@@ -37,7 +37,7 @@ public protocol BaselineAnchorProvider {
 
 // MARK: -
 
-public protocol LayoutViewItem: LayoutView, LayoutItem, LayoutAnchorProvider, BaselineAnchorProvider {}
+public protocol LayoutViewItem: LayoutItem, LayoutAnchorProvider, BaselineAnchorProvider {}
 
 public extension LayoutViewItem {
     func layoutAnchor(for attribute: AnchorAttribute) -> NSObject? {
@@ -74,13 +74,9 @@ extension LayoutView: LayoutViewItem {}
 
 // MARK: -
 
-public protocol LayoutGuideItem: LayoutGuide, LayoutItem, LayoutAnchorProvider {}
+public protocol LayoutGuideItem: LayoutItem, LayoutAnchorProvider {}
 
 public extension LayoutGuideItem {
-    var superview: LayoutView? {
-        owningView
-    }
-
     func layoutAnchor(for attribute: AnchorAttribute) -> NSObject? {
         switch attribute {
         case .leading:
@@ -111,4 +107,8 @@ public extension LayoutGuideItem {
     }
 }
 
-extension LayoutGuide: LayoutGuideItem {}
+extension LayoutGuide: LayoutGuideItem {
+    public var superview: LayoutView? {
+        owningView
+    }
+}

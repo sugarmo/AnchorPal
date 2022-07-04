@@ -41,7 +41,7 @@ extension LayoutInset: ConstraintSubjectable {
 }
 
 extension Array: ConstraintSubjectable where Element: ConstraintSubjectable {
-    public static func subjectItems(for object: Array<Element>) -> [LayoutItem] {
+    public static func subjectItems(for object: [Element]) -> [LayoutItem] {
         object.flatMap { Element.subjectItems(for: $0) }
     }
 }

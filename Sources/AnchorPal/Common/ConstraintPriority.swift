@@ -18,7 +18,6 @@ public struct ConstraintPriority: ExpressibleByFloatLiteral, Hashable {
         self.rawValue = rawValue
     }
 
-
     public init(floatLiteral value: Float) {
         rawValue = value
     }

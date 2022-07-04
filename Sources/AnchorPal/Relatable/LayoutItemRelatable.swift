@@ -37,7 +37,7 @@ extension LayoutDimension: LayoutItemRelatable {
 }
 
 extension Array: LayoutItemRelatable where Element: LayoutItemRelatable {
-    public static func constraints(_ receiver: Array<Element>, relation: ConstraintRelation, to other: LayoutItem, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, to other: LayoutItem, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
         receiver.flatMap { Element.constraints($0, relation: relation, to: other, multiplier: multiplier, constant: constant) }
     }
 }
@@ -51,7 +51,7 @@ extension AnchorPair: LayoutItemRelatable where F: LayoutItemRelatable, S: Layou
 
 extension LayoutItemRelatable {
     func state(_ relation: ConstraintRelation, to other: LayoutItem) -> ConstraintModifier<Self> {
-        ConstraintModifier(subjectProvider: self) { (m, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { m, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: other, multiplier: m, constant: c)
         }
     }

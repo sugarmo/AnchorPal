@@ -25,7 +25,7 @@ extension LayoutAnchor: LayoutAnchorRelatable {
 }
 
 extension Array: LayoutAnchorRelatable where Element: LayoutAnchorRelatable {
-    public static func constraints(_ receiver: Array<Element>, relation: ConstraintRelation, to other: Element.Other, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, to other: Element.Other, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
         receiver.flatMap {
             Element.constraints($0, relation: relation, to: other, constant: constant)
         }
@@ -41,7 +41,7 @@ extension AnchorPair: LayoutAnchorRelatable where F: LayoutAnchorRelatable, S: L
 
 extension LayoutAnchorRelatable {
     func state(_ relation: ConstraintRelation, to other: Other) -> ConstraintModifier<Self> {
-        ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: other, constant: c)
         }
     }

@@ -36,7 +36,7 @@ extension LayoutInset: ConstraintConstantRelatable {
 }
 
 extension Array: ConstraintConstantRelatable where Element: ConstraintConstantRelatable {
-    public static func constraints(_ receiver: Array<Element>, relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
         receiver.flatMap { Element.constraints($0, relation: relation, to: constant) }
     }
 }
@@ -50,7 +50,7 @@ extension AnchorPair: ConstraintConstantRelatable where F: ConstraintConstantRel
 
 extension ConstraintConstantRelatable {
     func state(_ relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
-        ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: c)
         }._constant(constant)
     }
@@ -88,7 +88,7 @@ extension ConstraintConstantRelatable {
 
 extension ConstraintConstantRelatable {
     func state(_ relation: ConstraintRelation, to dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
-        ConstraintModifier(subjectProvider: self) { (_, c) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: c)
         }._constant(DynamicConstraintConstant(getter: dynamicConstant))
     }

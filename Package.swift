@@ -6,9 +6,9 @@ import PackageDescription
 let package = Package(
     name: "AnchorPal",
     platforms: [
-        .iOS(.v9),
-        .tvOS(.v9),
-        .macOS(.v10_11),
+        .iOS(.v11),
+        .tvOS(.v11),
+        .macOS(.v11),
     ],
     products: [
         .library(

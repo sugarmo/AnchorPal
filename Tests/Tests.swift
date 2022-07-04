@@ -44,6 +44,8 @@ class AnchorPalTests: XCTestCase {
     let window = TestWindow()
 
     override func setUp() {
+        super.setUp()
+
         #if os(macOS)
             window.contentView!.addSubview(view1)
             window.contentView!.addSubview(view2)
@@ -312,7 +314,7 @@ extension AnchorPalTests {
 
     func testHorizontalAnchors() {
         let constraints = view1.anc.installConstraints { make in
-            make.directionalXEdges.insetFrom(view2).equalTo(10).priority(.high - 1)
+            make.xEdges.insetFrom(view2).equalTo(10).priority(.high - 1)
         }.layoutConstraints
 
         let leading = constraints[0]
@@ -479,6 +481,7 @@ extension AnchorPalTests {
     }
 }
 
+// swiftlint:disable switch_case_alignment
 extension ConstraintAttribute: CustomDebugStringConvertible {
     public var debugDescription: String {
         #if os(macOS)
@@ -530,3 +533,4 @@ extension ConstraintAttribute: CustomDebugStringConvertible {
         #endif
     }
 }
+// swiftlint:enable switch_case_alignment

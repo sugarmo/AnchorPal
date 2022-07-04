@@ -38,7 +38,7 @@ extension LayoutAnchor: LayoutAnchorSystemSpacingRelatable {
 
 @available(iOS 11, tvOS 11, macOS 11, *)
 extension Array: LayoutAnchorSystemSpacingRelatable where Element: LayoutAnchorSystemSpacingRelatable {
-    public static func constraints(_ receiver: Array<Element>, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: Element.Other, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: Element.Other, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         receiver.flatMap {
             Element.constraints($0, relation: relation, toSystemSpacing: position, other: other, multiplier: multiplier)
         }
@@ -56,7 +56,7 @@ extension AnchorPair: LayoutAnchorSystemSpacingRelatable where F: LayoutAnchorSy
 @available(iOS 11, tvOS 11, macOS 11, *)
 extension LayoutAnchorSystemSpacingRelatable {
     func state(_ relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: Other) -> ConstraintModifier<LayoutSystemSpacingTarget> {
-        ConstraintModifier(subjectProvider: self) { (m, _) -> [NSLayoutConstraint] in
+        ConstraintModifier(subjectProvider: self) { m, _ -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, toSystemSpacing: position, other: other, multiplier: m)
         }
     }
