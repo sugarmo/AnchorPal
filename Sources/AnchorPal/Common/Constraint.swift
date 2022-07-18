@@ -29,18 +29,6 @@ extension NSLayoutConstraint {
     }
 }
 
-public struct ConstraintGroup: RawRepresentable, ExpressibleByStringLiteral {
-    public var rawValue: String
-
-    public init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-
-    public init(stringLiteral value: StringLiteralType) {
-        self.rawValue = value
-    }
-}
-
 public class Constraint {
     public var layoutConstraints: [NSLayoutConstraint]
 

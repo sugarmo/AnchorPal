@@ -12,10 +12,10 @@
 #endif
 
 private let constraintsKey = AssociationKey<[Constraint]>(policy: .retain)
-private let groupedConstraintsKey = AssociationKey<[String: [Constraint]]>(policy: .retain)
+private let groupedConstraintsKey = AssociationKey<[AnyHashable: [Constraint]]>(policy: .retain)
 
 private extension LayoutItem {
-    func installedConstraints(group: String?) -> [Constraint]? {
+    func installedConstraints(group: AnyHashable?) -> [Constraint]? {
         if let group = group {
             return self[groupedConstraintsKey]?[group]
         } else {
@@ -23,7 +23,7 @@ private extension LayoutItem {
         }
     }
 
-    func setInstalledConstraints(_ constraints: [Constraint]?, forGroup group: String?) {
+    func setInstalledConstraints(_ constraints: [Constraint]?, forGroup group: AnyHashable?) {
         if let group = group {
             if let constraints = constraints {
                 var dict = self[groupedConstraintsKey] ?? [:]
@@ -44,8 +44,8 @@ private extension LayoutItem {
 }
 
 public extension AnchorDSL where Object: LayoutItem {
-    func constraints(group: ConstraintGroup? = nil) -> [Constraint] {
-        object.installedConstraints(group: group?.rawValue) ?? []
+    func constraints(group: AnyHashable? = nil) -> [Constraint] {
+        object.installedConstraints(group: group) ?? []
     }
 }
 
@@ -108,7 +108,7 @@ public class ConstraintBuilder {
         return statements.map(\.constraint)
     }
 
-    static func installConstraints<T>(item: T, group: String?, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
+    static func installConstraints<T>(item: T, group: AnyHashable?, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
         let newConstraints = makeConstraints(item: item, closure: closure)
         newConstraints.activate()
         if var constraints = item.installedConstraints(group: group) {
@@ -120,17 +120,17 @@ public class ConstraintBuilder {
         return newConstraints
     }
 
-    static func uninstallConstraints(item: LayoutItem, group: String?) {
+    static func uninstallConstraints(item: LayoutItem, group: AnyHashable?) {
         item.installedConstraints(group: group)?.deactivate()
         item.setInstalledConstraints(nil, forGroup: group)
     }
 
-    static func reinstallConstraints<T>(item: T, group: String?, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
+    static func reinstallConstraints<T>(item: T, group: AnyHashable?, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
         uninstallConstraints(item: item, group: group)
         return installConstraints(item: item, group: group, closure: closure)
     }
 
-    static func updateConstraintConstants(item: LayoutItem, group: String?) {
+    static func updateConstraintConstants(item: LayoutItem, group: AnyHashable?) {
         item.installedConstraints(group: group)?.updateConstants()
     }
 

@@ -49,21 +49,21 @@ public extension AnchorDSL where Object: LayoutItem {
 
 public extension AnchorDSL where Object: LayoutItem {
     @discardableResult
-    func installConstraints(group: ConstraintGroup, closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.installConstraints(item: object, group: group.rawValue, closure: closure)
+    func installConstraints(group: AnyHashable, closure: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, group: group, closure: closure)
     }
 
     @discardableResult
-    func reinstallConstraints(group: ConstraintGroup, closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.reinstallConstraints(item: object, group: group.rawValue, closure: closure)
+    func reinstallConstraints(group: AnyHashable, closure: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.reinstallConstraints(item: object, group: group, closure: closure)
     }
 
-    func removeConstraints(group: ConstraintGroup) {
-        ConstraintBuilder.uninstallConstraints(item: object, group: group.rawValue)
+    func removeConstraints(group: AnyHashable) {
+        ConstraintBuilder.uninstallConstraints(item: object, group: group)
     }
 
-    func updateConstraintConstants(group: ConstraintGroup) {
-        ConstraintBuilder.updateConstraintConstants(item: object, group: group.rawValue)
+    func updateConstraintConstants(group: AnyHashable) {
+        ConstraintBuilder.updateConstraintConstants(item: object, group: group)
     }
 }
 
