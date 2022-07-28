@@ -10,6 +10,7 @@
 #elseif canImport(AppKit)
     import AppKit
 #endif
+import SwiftUI
 
 public protocol ConstraintConstantRelatable: ConstraintSubjectable {
     static func constraints(_ receiver: Self, relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
@@ -106,5 +107,36 @@ extension ConstraintConstantRelatable {
     @discardableResult
     public func greaterEqualTo(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier<ConstraintConstantTarget> {
         state(.greaterEqual, to: dynamicConstant)
+    }
+}
+
+@available(iOS 13, *)
+extension Binding: ConstraintConstantValuable where Value: ConstraintConstantValuable {
+    public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
+        wrappedValue.constraintConstantValue(for: position)
+    }
+}
+
+@available(iOS 13, *)
+extension ConstraintConstantRelatable {
+    func state<T>(_ relation: ConstraintRelation, to binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+        ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
+            Self.constraints(self, relation: relation, to: c)
+        }._constant(binding)
+    }
+
+    @discardableResult
+    public func lessEqualTo<T>(_ binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+        state(.lessEqual, to: binding)
+    }
+
+    @discardableResult
+    public func equalTo<T>(_ binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+        state(.equal, to: binding)
+    }
+
+    @discardableResult
+    public func greaterEqualTo<T>(_ binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+        state(.greaterEqual, to: binding)
     }
 }
