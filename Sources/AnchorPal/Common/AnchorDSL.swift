@@ -68,17 +68,25 @@ public extension AnchorDSL where Object: LayoutItem {
 }
 
 public extension AnchorDSL where Object: LayoutItem & LayoutAnchorProvider {
-    var leading: XLayoutAnchor { XLayoutAnchor(object.leadingAnchor, attribute: .leading, subjectItem: object) }
-    var trailing: XLayoutAnchor { XLayoutAnchor(object.trailingAnchor, attribute: .trailing, subjectItem: object) }
+    var topLeading: AnchorPair<XLayoutAnchor, YLayoutAnchor> { AnchorPair(leading, top) }
     var top: YLayoutAnchor { YLayoutAnchor(object.topAnchor, attribute: .top, subjectItem: object) }
+    var topTrailing: AnchorPair<XLayoutAnchor, YLayoutAnchor> { AnchorPair(trailing, top) }
+
+    var leading: XLayoutAnchor { XLayoutAnchor(object.leadingAnchor, attribute: .leading, subjectItem: object) }
+    var center: AnchorPair<XLayoutAnchor, YLayoutAnchor> { AnchorPair(centerX, centerY) }
+    var trailing: XLayoutAnchor { XLayoutAnchor(object.trailingAnchor, attribute: .trailing, subjectItem: object) }
+
+    var bottomLeading: AnchorPair<XLayoutAnchor, YLayoutAnchor> { AnchorPair(leading, bottom) }
     var bottom: YLayoutAnchor { YLayoutAnchor(object.bottomAnchor, attribute: .bottom, subjectItem: object) }
-    var width: LayoutDimension { LayoutDimension(object.widthAnchor, attribute: .width, subjectItem: object) }
-    var height: LayoutDimension { LayoutDimension(object.heightAnchor, attribute: .height, subjectItem: object) }
+    var bottomTrailing: AnchorPair<XLayoutAnchor, YLayoutAnchor> { AnchorPair(trailing, bottom) }
+
     var centerX: XLayoutAnchor { XLayoutAnchor(object.centerXAnchor, attribute: .centerX, subjectItem: object) }
     var centerY: YLayoutAnchor { YLayoutAnchor(object.centerYAnchor, attribute: .centerY, subjectItem: object) }
 
-    var center: AnchorPair<XLayoutAnchor, YLayoutAnchor> { AnchorPair(centerX, centerY) }
     var size: AnchorPair<LayoutDimension, LayoutDimension> { AnchorPair(width, height) }
+
+    var width: LayoutDimension { LayoutDimension(object.widthAnchor, attribute: .width, subjectItem: object) }
+    var height: LayoutDimension { LayoutDimension(object.heightAnchor, attribute: .height, subjectItem: object) }
 
     var xEdges: [XLayoutAnchor] { [leading, trailing] }
     var yEdges: [YLayoutAnchor] { [top, bottom] }
