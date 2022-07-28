@@ -31,7 +31,7 @@ enum AssociationPolicy {
     }
 }
 
-class AssociationKey<Value> {
+final class AssociationKey<Value> {
     let policy: AssociationPolicy
 
     init(policy: AssociationPolicy) {

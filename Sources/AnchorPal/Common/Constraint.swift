@@ -29,7 +29,7 @@ extension NSLayoutConstraint {
     }
 }
 
-public class Constraint {
+public final class Constraint {
     public var layoutConstraints: [NSLayoutConstraint]
 
     var subjectViews: Set<Weak<LayoutView>>

@@ -11,7 +11,7 @@
     import AppKit
 #endif
 
-public class ConstraintModifier<T>: ConstraintStatement {
+public final class ConstraintModifier<T>: ConstraintStatement {
     typealias Finalization = (ConstraintMultiplierValuable, ConstraintConstantValuable) -> [NSLayoutConstraint]
 
     private let finalization: Finalization

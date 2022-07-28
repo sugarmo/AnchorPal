@@ -49,7 +49,7 @@ public extension AnchorDSL where Object: LayoutItem {
     }
 }
 
-public class ConstraintBuilder {
+public final class ConstraintBuilder {
     private static let currentBuilderKey = "AnchorPal.ConstraintBuilder"
 
     var statements: [ConstraintStatement] = []
