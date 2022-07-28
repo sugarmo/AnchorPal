@@ -5,9 +5,9 @@
 //  Created by Steven Mok on 2021/2/13.
 //
 
-#if os(iOS) || os(tvOS)
+#if canImport(UIKit)
     import UIKit
-#else
+#elseif canImport(AppKit)
     import AppKit
 #endif
 
