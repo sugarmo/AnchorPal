@@ -89,12 +89,10 @@ extension DirectionalEdgeInsets: ConstraintConstantValuable {
     }
 }
 
-public struct DynamicConstraintConstant: ConstraintConstantValuable {
-    public typealias Getter = (AnchorPosition) -> CGFloat
-
-    var getter: Getter
+public struct DynamicConstraintConstant<Value>: ConstraintConstantValuable where Value: ConstraintConstantValuable {
+    var getter: () -> Value
 
     public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
-        getter(position)
+        getter().constraintConstantValue(for: position)
     }
 }

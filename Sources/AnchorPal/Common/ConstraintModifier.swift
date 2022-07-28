@@ -64,7 +64,7 @@ public final class ConstraintModifier<T>: ConstraintStatement {
         return self
     }
 
-    func _constant(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+    func _constant<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier where T: ConstraintConstantValuable {
         constant = DynamicConstraintConstant(getter: dynamicConstant)
         return self
     }
@@ -108,7 +108,7 @@ extension ConstraintModifier where T: LayoutDimensionTargetable {
     }
 
     @discardableResult
-    public func plus(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+    public func plus<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier where T: ConstraintConstantValuable {
         _constant(dynamicConstant)
     }
 }
@@ -125,7 +125,7 @@ extension ConstraintModifier where T: LayoutAnchorTargetable {
     }
 
     @discardableResult
-    public func plus(_ dynamicConstant: @escaping DynamicConstraintConstant.Getter) -> ConstraintModifier {
+    public func plus<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier where T: ConstraintConstantValuable {
         _constant(dynamicConstant)
     }
 }
