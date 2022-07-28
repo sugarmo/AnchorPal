@@ -152,3 +152,10 @@ public enum Anc {
         ConstraintBuilder.activateConstraints(closure: closure)
     }
 }
+
+public extension LayoutView {
+    func addSubview<Subview>(_ subview: Subview, installConstraints: (_ the: AnchorDSL<Subview>) -> Void) where Subview: LayoutView {
+        addSubview(subview)
+        subview.anc.installConstraints(closure: installConstraints)
+    }
+}
