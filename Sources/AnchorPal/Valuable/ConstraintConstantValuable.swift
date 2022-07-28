@@ -57,13 +57,13 @@ extension CGSize: ConstraintConstantValuable {
 extension EdgeInsets: ConstraintConstantValuable {
     public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
         switch position {
-        case .leadingX:
+        case .leading:
             return left
-        case .trailingX:
+        case .trailing:
             return right
-        case .leadingY:
+        case .top:
             return top
-        case .trailingY:
+        case .bottom:
             return bottom
         default:
             return 0
@@ -75,13 +75,13 @@ extension EdgeInsets: ConstraintConstantValuable {
 extension DirectionalEdgeInsets: ConstraintConstantValuable {
     public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
         switch position {
-        case .leadingX:
+        case .leading:
             return leading
-        case .trailingX:
+        case .trailing:
             return trailing
-        case .leadingY:
+        case .top:
             return top
-        case .trailingY:
+        case .bottom:
             return bottom
         default:
             return 0

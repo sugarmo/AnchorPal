@@ -28,13 +28,13 @@ public enum AnchorAttribute {
     var position: AnchorPosition {
         switch self {
         case .leading, .left:
-            return .leadingX
+            return .leading
         case .trailing, .right:
-            return .trailingX
+            return .trailing
         case .top, .firstBaseline:
-            return .leadingY
+            return .top
         case .bottom, .lastBaseline:
-            return .trailingY
+            return .bottom
         case .width, .centerX:
             return .centerX
         case .height, .centerY:

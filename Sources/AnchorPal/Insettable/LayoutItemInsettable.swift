@@ -21,7 +21,7 @@ extension LayoutAnchor: LayoutItemInsettable {
     public func insetFrom(_ item: LayoutItem) -> LayoutInset<T> {
         let other = attribute.layoutAnchor(of: T.self, from: item)
 
-        if attribute.position.edge.rawValue < 0 {
+        if attribute.position.location > .mid {
             return LayoutInset(leading: rawValue, trailing: other, attribute: attribute, subjectItem: subjectItem)
         } else {
             return LayoutInset(leading: other, trailing: rawValue, attribute: attribute, subjectItem: subjectItem)

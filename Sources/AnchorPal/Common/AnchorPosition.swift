@@ -11,46 +11,27 @@
     import AppKit
 #endif
 
-public enum AnchorAxis: Int {
-    case horizontal = 0
-    case vertical = 1
-}
+public enum AnchorAxis {
+    public enum Location: Comparable {
+        case min
+        case mid
+        case max
+    }
 
-public enum AnchorEdge: Int {
-    case leading = 1
-    case center = 0
-    case trailing = -1
+    case horizontal
+    case vertical
 }
 
 public struct AnchorPosition: Equatable {
     var axis: AnchorAxis
-    var edge: AnchorEdge
+    var location: AnchorAxis.Location
 
-    static let leadingX = AnchorPosition(axis: .horizontal, edge: .leading)
-    static let trailingX = AnchorPosition(axis: .horizontal, edge: .trailing)
+    static let leading = AnchorPosition(axis: .horizontal, location: .min)
+    static let trailing = AnchorPosition(axis: .horizontal, location: .max)
 
-    static let leadingY = AnchorPosition(axis: .vertical, edge: .leading)
-    static let trailingY = AnchorPosition(axis: .vertical, edge: .trailing)
+    static let top = AnchorPosition(axis: .vertical, location: .min)
+    static let bottom = AnchorPosition(axis: .vertical, location: .max)
 
-    static let centerX = AnchorPosition(axis: .horizontal, edge: .center)
-    static let centerY = AnchorPosition(axis: .vertical, edge: .center)
+    static let centerX = AnchorPosition(axis: .horizontal, location: .mid)
+    static let centerY = AnchorPosition(axis: .vertical, location: .mid)
 }
-
-//extension ConstraintRelation {
-//    static func * (lhs: ConstraintRelation, rhs: AnchorEdge) -> ConstraintRelation {
-//        let rawValue = lhs.rawValue * rhs.rawValue
-//        if rawValue > 0 {
-//            return .greaterEqual
-//        } else if rawValue < 0 {
-//            return .lessEqual
-//        } else {
-//            return .equal
-//        }
-//    }
-//}
-//
-//extension CGFloat {
-//    static func * (lhs: CGFloat, rhs: AnchorEdge) -> CGFloat {
-//        lhs * CGFloat(rhs.rawValue)
-//    }
-//}
