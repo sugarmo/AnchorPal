@@ -21,6 +21,18 @@ public extension LayoutSuperviewInsettable {
     }
 }
 
+public extension LayoutSuperviewInsettable where InsetResult: ConstraintConstantRelatable {
+    @discardableResult
+    func padding(_ padding: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
+        return insetFromSuperview().equalTo(padding)
+    }
+
+    @discardableResult
+    func padding<T>(_ padding: ConstraintConstantValuable, from keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<ConstraintConstantTarget> {
+        return insetFromSuperview(keyPath).equalTo(padding)
+    }
+}
+
 extension LayoutAnchor: LayoutSuperviewInsettable {
     public func insetFromSuperview<T>(_ keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> InsetResult {
         guard let superview = subjectItem.superview else {
