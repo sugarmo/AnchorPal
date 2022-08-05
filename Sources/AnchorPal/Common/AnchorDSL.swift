@@ -54,6 +54,19 @@ public extension AnchorDSL where Object: LayoutItem {
     }
 
     @discardableResult
+    func storeConstraints(group: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.storeConstraints(item: object, group: group, declaration: declaration)
+    }
+
+    func activateConstraints(group: AnyHashable) {
+        ConstraintBuilder.setIsActiveConstraints(item: object, group: group, isActive: true)
+    }
+
+    func deactivateConstraints(group: AnyHashable) {
+        ConstraintBuilder.setIsActiveConstraints(item: object, group: group, isActive: false)
+    }
+
+    @discardableResult
     func reinstallConstraints(group: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
         ConstraintBuilder.reinstallConstraints(item: object, group: group, declaration: declaration)
     }
