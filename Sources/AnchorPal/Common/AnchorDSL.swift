@@ -78,6 +78,15 @@ public extension AnchorDSL where Object: LayoutItem {
     func updateConstraintConstants(group: AnyHashable) {
         ConstraintBuilder.updateConstraintConstants(item: object, group: group)
     }
+
+    @discardableResult
+    func installConstraints(declaration: (_ the: Self) -> Void, when condition: @escaping () -> Bool) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, condition: ContraintsCondition(isEstablished: condition), declaration: declaration)
+    }
+
+    func updateConstraintConditions() {
+        ConstraintBuilder.updateConstraintConditions(item: object)
+    }
 }
 
 public extension AnchorDSL where Object: LayoutItem & LayoutAnchorProvider {

@@ -154,6 +154,42 @@ final class ConstraintBuilder {
             }
         }
     }
+
+    static func installConstraints<T>(item: T, condition: ContraintsCondition, declaration: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
+        let newConstraints = makeConstraints(item: item, declaration: declaration)
+        if condition.isEstablished() {
+            newConstraints.activate()
+        }
+        if var constraints = item.storedConstraints(group: condition) {
+            constraints.append(contentsOf: newConstraints)
+            item.storeConstraints(newConstraints, forGroup: condition)
+        } else {
+            item.storeConstraints(newConstraints, forGroup: condition)
+        }
+        return newConstraints
+    }
+
+    static func updateConstraintConditions(item: LayoutItem) {
+        guard let keys = item[groupedConstraintsKey]?.keys, !keys.isEmpty else {
+            return
+        }
+
+        var deactivating = [Constraint]()
+        var activating = [Constraint]()
+
+        for case let cond as ContraintsCondition in keys {
+            if let constaints = item.storedConstraints(group: cond) {
+                if cond.isEstablished() {
+                    activating.append(contentsOf: constaints)
+                } else {
+                    deactivating.append(contentsOf: constaints)
+                }
+            }
+        }
+
+        // must deactivate first to avoid simultaneously satisfy warning.
+        deactivating.deactivate()
+        activating.activate()
     }
 
     static func makeConstraints(declaration: () -> Void) -> [Constraint] {
@@ -175,4 +211,20 @@ final class ConstraintBuilder {
 
 protocol ConstraintStatement {
     var constraint: Constraint { get }
+}
+
+final class ContraintsCondition: Hashable {
+    init(isEstablished: @escaping () -> Bool) {
+        self.isEstablished = isEstablished
+    }
+
+    var isEstablished: () -> Bool
+
+    static func == (lhs: ContraintsCondition, rhs: ContraintsCondition) -> Bool {
+        lhs === rhs
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
 }
