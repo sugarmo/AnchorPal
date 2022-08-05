@@ -49,7 +49,7 @@ public extension AnchorDSL where Object: LayoutItem {
     }
 }
 
-public final class ConstraintBuilder {
+final class ConstraintBuilder {
     private static let currentBuilderKey = "AnchorPal.ConstraintBuilder"
 
     var statements: [ConstraintStatement] = []
@@ -98,18 +98,18 @@ public final class ConstraintBuilder {
         }
     }
 
-    static func makeConstraints<T>(item: T, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
+    static func makeConstraints<T>(item: T, declaration: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
         let maker = ConstraintBuilder()
         maker.becomeCurrent()
         maker.startBuilding()
-        closure(AnchorDSL(object: item))
+        declaration(AnchorDSL(object: item))
         let statements = maker.endBuilding()
         maker.resignCurrent()
         return statements.map(\.constraint)
     }
 
-    static func installConstraints<T>(item: T, group: AnyHashable?, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
-        let newConstraints = makeConstraints(item: item, closure: closure)
+    static func installConstraints<T>(item: T, group: AnyHashable?, declaration: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
+        let newConstraints = makeConstraints(item: item, declaration: declaration)
         newConstraints.activate()
         if var constraints = item.installedConstraints(group: group) {
             constraints.append(contentsOf: newConstraints)
@@ -125,27 +125,27 @@ public final class ConstraintBuilder {
         item.setInstalledConstraints(nil, forGroup: group)
     }
 
-    static func reinstallConstraints<T>(item: T, group: AnyHashable?, closure: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
+    static func reinstallConstraints<T>(item: T, group: AnyHashable?, declaration: (AnchorDSL<T>) -> Void) -> [Constraint] where T: LayoutItem {
         uninstallConstraints(item: item, group: group)
-        return installConstraints(item: item, group: group, closure: closure)
+        return installConstraints(item: item, group: group, declaration: declaration)
     }
 
     static func updateConstraintConstants(item: LayoutItem, group: AnyHashable?) {
         item.installedConstraints(group: group)?.updateConstants()
     }
 
-    static func makeConstraints(closure: () -> Void) -> [Constraint] {
+    static func makeConstraints(declaration: () -> Void) -> [Constraint] {
         let maker = ConstraintBuilder()
         maker.becomeCurrent()
         maker.startBuilding()
-        closure()
+        declaration()
         let statements = maker.endBuilding()
         maker.resignCurrent()
         return statements.map(\.constraint)
     }
 
-    static func activateConstraints(closure: () -> Void) -> [Constraint] {
-        let constraints = makeConstraints(closure: closure)
+    static func activateConstraints(declaration: () -> Void) -> [Constraint] {
+        let constraints = makeConstraints(declaration: declaration)
         constraints.activate()
         return constraints
     }

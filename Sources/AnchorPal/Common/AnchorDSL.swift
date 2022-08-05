@@ -22,18 +22,18 @@ public extension LayoutItem {
 }
 
 public extension AnchorDSL where Object: LayoutItem {
-    func makeConstraints(closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.makeConstraints(item: object, closure: closure)
+    func makeConstraints(declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.makeConstraints(item: object, declaration: declaration)
     }
 
     @discardableResult
-    func installConstraints(closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.installConstraints(item: object, group: nil, closure: closure)
+    func installConstraints(declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, group: nil, declaration: declaration)
     }
 
     @discardableResult
-    func reinstallConstraints(closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.reinstallConstraints(item: object, group: nil, closure: closure)
+    func reinstallConstraints(declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.reinstallConstraints(item: object, group: nil, declaration: declaration)
     }
 
     func removeConstraints() {
@@ -49,13 +49,13 @@ public extension AnchorDSL where Object: LayoutItem {
 
 public extension AnchorDSL where Object: LayoutItem {
     @discardableResult
-    func installConstraints(group: AnyHashable, closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.installConstraints(item: object, group: group, closure: closure)
+    func installConstraints(group: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, group: group, declaration: declaration)
     }
 
     @discardableResult
-    func reinstallConstraints(group: AnyHashable, closure: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.reinstallConstraints(item: object, group: group, closure: closure)
+    func reinstallConstraints(group: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.reinstallConstraints(item: object, group: group, declaration: declaration)
     }
 
     func removeConstraints(group: AnyHashable) {
@@ -151,19 +151,19 @@ public extension AnchorDSL where Object: LayoutGuide {
 }
 
 public enum Anc {
-    public static func makeConstraints(closure: () -> Void) -> [Constraint] {
-        ConstraintBuilder.makeConstraints(closure: closure)
+    public static func makeConstraints(declaration: () -> Void) -> [Constraint] {
+        ConstraintBuilder.makeConstraints(declaration: declaration)
     }
 
     @discardableResult
-    public static func activateConstraints(closure: () -> Void) -> [Constraint] {
-        ConstraintBuilder.activateConstraints(closure: closure)
+    public static func activateConstraints(declaration: () -> Void) -> [Constraint] {
+        ConstraintBuilder.activateConstraints(declaration: declaration)
     }
 }
 
 public extension LayoutView {
     func addSubview<Subview>(_ subview: Subview, installConstraints: (_ the: AnchorDSL<Subview>) -> Void) where Subview: LayoutView {
         addSubview(subview)
-        subview.anc.installConstraints(closure: installConstraints)
+        subview.anc.installConstraints(declaration: installConstraints)
     }
 }
