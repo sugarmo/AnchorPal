@@ -22,26 +22,40 @@ public extension LayoutItem {
 }
 
 public extension AnchorDSL where Object: LayoutItem {
+    var constraints: [Constraint] {
+        object.withConstraintGroup(id: nil) { group in
+            group?.constraints ?? []
+        }
+    }
+
+    func constraints(id: AnyHashable) -> [Constraint] {
+        object.withConstraintGroup(id: id) { group in
+            group?.constraints ?? []
+        }
+    }
+}
+
+public extension AnchorDSL where Object: LayoutItem {
     func makeConstraints(declaration: (_ the: Self) -> Void) -> [Constraint] {
         ConstraintBuilder.makeConstraints(item: object, declaration: declaration)
     }
 
     @discardableResult
     func installConstraints(declaration: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.installConstraints(item: object, group: nil, declaration: declaration)
+        ConstraintBuilder.installConstraints(item: object, id: nil, removeOld: false, storeOnly: false, condition: nil, declaration: declaration)
     }
 
     @discardableResult
     func reinstallConstraints(declaration: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.reinstallConstraints(item: object, group: nil, declaration: declaration)
+        ConstraintBuilder.installConstraints(item: object, id: nil, removeOld: true, storeOnly: false, condition: nil, declaration: declaration)
     }
 
     func removeConstraints() {
-        ConstraintBuilder.uninstallConstraints(item: object, group: nil)
+        ConstraintBuilder.uninstallConstraints(item: object, id: nil)
     }
 
     func updateConstraintConstants() {
-        ConstraintBuilder.updateConstraintConstants(item: object, group: nil)
+        ConstraintBuilder.updateConstraintConstants(item: object, id: nil)
     }
 }
 
@@ -49,43 +63,70 @@ public extension AnchorDSL where Object: LayoutItem {
 
 public extension AnchorDSL where Object: LayoutItem {
     @discardableResult
-    func installConstraints(group: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.installConstraints(item: object, group: group, declaration: declaration)
+    func installConstraints(id: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, id: id, removeOld: false, storeOnly: false, condition: nil, declaration: declaration)
     }
 
     @discardableResult
-    func storeConstraints(group: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.storeConstraints(item: object, group: group, declaration: declaration)
+    func reinstallConstraints(id: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, id: id, removeOld: true, storeOnly: false, condition: nil, declaration: declaration)
     }
 
-    func activateConstraints(group: AnyHashable) {
-        ConstraintBuilder.setIsActiveConstraints(item: object, group: group, isActive: true)
+    func removeConstraints(id: AnyHashable) {
+        ConstraintBuilder.uninstallConstraints(item: object, id: id)
     }
 
-    func deactivateConstraints(group: AnyHashable) {
-        ConstraintBuilder.setIsActiveConstraints(item: object, group: group, isActive: false)
+    func updateConstraintConstants(id: AnyHashable) {
+        ConstraintBuilder.updateConstraintConstants(item: object, id: id)
+    }
+}
+
+// MARK: - Storage Support
+
+public extension AnchorDSL where Object: LayoutItem {
+    @discardableResult
+    func storeConstraints(id: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, id: id, removeOld: false, storeOnly: true, condition: nil, declaration: declaration)
+    }
+
+    func activateConstraints(id: AnyHashable) {
+        ConstraintBuilder.setIsActiveConstraints(item: object, id: id, isActive: true)
+    }
+
+    func deactivateConstraints(id: AnyHashable) {
+        ConstraintBuilder.setIsActiveConstraints(item: object, id: id, isActive: false)
+    }
+}
+
+// MARK: Condition Support
+
+public extension AnchorDSL where Object: LayoutItem {
+    @discardableResult
+    func installConstraints(declaration: (_ the: Self) -> Void, isActive condition: @escaping () -> Bool) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, id: nil, removeOld: false, storeOnly: false, condition: condition, declaration: declaration)
     }
 
     @discardableResult
-    func reinstallConstraints(group: AnyHashable, declaration: (_ the: Self) -> Void) -> [Constraint] {
-        ConstraintBuilder.reinstallConstraints(item: object, group: group, declaration: declaration)
-    }
-
-    func removeConstraints(group: AnyHashable) {
-        ConstraintBuilder.uninstallConstraints(item: object, group: group)
-    }
-
-    func updateConstraintConstants(group: AnyHashable) {
-        ConstraintBuilder.updateConstraintConstants(item: object, group: group)
+    func installConstraints(id: AnyHashable, declaration: (_ the: Self) -> Void, isActive condition: @escaping () -> Bool) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, id: id, removeOld: false, storeOnly: false, condition: condition, declaration: declaration)
     }
 
     @discardableResult
-    func installConstraints(declaration: (_ the: Self) -> Void, when condition: @escaping () -> Bool) -> [Constraint] {
-        ConstraintBuilder.installConstraints(item: object, condition: ContraintsCondition(isEstablished: condition), declaration: declaration)
+    func reinstallConstraints(declaration: (_ the: Self) -> Void, isActive condition: @escaping () -> Bool) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, id: nil, removeOld: true, storeOnly: false, condition: condition, declaration: declaration)
+    }
+
+    @discardableResult
+    func reinstallConstraints(id: AnyHashable, declaration: (_ the: Self) -> Void, isActive condition: @escaping () -> Bool) -> [Constraint] {
+        ConstraintBuilder.installConstraints(item: object, id: id, removeOld: true, storeOnly: false, condition: condition, declaration: declaration)
     }
 
     func updateConstraintConditions() {
-        ConstraintBuilder.updateConstraintConditions(item: object)
+        ConstraintBuilder.updateConstraintConditions(item: object, id: nil)
+    }
+
+    func updateConstraintConditions(id: AnyHashable) {
+        ConstraintBuilder.updateConstraintConditions(item: object, id: id)
     }
 }
 

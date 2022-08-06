@@ -3,7 +3,7 @@
 //  AnchorPal
 //
 //  Created by Steven Mok on 2020/8/26.
-//  Copyright © 2020 sugarmo. All rights reserved.
+//  Copyright © 2021 Yojio. All rights reserved.
 //
 
 import ObjectiveC
@@ -47,23 +47,23 @@ protocol Associable: AnyObject {
 
 extension Associable {
     func setAssociatedValue<Value>(_ value: Value, for keyPath: ReferenceWritableKeyPath<Self, Value>, policy: AssociationPolicy) {
-        let ptr = Pointer.bridge(obj: keyPath)
+        let ptr = toPointer(keyPath)
         objc_setAssociatedObject(self, ptr, value, policy.rawValue)
         self[keyPath: keyPath] = value
     }
 
     func setAssociatedValue<Value>(_ value: Value?, for key: AssociationKey<Value>) {
-        let ptr = Pointer.bridge(obj: key)
+        let ptr = toPointer(key)
         objc_setAssociatedObject(self, ptr, value, key.policy.rawValue)
     }
 
     func associatedValue<Value>(for key: AssociationKey<Value>) -> Value? {
-        let ptr = Pointer.bridge(obj: key)
+        let ptr = toPointer(key)
         return objc_getAssociatedObject(self, ptr) as? Value
     }
 
     func associatedValue<Value>(for key: AssociationKey<Value>, default defaultValue: @autoclosure () -> Value) -> Value {
-        let ptr = Pointer.bridge(obj: key)
+        let ptr = toPointer(key)
 
         if let result = objc_getAssociatedObject(self, ptr) as? Value {
             return result
