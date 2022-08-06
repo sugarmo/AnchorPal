@@ -28,8 +28,18 @@ public extension LayoutSuperviewInsettable where InsetResult: ConstraintConstant
     }
 
     @discardableResult
+    func minimumPadding(_ padding: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
+        return insetFromSuperview().greaterEqualTo(padding)
+    }
+
+    @discardableResult
     func padding<T>(_ padding: ConstraintConstantValuable, from keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<ConstraintConstantTarget> {
         return insetFromSuperview(keyPath).equalTo(padding)
+    }
+
+    @discardableResult
+    func minimumPadding<T>(_ padding: ConstraintConstantValuable, from keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<ConstraintConstantTarget> {
+        return insetFromSuperview().greaterEqualTo(padding)
     }
 }
 
