@@ -25,7 +25,6 @@ extension LayoutDimensionable {
 }
 
 extension LayoutDimension: ConstraintConstantRelatable {}
-@available(iOS 10, tvOS 10, macOS 10.12, *)
 extension CustomLayoutDimension: ConstraintConstantRelatable {}
 
 extension LayoutInset: ConstraintConstantRelatable {

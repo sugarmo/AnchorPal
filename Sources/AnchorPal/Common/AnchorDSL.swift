@@ -191,7 +191,6 @@ public extension AnchorDSL where Object: LayoutView {
         object.layoutMarginsGuide
     }
 
-    @available(iOS 11, tvOS 11, macOS 11, *)
     var safeArea: LayoutGuide {
         object.safeAreaLayoutGuide
     }

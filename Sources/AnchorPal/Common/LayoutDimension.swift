@@ -36,7 +36,6 @@ public struct LayoutDimension: LayoutDimensionable {
     }
 }
 
-@available(iOS 10, tvOS 10, macOS 10.12, *)
 public struct CustomLayoutDimension<T>: LayoutDimensionable where T: SystemLayoutAnchor {
     let leading: T
     let trailing: T

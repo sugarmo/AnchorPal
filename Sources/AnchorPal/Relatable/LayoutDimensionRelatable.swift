@@ -29,7 +29,6 @@ extension LayoutDimensionable {
 }
 
 extension LayoutDimension: LayoutDimensionRelatable {}
-@available(iOS 10, tvOS 10, macOS 10.12, *)
 extension CustomLayoutDimension: LayoutDimensionRelatable {}
 
 extension Array: LayoutDimensionRelatable where Element: LayoutDimensionRelatable {

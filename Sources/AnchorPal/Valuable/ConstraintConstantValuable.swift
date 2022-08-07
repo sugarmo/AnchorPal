@@ -71,7 +71,6 @@ extension EdgeInsets: ConstraintConstantValuable {
     }
 }
 
-@available(iOS 11, tvOS 11, macOS 10.15, *)
 extension DirectionalEdgeInsets: ConstraintConstantValuable {
     public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
         switch position {

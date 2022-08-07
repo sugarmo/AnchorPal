@@ -14,13 +14,11 @@
 public protocol SystemLayoutAnchor: NSObject {
     func constraint(_ relation: ConstraintRelation, to anchor: Self, constant: CGFloat, position: AnchorPosition) -> NSLayoutConstraint
 
-    @available(iOS 11, tvOS 11, macOS 11, *)
     func constraint(_ relation: ConstraintRelation, toSystemSpacingAfter anchor: Self, multiplier: CGFloat) -> NSLayoutConstraint
 
     static var customDimensionPosition: AnchorPosition { get }
 
-    @available(iOS 10, tvOS 10, macOS 10.12, *)
-    func anchorWithOffset(to otherAnchor: Self) -> NSLayoutDimension
+        func anchorWithOffset(to otherAnchor: Self) -> NSLayoutDimension
 }
 
 extension NSLayoutXAxisAnchor: SystemLayoutAnchor {
@@ -43,7 +41,6 @@ public extension NSLayoutXAxisAnchor {
         }
     }
 
-    @available(iOS 11, tvOS 11, macOS 11, *)
     func constraint(_ relation: ConstraintRelation, toSystemSpacingAfter anchor: NSLayoutXAxisAnchor, multiplier: CGFloat) -> NSLayoutConstraint {
         switch relation {
         case .lessEqual:
@@ -68,7 +65,6 @@ public extension NSLayoutYAxisAnchor {
         }
     }
 
-    @available(iOS 11, tvOS 11, macOS 11, *)
     func constraint(_ relation: ConstraintRelation, toSystemSpacingAfter anchor: NSLayoutYAxisAnchor, multiplier: CGFloat) -> NSLayoutConstraint {
         switch relation {
         case .lessEqual:

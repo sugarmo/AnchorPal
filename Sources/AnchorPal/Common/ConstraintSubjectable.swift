@@ -27,7 +27,6 @@ extension LayoutDimension: ConstraintSubjectable {
     }
 }
 
-@available(iOS 10, tvOS 10, macOS 10.12, *)
 extension CustomLayoutDimension: ConstraintSubjectable {
     public static func subjectItems(for object: CustomLayoutDimension) -> [LayoutItem] {
         [object.subjectItem]

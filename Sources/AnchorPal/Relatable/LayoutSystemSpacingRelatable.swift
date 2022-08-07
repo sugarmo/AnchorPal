@@ -11,12 +11,10 @@
     import AppKit
 #endif
 
-@available(iOS 11, tvOS 11, macOS 11, *)
 public protocol LayoutSystemSpacingRelatable: ConstraintSubjectable {
     static func constraints(_ receiver: Self, relationToSystemSpacing relation: ConstraintRelation, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint]
 }
 
-@available(iOS 11, tvOS 11, macOS 11, *)
 extension CustomLayoutDimension: LayoutSystemSpacingRelatable {
     public static func constraints(_ receiver: CustomLayoutDimension<T>, relationToSystemSpacing relation: ConstraintRelation, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         let mv = multiplier.constraintMultiplierValue
@@ -24,7 +22,6 @@ extension CustomLayoutDimension: LayoutSystemSpacingRelatable {
     }
 }
 
-@available(iOS 11, tvOS 11, macOS 11, *)
 extension LayoutInset: LayoutSystemSpacingRelatable {
     public static func constraints(_ receiver: LayoutInset<T>, relationToSystemSpacing relation: ConstraintRelation, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         let mv = multiplier.constraintMultiplierValue
@@ -32,14 +29,12 @@ extension LayoutInset: LayoutSystemSpacingRelatable {
     }
 }
 
-@available(iOS 11, tvOS 11, macOS 11, *)
 extension Array: LayoutSystemSpacingRelatable where Element: LayoutSystemSpacingRelatable {
     public static func constraints(_ receiver: [Element], relationToSystemSpacing relation: ConstraintRelation, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         receiver.flatMap { Element.constraints($0, relationToSystemSpacing: relation, multiplier: multiplier) }
     }
 }
 
-@available(iOS 11, tvOS 11, macOS 11, *)
 extension AnchorPair: LayoutSystemSpacingRelatable where F: LayoutSystemSpacingRelatable, S: LayoutSystemSpacingRelatable {
     public static func constraints(_ receiver: AnchorPair<F, S>, relationToSystemSpacing relation: ConstraintRelation, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         F.constraints(receiver.first, relationToSystemSpacing: relation, multiplier: multiplier) +
@@ -47,7 +42,6 @@ extension AnchorPair: LayoutSystemSpacingRelatable where F: LayoutSystemSpacingR
     }
 }
 
-@available(iOS 11, tvOS 11, macOS 11, *)
 extension LayoutSystemSpacingRelatable {
     func stateToSystemSpacing(_ relation: ConstraintRelation) -> ConstraintModifier<LayoutSystemSpacingTarget> {
         ConstraintModifier(subjectProvider: self) { m, _ -> [NSLayoutConstraint] in

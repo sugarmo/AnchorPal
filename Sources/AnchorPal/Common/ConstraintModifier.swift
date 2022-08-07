@@ -77,7 +77,6 @@ public protocol LayoutDimensionTargetable {}
 
 extension LayoutAnchor: LayoutAnchorTargetable {}
 extension LayoutDimension: LayoutDimensionTargetable {}
-@available(iOS 10, tvOS 10, macOS 10.12, *)
 extension CustomLayoutDimension: LayoutDimensionTargetable {}
 
 extension Array: LayoutAnchorTargetable where Element: LayoutAnchorTargetable {}
