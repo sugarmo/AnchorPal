@@ -195,14 +195,16 @@ public extension AnchorDSL where Object: LayoutView {
         object.safeAreaLayoutGuide
     }
 
-    #if os(iOS) || os(tvOS)
-        var readableContent: LayoutGuide {
-            object.readableContentGuide
-        }
-
+    #if os(iOS)
         @available(iOS 15.0, *)
         var keyboard: LayoutGuide {
             object.keyboardLayoutGuide
+        }
+    #endif
+
+    #if os(iOS) || os(tvOS)
+        var readableContent: LayoutGuide {
+            object.readableContentGuide
         }
     #endif
 }

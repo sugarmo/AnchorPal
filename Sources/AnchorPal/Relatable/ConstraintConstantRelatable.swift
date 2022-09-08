@@ -109,14 +109,14 @@ extension ConstraintConstantRelatable {
     }
 }
 
-@available(iOS 13, *)
+@available(iOS 13, tvOS 13, *)
 extension Binding: ConstraintConstantValuable where Value: ConstraintConstantValuable {
     public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
         wrappedValue.constraintConstantValue(for: position)
     }
 }
 
-@available(iOS 13, *)
+@available(iOS 13, tvOS 13, *)
 extension ConstraintConstantRelatable {
     func state<T>(_ relation: ConstraintRelation, to binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
         ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
