@@ -196,8 +196,13 @@ public extension AnchorDSL where Object: LayoutView {
     }
 
     #if os(iOS) || os(tvOS)
-        var readableMargins: LayoutGuide {
+        var readableContent: LayoutGuide {
             object.readableContentGuide
+        }
+
+        @available(iOS 15.0, *)
+        var keyboard: LayoutGuide {
+            object.keyboardLayoutGuide
         }
     #endif
 }
