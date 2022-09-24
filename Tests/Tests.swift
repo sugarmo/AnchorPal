@@ -56,6 +56,8 @@ class AnchorPalTests: XCTestCase {
     }
 
     override func tearDown() {
+        super.tearDown()
+
         view1.removeFromSuperview()
         view2.removeFromSuperview()
     }
