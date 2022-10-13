@@ -1,9 +1,9 @@
 Pod::Spec.new do |s|
   s.name             = "AnchorPal"
-  s.version          = "1.1.0"
+  s.version          = "1.1"
   s.summary          = "A library inspired by SnapKit."
   s.description      = <<-DESC
-                       Create constraints on top of the NSLayoutAnchor API, with custom dimension and system spacing support.
+  Create constraints on top of the NSLayoutAnchor API, with custom dimension and system spacing support.
                        DESC
   s.homepage         = "https://github.com/sugarmo/AnchorPal"
   s.license          = 'MIT'
