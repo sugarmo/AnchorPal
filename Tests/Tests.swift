@@ -483,7 +483,6 @@ extension AnchorPalTests {
     }
 }
 
-// swiftlint:disable switch_case_alignment
 extension ConstraintAttribute: CustomDebugStringConvertible {
     public var debugDescription: String {
         #if os(macOS)
@@ -535,4 +534,3 @@ extension ConstraintAttribute: CustomDebugStringConvertible {
         #endif
     }
 }
-// swiftlint:enable switch_case_alignment
