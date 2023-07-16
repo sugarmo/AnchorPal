@@ -23,22 +23,22 @@ public extension LayoutSuperviewInsettable {
 
 public extension LayoutSuperviewInsettable where InsetResult: ConstraintConstantRelatable {
     @discardableResult
-    func padding(_ padding: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
+    func padding(_ padding: ConstraintConstantValuable) -> ConstraintModifier<Void> {
         return insetFromSuperview().equalTo(padding)
     }
 
     @discardableResult
-    func minimumPadding(_ padding: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
+    func minimumPadding(_ padding: ConstraintConstantValuable) -> ConstraintModifier<Void> {
         return insetFromSuperview().greaterEqualTo(padding)
     }
 
     @discardableResult
-    func padding<T>(_ padding: ConstraintConstantValuable, from keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<ConstraintConstantTarget> {
+    func padding<T>(_ padding: ConstraintConstantValuable, from keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<Void> {
         return insetFromSuperview(keyPath).equalTo(padding)
     }
 
     @discardableResult
-    func minimumPadding<T>(_ padding: ConstraintConstantValuable, from keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<ConstraintConstantTarget> {
+    func minimumPadding<T>(_ padding: ConstraintConstantValuable, from keyPath: KeyPath<AnchorDSL<LayoutView>, T>) -> ConstraintModifier<Void> {
         return insetFromSuperview().greaterEqualTo(padding)
     }
 }

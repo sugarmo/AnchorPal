@@ -11,7 +11,7 @@
     import AppKit
 #endif
 
-public final class ConstraintModifier<T>: ConstraintStatement {
+public final class ConstraintModifier<Target>: ConstraintStatement {
     typealias Finalization = (ConstraintMultiplierValuable, ConstraintConstantValuable) -> [NSLayoutConstraint]
 
     private let finalization: Finalization
@@ -71,7 +71,6 @@ public final class ConstraintModifier<T>: ConstraintStatement {
 }
 
 public enum LayoutSystemSpacingTarget {}
-public enum ConstraintConstantTarget {}
 public protocol LayoutAnchorTargetable {}
 public protocol LayoutDimensionTargetable {}
 
@@ -85,7 +84,7 @@ extension AnchorPair: LayoutAnchorTargetable where F: LayoutAnchorTargetable, S:
 extension Array: LayoutDimensionTargetable where Element: LayoutDimensionTargetable {}
 extension AnchorPair: LayoutDimensionTargetable where F: LayoutDimensionTargetable, S: LayoutDimensionTargetable {}
 
-extension ConstraintModifier where T: LayoutDimensionTargetable {
+extension ConstraintModifier where Target: LayoutDimensionTargetable {
     @discardableResult
     public func multiply(_ amount: CGFloat) -> ConstraintModifier {
         _multiply(amount)
@@ -112,7 +111,7 @@ extension ConstraintModifier where T: LayoutDimensionTargetable {
     }
 }
 
-extension ConstraintModifier where T: LayoutAnchorTargetable {
+extension ConstraintModifier where Target: LayoutAnchorTargetable {
     @discardableResult
     public func plus(_ amount: CGFloat) -> ConstraintModifier {
         _constant(amount)
@@ -129,7 +128,7 @@ extension ConstraintModifier where T: LayoutAnchorTargetable {
     }
 }
 
-extension ConstraintModifier where T == LayoutSystemSpacingTarget {
+extension ConstraintModifier where Target == LayoutSystemSpacingTarget {
     @discardableResult
     public func multiply(_ amount: CGFloat) -> ConstraintModifier {
         _multiply(amount)

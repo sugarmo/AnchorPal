@@ -49,62 +49,77 @@ extension AnchorPair: ConstraintConstantRelatable where F: ConstraintConstantRel
 }
 
 extension ConstraintConstantRelatable {
-    func state(_ relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
+    func state(_ relation: ConstraintRelation, to constant: ConstraintConstantValuable) -> ConstraintModifier<Void> {
         ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: c)
         }._constant(constant)
     }
 
     @discardableResult
-    public func lessEqualTo(_ constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
+    public func lessEqualTo(_ constant: ConstraintConstantValuable) -> ConstraintModifier<Void> {
         state(.lessEqual, to: constant)
     }
 
     @discardableResult
-    public func equalTo(_ constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
+    public func equalTo(_ constant: ConstraintConstantValuable) -> ConstraintModifier<Void> {
         state(.equal, to: constant)
     }
 
     @discardableResult
-    public func greaterEqualTo(_ constant: ConstraintConstantValuable) -> ConstraintModifier<ConstraintConstantTarget> {
+    public func greaterEqualTo(_ constant: ConstraintConstantValuable) -> ConstraintModifier<Void> {
         state(.greaterEqual, to: constant)
     }
 
     @discardableResult
-    public func lessEqualTo(_ constant: CGFloat) -> ConstraintModifier<ConstraintConstantTarget> {
+    public func lessEqualTo(_ constant: CGFloat) -> ConstraintModifier<Void> {
         state(.lessEqual, to: constant)
     }
 
     @discardableResult
-    public func equalTo(_ constant: CGFloat) -> ConstraintModifier<ConstraintConstantTarget> {
+    public func equalTo(_ constant: CGFloat) -> ConstraintModifier<Void> {
         state(.equal, to: constant)
     }
 
     @discardableResult
-    public func greaterEqualTo(_ constant: CGFloat) -> ConstraintModifier<ConstraintConstantTarget> {
+    public func greaterEqualTo(_ constant: CGFloat) -> ConstraintModifier<Void> {
         state(.greaterEqual, to: constant)
     }
 }
 
 extension ConstraintConstantRelatable {
-    func state<T>(_ relation: ConstraintRelation, to dynamicConstant: @escaping () -> T) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+    @discardableResult
+    public func clamp<T>(in range: ClosedRange<T>) -> (ConstraintModifier<Void>, ConstraintModifier<Void>) where T: ConstraintConstantValuable & Comparable {
+        let lower = ConstraintModifier<Void>(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
+            Self.constraints(self, relation: .greaterEqual, to: c)
+        }._constant(range.lowerBound)
+
+        let upper = ConstraintModifier<Void>(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
+            Self.constraints(self, relation: .lessEqual, to: c)
+        }._constant(range.upperBound)
+
+        return (lower, upper)
+    }
+}
+
+extension ConstraintConstantRelatable {
+    func state<T>(_ relation: ConstraintRelation, to dynamicConstant: @escaping () -> T) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: c)
         }._constant(DynamicConstraintConstant(getter: dynamicConstant))
     }
 
     @discardableResult
-    public func lessEqualTo<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+    public func lessEqualTo<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.lessEqual, to: dynamicConstant)
     }
 
     @discardableResult
-    public func equalTo<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+    public func equalTo<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.equal, to: dynamicConstant)
     }
 
     @discardableResult
-    public func greaterEqualTo<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+    public func greaterEqualTo<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.greaterEqual, to: dynamicConstant)
     }
 }
@@ -118,24 +133,24 @@ extension Binding: ConstraintConstantValuable where Value: ConstraintConstantVal
 
 @available(iOS 13, tvOS 13, *)
 extension ConstraintConstantRelatable {
-    func state<T>(_ relation: ConstraintRelation, to binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+    func state<T>(_ relation: ConstraintRelation, to binding: Binding<T>) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: c)
         }._constant(binding)
     }
 
     @discardableResult
-    public func lessEqualTo<T>(_ binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+    public func lessEqualTo<T>(_ binding: Binding<T>) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.lessEqual, to: binding)
     }
 
     @discardableResult
-    public func equalTo<T>(_ binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+    public func equalTo<T>(_ binding: Binding<T>) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.equal, to: binding)
     }
 
     @discardableResult
-    public func greaterEqualTo<T>(_ binding: Binding<T>) -> ConstraintModifier<ConstraintConstantTarget> where T: ConstraintConstantValuable {
+    public func greaterEqualTo<T>(_ binding: Binding<T>) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.greaterEqual, to: binding)
     }
 }
