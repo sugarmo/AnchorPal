@@ -88,7 +88,7 @@ extension ConstraintConstantRelatable {
 
 extension ConstraintConstantRelatable {
     @discardableResult
-    public func clamp<T>(in range: ClosedRange<T>) -> (ConstraintModifier<Void>, ConstraintModifier<Void>) where T: ConstraintConstantValuable & Comparable {
+    public func clamp<T>(in range: ClosedRange<T>) -> ConstraintRangeModifier where T: ConstraintConstantValuable & Comparable {
         let lower = ConstraintModifier<Void>(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: .greaterEqual, to: c)
         }._constant(range.lowerBound)
@@ -97,7 +97,7 @@ extension ConstraintConstantRelatable {
             Self.constraints(self, relation: .lessEqual, to: c)
         }._constant(range.upperBound)
 
-        return (lower, upper)
+        return ConstraintRangeModifier(lowerBound: lower, upperBound: upper)
     }
 }
 

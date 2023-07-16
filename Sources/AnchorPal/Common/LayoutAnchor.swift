@@ -22,11 +22,11 @@ public struct LayoutAnchor<T> where T: SystemLayoutAnchor {
         self.subjectItem = subjectItem
     }
 
-        public func spaceAfter(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
+    public func spaceAfter(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
         CustomLayoutDimension(leading: otherAnchor.rawValue, trailing: rawValue, subjectItem: subjectItem)
     }
 
-        public func spaceBefore(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
+    public func spaceBefore(_ otherAnchor: LayoutAnchor) -> CustomLayoutDimension<T> {
         CustomLayoutDimension(leading: rawValue, trailing: otherAnchor.rawValue, subjectItem: subjectItem)
     }
 }
