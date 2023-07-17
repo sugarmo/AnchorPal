@@ -8,23 +8,23 @@
 import Foundation
 
 public final class ConstraintRangeModifier {
-    public let lowerBound: ConstraintModifier<Void>
-    public let upperBound: ConstraintModifier<Void>
+    public let minValue: ConstraintModifier<Void>
+    public let maxValue: ConstraintModifier<Void>
 
-    init(lowerBound: ConstraintModifier<Void>, upperBound: ConstraintModifier<Void>) {
-        self.lowerBound = lowerBound
-        self.upperBound = upperBound
+    init(minValue: ConstraintModifier<Void>, maxValue: ConstraintModifier<Void>) {
+        self.minValue = minValue
+        self.maxValue = maxValue
     }
 
     @discardableResult
-    public func lowerBoundPriority(_ priority: ConstraintPriorityValuable) -> ConstraintRangeModifier {
-        lowerBound.priority(priority)
+    public func minValuePriority(_ priority: ConstraintPriorityValuable) -> ConstraintRangeModifier {
+        minValue.priority(priority)
         return self
     }
 
     @discardableResult
-    public func upperBoundPriority(_ priority: ConstraintPriorityValuable) -> ConstraintRangeModifier {
-        upperBound.priority(priority)
+    public func maxValuePriority(_ priority: ConstraintPriorityValuable) -> ConstraintRangeModifier {
+        maxValue.priority(priority)
         return self
     }
 }
