@@ -163,6 +163,22 @@ public extension AnchorDSL where Object: LayoutItem & LayoutAnchorProvider {
     var _xEdges: [XLayoutAnchor] { [_left, _right] }
     /// should not use since this anchor dose not support RTL layout.
     var _edges: AnchorPair<[XLayoutAnchor], [YLayoutAnchor]> { AnchorPair(_xEdges, yEdges) }
+
+    func xSpaceBefore<T>(_ otherItem: T) -> CustomLayoutDimension<NSLayoutXAxisAnchor> where T: LayoutItem & LayoutAnchorProvider {
+        trailing.spaceBefore(otherItem.anc.leading)
+    }
+
+    func xSpaceAfter<T>(_ otherItem: T) -> CustomLayoutDimension<NSLayoutXAxisAnchor> where T: LayoutItem & LayoutAnchorProvider {
+        leading.spaceAfter(otherItem.anc.trailing)
+    }
+
+    func ySpaceBefore<T>(_ otherItem: T) -> CustomLayoutDimension<NSLayoutYAxisAnchor> where T: LayoutItem & LayoutAnchorProvider {
+        bottom.spaceBefore(otherItem.anc.top)
+    }
+
+    func ySpaceAfter<T>(_ otherItem: T) -> CustomLayoutDimension<NSLayoutYAxisAnchor> where T: LayoutItem & LayoutAnchorProvider {
+        top.spaceAfter(otherItem.anc.bottom)
+    }
 }
 
 public extension AnchorDSL where Object: LayoutItem & BaselineAnchorProvider {
