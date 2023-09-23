@@ -18,7 +18,7 @@ public protocol SystemLayoutAnchor: NSObject {
 
     static var customDimensionPosition: AnchorPosition { get }
 
-        func anchorWithOffset(to otherAnchor: Self) -> NSLayoutDimension
+    func anchorWithOffset(to otherAnchor: Self) -> NSLayoutDimension
 }
 
 extension NSLayoutXAxisAnchor: SystemLayoutAnchor {
