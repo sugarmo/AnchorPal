@@ -18,7 +18,7 @@ public protocol LayoutAnchorRelatable: ConstraintSubjectable {
 }
 
 extension LayoutAnchor: LayoutAnchorRelatable {
-    public static func constraints(_ receiver: LayoutAnchor<T>, relation: ConstraintRelation, to other: LayoutAnchor<T>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: LayoutAnchor<RawAnchor>, relation: ConstraintRelation, to other: LayoutAnchor<RawAnchor>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
         let cv = constant.constraintConstantValue(for: other.attribute.position)
         return [receiver.rawValue.constraint(relation, to: other.rawValue, constant: cv, position: other.attribute.position)]
     }

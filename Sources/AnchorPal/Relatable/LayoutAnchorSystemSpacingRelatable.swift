@@ -23,7 +23,7 @@ public protocol LayoutAnchorSystemSpacingRelatable: ConstraintSubjectable {
 }
 
 extension LayoutAnchor: LayoutAnchorSystemSpacingRelatable {
-    public static func constraints(_ receiver: LayoutAnchor<T>, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: LayoutAnchor<T>, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: LayoutAnchor<RawAnchor>, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: LayoutAnchor<RawAnchor>, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         let mv = multiplier.constraintMultiplierValue
         switch position {
         case .after:

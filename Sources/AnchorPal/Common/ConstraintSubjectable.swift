@@ -16,7 +16,7 @@ public protocol ConstraintSubjectable {
 }
 
 extension LayoutAnchor: ConstraintSubjectable {
-    public static func subjectItems(for object: LayoutAnchor<T>) -> [LayoutItem] {
+    public static func subjectItems(for object: LayoutAnchor<RawAnchor>) -> [LayoutItem] {
         [object.subjectItem]
     }
 }

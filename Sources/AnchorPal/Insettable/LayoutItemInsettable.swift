@@ -18,8 +18,8 @@ public protocol LayoutItemInsettable {
 }
 
 extension LayoutAnchor: LayoutItemInsettable {
-    public func insetFrom(_ item: LayoutItem) -> LayoutInset<T> {
-        let other = attribute.layoutAnchor(of: T.self, from: item)
+    public func insetFrom(_ item: LayoutItem) -> LayoutInset<RawAnchor> {
+        let other = attribute.layoutAnchor(of: RawAnchor.self, from: item)
 
         if attribute.position.location > .mid {
             return LayoutInset(leading: rawValue, trailing: other, attribute: attribute, subjectItem: subjectItem)
