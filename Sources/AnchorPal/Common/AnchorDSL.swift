@@ -247,8 +247,13 @@ public enum Anc {
 }
 
 public extension LayoutView {
-    func addSubview<Subview>(_ subview: Subview, installConstraints: (_ the: AnchorDSL<Subview>) -> Void) where Subview: LayoutView {
+    func addSubview<Subview>(_ subview: Subview, resintall: Bool = false, constraints: (_ the: AnchorDSL<Subview>) -> Void) where Subview: LayoutView {
         addSubview(subview)
-        subview.anc.installConstraints(declaration: installConstraints)
+
+        if resintall {
+            subview.anc.reinstallConstraints(declaration: constraints)
+        } else {
+            subview.anc.installConstraints(declaration: constraints)
+        }
     }
 }
