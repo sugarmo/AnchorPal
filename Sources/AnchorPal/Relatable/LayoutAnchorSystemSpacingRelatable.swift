@@ -19,11 +19,11 @@ public enum LayoutSpacePosition {
 public protocol LayoutAnchorSystemSpacingRelatable: ConstraintSubjectable {
     associatedtype Other
 
-    static func constraints(_ receiver: Self, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: Other, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint]
+    static func constraints(_ receiver: Self, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: Other, multiplier: some ConstraintMultiplierValuable) -> [NSLayoutConstraint]
 }
 
 extension LayoutAnchor: LayoutAnchorSystemSpacingRelatable {
-    public static func constraints(_ receiver: LayoutAnchor<RawAnchor>, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: LayoutAnchor<RawAnchor>, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: LayoutAnchor<RawAnchor>, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: LayoutAnchor<RawAnchor>, multiplier: some ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         let mv = multiplier.constraintMultiplierValue
         switch position {
         case .after:
@@ -35,7 +35,7 @@ extension LayoutAnchor: LayoutAnchorSystemSpacingRelatable {
 }
 
 extension Array: LayoutAnchorSystemSpacingRelatable where Element: LayoutAnchorSystemSpacingRelatable {
-    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: Element.Other, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: Element.Other, multiplier: some ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         receiver.flatMap {
             Element.constraints($0, relation: relation, toSystemSpacing: position, other: other, multiplier: multiplier)
         }
@@ -43,7 +43,7 @@ extension Array: LayoutAnchorSystemSpacingRelatable where Element: LayoutAnchorS
 }
 
 extension AnchorPair: LayoutAnchorSystemSpacingRelatable where F: LayoutAnchorSystemSpacingRelatable, S: LayoutAnchorSystemSpacingRelatable {
-    public static func constraints(_ receiver: AnchorPair, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: AnchorPair<F.Other, S.Other>, multiplier: ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: AnchorPair, relation: ConstraintRelation, toSystemSpacing position: LayoutSpacePosition, other: AnchorPair<F.Other, S.Other>, multiplier: some ConstraintMultiplierValuable) -> [NSLayoutConstraint] {
         F.constraints(receiver.first, relation: relation, toSystemSpacing: position, other: other.first, multiplier: multiplier) +
             S.constraints(receiver.second, relation: relation, toSystemSpacing: position, other: other.second, multiplier: multiplier)
     }

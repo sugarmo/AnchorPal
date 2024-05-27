@@ -12,11 +12,11 @@
 #endif
 
 public protocol LayoutItemRelatable: ConstraintSubjectable {
-    static func constraints(_ receiver: Self, relation: ConstraintRelation, to other: LayoutItem, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
+    static func constraints(_ receiver: Self, relation: ConstraintRelation, to other: LayoutItem, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
 
 extension LayoutAnchor: LayoutItemRelatable {
-    public static func constraints(_ receiver: LayoutAnchor<RawAnchor>, relation: ConstraintRelation, to other: LayoutItem, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: LayoutAnchor<RawAnchor>, relation: ConstraintRelation, to other: LayoutItem, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         let a = receiver.attribute.layoutAnchor(of: RawAnchor.self, from: other)
         let cv = constant.constraintConstantValue(for: receiver.attribute.position)
         return [receiver.rawValue.constraint(relation, to: a, constant: cv, position: receiver.attribute.position)]
@@ -24,7 +24,7 @@ extension LayoutAnchor: LayoutItemRelatable {
 }
 
 extension LayoutDimension: LayoutItemRelatable {
-    public static func constraints(_ receiver: LayoutDimension, relation: ConstraintRelation, to other: LayoutItem, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: LayoutDimension, relation: ConstraintRelation, to other: LayoutItem, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         let d = receiver.attribute.layoutAnchor(of: NSLayoutDimension.self, from: other)
         let mv = multiplier.constraintMultiplierValue
         let cv = constant.constraintConstantValue(for: receiver.attribute.position)
@@ -37,13 +37,13 @@ extension LayoutDimension: LayoutItemRelatable {
 }
 
 extension Array: LayoutItemRelatable where Element: LayoutItemRelatable {
-    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, to other: LayoutItem, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, to other: LayoutItem, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         receiver.flatMap { Element.constraints($0, relation: relation, to: other, multiplier: multiplier, constant: constant) }
     }
 }
 
 extension AnchorPair: LayoutItemRelatable where F: LayoutItemRelatable, S: LayoutItemRelatable {
-    public static func constraints(_ receiver: AnchorPair<F, S>, relation: ConstraintRelation, to other: LayoutItem, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: AnchorPair<F, S>, relation: ConstraintRelation, to other: LayoutItem, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         F.constraints(receiver.first, relation: relation, to: other, multiplier: multiplier, constant: constant) +
             S.constraints(receiver.second, relation: relation, to: other, multiplier: multiplier, constant: constant)
     }

@@ -14,18 +14,18 @@
 public protocol LayoutAnchorRelatable: ConstraintSubjectable {
     associatedtype Other
 
-    static func constraints(_ receiver: Self, relation: ConstraintRelation, to other: Other, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
+    static func constraints(_ receiver: Self, relation: ConstraintRelation, to other: Other, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
 
 extension LayoutAnchor: LayoutAnchorRelatable {
-    public static func constraints(_ receiver: LayoutAnchor<RawAnchor>, relation: ConstraintRelation, to other: LayoutAnchor<RawAnchor>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: LayoutAnchor<RawAnchor>, relation: ConstraintRelation, to other: LayoutAnchor<RawAnchor>, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         let cv = constant.constraintConstantValue(for: other.attribute.position)
         return [receiver.rawValue.constraint(relation, to: other.rawValue, constant: cv, position: other.attribute.position)]
     }
 }
 
 extension Array: LayoutAnchorRelatable where Element: LayoutAnchorRelatable {
-    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, to other: Element.Other, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: [Element], relation: ConstraintRelation, to other: Element.Other, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         receiver.flatMap {
             Element.constraints($0, relation: relation, to: other, constant: constant)
         }
@@ -33,7 +33,7 @@ extension Array: LayoutAnchorRelatable where Element: LayoutAnchorRelatable {
 }
 
 extension AnchorPair: LayoutAnchorRelatable where F: LayoutAnchorRelatable, S: LayoutAnchorRelatable {
-    public static func constraints(_ receiver: AnchorPair, relation: ConstraintRelation, to other: AnchorPair<F.Other, S.Other>, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints(_ receiver: AnchorPair, relation: ConstraintRelation, to other: AnchorPair<F.Other, S.Other>, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         F.constraints(receiver.first, relation: relation, to: other.first, constant: constant) +
             S.constraints(receiver.second, relation: relation, to: other.second, constant: constant)
     }

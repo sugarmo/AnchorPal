@@ -89,9 +89,38 @@ extension DirectionalEdgeInsets: ConstraintConstantValuable {
 }
 
 public struct DynamicConstraintConstant<Value>: ConstraintConstantValuable where Value: ConstraintConstantValuable {
-    var getter: () -> Value
+    let getter: () -> Value
 
     public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
         getter().constraintConstantValue(for: position)
+    }
+}
+
+public struct FontMetricsConstraintConstant<Value>: ConstraintConstantValuable where Value: ConstraintConstantValuable {
+    let originalValue: Value
+    let fontMetrics: UIFontMetrics
+    let minimumValue: Value?
+    let maximumValue: Value?
+
+    init(originalValue: Value, textStyle: UIFont.TextStyle, minimumValue: Value? = nil, maximumValue: Value? = nil) {
+        self.originalValue = originalValue
+        fontMetrics = .init(forTextStyle: textStyle)
+        self.minimumValue = minimumValue
+        self.maximumValue = maximumValue
+    }
+
+    public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
+        let originalValue = originalValue.constraintConstantValue(for: position)
+        var scaledValue = fontMetrics.scaledValue(for: originalValue)
+
+        if let minimumValue {
+            scaledValue = max(scaledValue, minimumValue.constraintConstantValue(for: position))
+        }
+
+        if let maximumValue {
+            scaledValue = min(scaledValue, maximumValue.constraintConstantValue(for: position))
+        }
+
+        return scaledValue
     }
 }

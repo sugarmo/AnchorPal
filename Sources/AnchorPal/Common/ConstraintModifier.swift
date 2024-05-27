@@ -43,7 +43,7 @@ public final class ConstraintModifier<Target>: ConstraintStatement {
     }
 
     @discardableResult
-    public func priority(_ amount: ConstraintPriorityValuable) -> ConstraintModifier {
+    public func priority(_ amount: some ConstraintPriorityValuable) -> ConstraintModifier {
         priority = amount
         return self
     }
@@ -54,18 +54,23 @@ public final class ConstraintModifier<Target>: ConstraintStatement {
         return self
     }
 
-    func _multiply(_ amount: ConstraintMultiplierValuable) -> ConstraintModifier {
+    func _multiply(_ amount: some ConstraintMultiplierValuable) -> ConstraintModifier {
         multiplier = amount
         return self
     }
 
-    func _constant(_ amount: ConstraintConstantValuable) -> ConstraintModifier {
+    func _constant(_ amount: some ConstraintConstantValuable) -> ConstraintModifier {
         constant = amount
         return self
     }
 
-    func _constant<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier where T: ConstraintConstantValuable {
+    func _constant(_ dynamicConstant: @escaping () -> some ConstraintConstantValuable) -> ConstraintModifier {
         constant = DynamicConstraintConstant(getter: dynamicConstant)
+        return self
+    }
+
+    func _constant<T>(_ amount: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T?, maximumValue: T?) -> ConstraintModifier where T: ConstraintConstantValuable {
+        constant = FontMetricsConstraintConstant(originalValue: amount, textStyle: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
         return self
     }
 }
@@ -91,7 +96,7 @@ extension ConstraintModifier where Target: LayoutDimensionTargetable {
     }
 
     @discardableResult
-    public func multiply(_ amount: ConstraintMultiplierValuable) -> ConstraintModifier {
+    public func multiply(_ amount: some ConstraintMultiplierValuable) -> ConstraintModifier {
         _multiply(amount)
     }
 
@@ -101,13 +106,18 @@ extension ConstraintModifier where Target: LayoutDimensionTargetable {
     }
 
     @discardableResult
-    public func plus(_ amount: ConstraintConstantValuable) -> ConstraintModifier {
+    public func plus(_ amount: some ConstraintConstantValuable) -> ConstraintModifier {
         _constant(amount)
     }
 
     @discardableResult
-    public func plus<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier where T: ConstraintConstantValuable {
+    public func plus(_ dynamicConstant: @escaping () -> some ConstraintConstantValuable) -> ConstraintModifier {
         _constant(dynamicConstant)
+    }
+
+    @discardableResult
+    public func plus<T>(_ amount: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier where T: ConstraintConstantValuable {
+        _constant(amount, adjustsFor: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
     }
 }
 
@@ -118,13 +128,18 @@ extension ConstraintModifier where Target: LayoutAnchorTargetable {
     }
 
     @discardableResult
-    public func plus(_ amount: ConstraintConstantValuable) -> ConstraintModifier {
+    public func plus(_ amount: some ConstraintConstantValuable) -> ConstraintModifier {
         _constant(amount)
     }
 
     @discardableResult
-    public func plus<T>(_ dynamicConstant: @escaping () -> T) -> ConstraintModifier where T: ConstraintConstantValuable {
+    public func plus(_ dynamicConstant: @escaping () -> some ConstraintConstantValuable) -> ConstraintModifier {
         _constant(dynamicConstant)
+    }
+
+    @discardableResult
+    public func plus<T>(_ amount: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier where T: ConstraintConstantValuable {
+        _constant(amount, adjustsFor: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
     }
 }
 
@@ -135,7 +150,7 @@ extension ConstraintModifier where Target == LayoutSystemSpacingTarget {
     }
 
     @discardableResult
-    public func multiply(_ amount: ConstraintMultiplierValuable) -> ConstraintModifier {
+    public func multiply(_ amount: some ConstraintMultiplierValuable) -> ConstraintModifier {
         _multiply(amount)
     }
 }

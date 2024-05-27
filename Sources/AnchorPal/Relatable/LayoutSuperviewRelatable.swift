@@ -12,11 +12,11 @@
 #endif
 
 public protocol LayoutSuperviewRelatable: LayoutItemRelatable {
-    static func constraints<T>(_ receiver: Self, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint]
+    static func constraints<T>(_ receiver: Self, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint]
 }
 
 extension LayoutAnchor: LayoutSuperviewRelatable {
-    public static func constraints<T>(_ receiver: LayoutAnchor, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints<T>(_ receiver: LayoutAnchor, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         guard let superview = receiver.subjectItem.superview else {
             fatalError("\(receiver.subjectItem) has no superview at this time.")
         }
@@ -35,7 +35,7 @@ extension LayoutAnchor: LayoutSuperviewRelatable {
 }
 
 extension LayoutDimension: LayoutSuperviewRelatable {
-    public static func constraints<T>(_ receiver: LayoutDimension, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints<T>(_ receiver: LayoutDimension, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         guard let superview = receiver.subjectItem.superview else {
             fatalError("\(receiver.subjectItem) has no superview at this time.")
         }
@@ -54,7 +54,7 @@ extension LayoutDimension: LayoutSuperviewRelatable {
 }
 
 extension Array: LayoutSuperviewRelatable where Element: LayoutSuperviewRelatable {
-    public static func constraints<T>(_ receiver: Array, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints<T>(_ receiver: Array, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         receiver.flatMap {
             Element.constraints($0, relation: relation, toSuperview: keyPath, multiplier: multiplier, constant: constant)
         }
@@ -62,7 +62,7 @@ extension Array: LayoutSuperviewRelatable where Element: LayoutSuperviewRelatabl
 }
 
 extension AnchorPair: LayoutSuperviewRelatable where F: LayoutSuperviewRelatable, S: LayoutSuperviewRelatable {
-    public static func constraints<T>(_ receiver: AnchorPair<F, S>, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: ConstraintMultiplierValuable, constant: ConstraintConstantValuable) -> [NSLayoutConstraint] {
+    public static func constraints<T>(_ receiver: AnchorPair<F, S>, relation: ConstraintRelation, toSuperview keyPath: KeyPath<AnchorDSL<LayoutView>, T>, multiplier: some ConstraintMultiplierValuable, constant: some ConstraintConstantValuable) -> [NSLayoutConstraint] {
         F.constraints(receiver.first, relation: relation, toSuperview: keyPath, multiplier: multiplier, constant: constant) +
             S.constraints(receiver.second, relation: relation, toSuperview: keyPath, multiplier: multiplier, constant: constant)
     }
