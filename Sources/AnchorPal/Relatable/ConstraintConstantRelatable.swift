@@ -125,24 +125,24 @@ extension ConstraintConstantRelatable {
 }
 
 extension ConstraintConstantRelatable {
-    func state<T>(_ relation: ConstraintRelation, to constant: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T?, maximumValue: T?) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
+    func state<T>(_ relation: ConstraintRelation, to constant: T, adjustsFor textStyle: Font.TextStyle, minimumValue: T?, maximumValue: T?) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         ConstraintModifier(subjectProvider: self) { _, c -> [NSLayoutConstraint] in
             Self.constraints(self, relation: relation, to: c)
         }._constant(constant, adjustsFor: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
     }
 
     @discardableResult
-    public func lessEqualTo<T>(_ constant: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
+    public func lessEqualTo<T>(_ constant: T, adjustsFor textStyle: Font.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.lessEqual, to: constant, adjustsFor: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
     }
 
     @discardableResult
-    public func equalTo<T>(_ constant: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
+    public func equalTo<T>(_ constant: T, adjustsFor textStyle: Font.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.equal, to: constant, adjustsFor: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
     }
 
     @discardableResult
-    public func greaterEqualTo<T>(_ constant: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
+    public func greaterEqualTo<T>(_ constant: T, adjustsFor textStyle: Font.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier<Void> where T: ConstraintConstantValuable {
         state(.greaterEqual, to: constant, adjustsFor: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
     }
 }

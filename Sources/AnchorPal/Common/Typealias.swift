@@ -17,6 +17,8 @@
     public typealias LayoutPriority = UILayoutPriority
 
     public typealias EdgeInsets = UIEdgeInsets
+
+    public typealias Font = UIFont
 #else
     import AppKit
 
@@ -29,6 +31,8 @@
     public typealias LayoutPriority = NSLayoutConstraint.Priority
 
     public typealias EdgeInsets = NSEdgeInsets
+
+    public typealias Font = NSFont
 #endif
 
 public typealias DirectionalEdgeInsets = NSDirectionalEdgeInsets

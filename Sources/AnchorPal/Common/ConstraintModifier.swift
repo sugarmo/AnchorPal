@@ -69,7 +69,7 @@ public final class ConstraintModifier<Target>: ConstraintStatement {
         return self
     }
 
-    func _constant<T>(_ amount: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T?, maximumValue: T?) -> ConstraintModifier where T: ConstraintConstantValuable {
+    func _constant<T>(_ amount: T, adjustsFor textStyle: Font.TextStyle, minimumValue: T?, maximumValue: T?) -> ConstraintModifier where T: ConstraintConstantValuable {
         constant = FontMetricsConstraintConstant(originalValue: amount, textStyle: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
         return self
     }
@@ -116,7 +116,7 @@ extension ConstraintModifier where Target: LayoutDimensionTargetable {
     }
 
     @discardableResult
-    public func plus<T>(_ amount: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier where T: ConstraintConstantValuable {
+    public func plus<T>(_ amount: T, adjustsFor textStyle: Font.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier where T: ConstraintConstantValuable {
         _constant(amount, adjustsFor: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
     }
 }
@@ -138,7 +138,7 @@ extension ConstraintModifier where Target: LayoutAnchorTargetable {
     }
 
     @discardableResult
-    public func plus<T>(_ amount: T, adjustsFor textStyle: UIFont.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier where T: ConstraintConstantValuable {
+    public func plus<T>(_ amount: T, adjustsFor textStyle: Font.TextStyle, minimumValue: T? = nil, maximumValue: T? = nil) -> ConstraintModifier where T: ConstraintConstantValuable {
         _constant(amount, adjustsFor: textStyle, minimumValue: minimumValue, maximumValue: maximumValue)
     }
 }

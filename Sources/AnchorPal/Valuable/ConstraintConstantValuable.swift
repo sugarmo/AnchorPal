@@ -98,20 +98,28 @@ public struct DynamicConstraintConstant<Value>: ConstraintConstantValuable where
 
 public struct FontMetricsConstraintConstant<Value>: ConstraintConstantValuable where Value: ConstraintConstantValuable {
     let originalValue: Value
-    let fontMetrics: UIFontMetrics
     let minimumValue: Value?
     let maximumValue: Value?
+    private let scaledValue: (CGFloat) -> CGFloat
 
-    init(originalValue: Value, textStyle: UIFont.TextStyle, minimumValue: Value? = nil, maximumValue: Value? = nil) {
+    init(originalValue: Value, textStyle: Font.TextStyle, minimumValue: Value? = nil, maximumValue: Value? = nil) {
         self.originalValue = originalValue
-        fontMetrics = .init(forTextStyle: textStyle)
+        #if os(iOS) || os(tvOS)
+            let fontMetrics = UIFontMetrics(forTextStyle: textStyle)
+            scaledValue = { fontMetrics.scaledValue(for: $0) }
+        #else
+            let preferredFont = NSFont.preferredFont(forTextStyle: textStyle)
+            let ratio = preferredFont.pointSize / NSFont.systemFont(ofSize: 0).pointSize
+            scaledValue = { $0 * ratio }
+        #endif
+
         self.minimumValue = minimumValue
         self.maximumValue = maximumValue
     }
 
     public func constraintConstantValue(for position: AnchorPosition) -> CGFloat {
         let originalValue = originalValue.constraintConstantValue(for: position)
-        var scaledValue = fontMetrics.scaledValue(for: originalValue)
+        var scaledValue = scaledValue(originalValue)
 
         if let minimumValue {
             scaledValue = max(scaledValue, minimumValue.constraintConstantValue(for: position))
