@@ -102,6 +102,30 @@ public final class Constraint {
     }
 }
 
+extension Constraint: Hashable {
+    public static func == (lhs: Constraint, rhs: Constraint) -> Bool {
+        lhs === rhs
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+}
+
+extension Constraint {
+    public func store<C>(in collection: inout C) where C: RangeReplaceableCollection, C.Element == Constraint {
+        collection.append(self)
+    }
+
+    public func store(in set: inout Set<Constraint>) {
+        set.insert(self)
+    }
+
+    public func store(in variable: inout Constraint?) {
+        variable = self
+    }
+}
+
 extension Array where Element: Constraint {
     public func updateConstants() {
         forEach {
