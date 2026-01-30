@@ -24,7 +24,5 @@ let package = Package(
             name: "AnchorPalTests",
             dependencies: ["AnchorPal"],
             path: "Tests"),
-    ], swiftLanguageVersions: [
-        .v5,
     ]
 )
